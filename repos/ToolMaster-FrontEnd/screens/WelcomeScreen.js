@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
 import React from 'react';
 import AppButton from '../components/AppButton';
 
+import colors from '../config/colors';
+
 export default function WelcomeScreen() {
   return (
     <ImageBackground
@@ -15,6 +17,7 @@ export default function WelcomeScreen() {
           style={styles.logo}
           resizeMode="contain"
         />
+        <Text style={styles.tagLine}>A ToolMaster Application</Text>
       </View>
       <View style={styles.buttonsContainer}>
         <AppButton
@@ -51,6 +54,10 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 10,
+  },
+  tagLine: {
+    color: colors.white,
+    textAlign: 'center',
   },
   buttonsContainer: {
     padding: 20,
