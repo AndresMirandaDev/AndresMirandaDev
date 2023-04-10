@@ -16,49 +16,49 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginScreen() {
   const [loginFailed, setLoginFailed] = useState(true);
-  const handleSubmit = () => {
-    console.log('sbumitted');
+  const handleSubmit = (values) => {
+    console.log(values);
   };
   return (
     <ImageBackground
       source={require('../assets/background.jpg')}
       style={styles.background}
-      blurRadius={6}
+      blurRadius={20}
     >
-      <Screen style={styles.container}>
-        <Image
-          source={require('../assets/logo.png')}
-          style={styles.logo}
-          resizeMode="contain"
+      <Image
+        source={require('../assets/logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <AppForm
+        initialValues={{ email: '', password: '' }}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        <ErrorMessage
+          error={'Invalid email and/or password'}
+          visible={loginFailed}
         />
-        <AppForm
-          initialValues={{ email: '', password: '' }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <ErrorMessage
-            error={'Invalid email and/or password'}
-            visible={loginFailed}
-          />
-          <AppFormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="email"
-            name="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-          />
-          <AppFormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="password"
-            name="password"
-            keyboardType="password"
-            textContentType="password"
-          />
-          <SubmitButton title="login" />
-        </AppForm>
-      </Screen>
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="email"
+          name="email"
+          keyboardType="email-address"
+          placeholder="email"
+          textContentType="emailAddress"
+        />
+        <AppFormField
+          autoCapitalize="none"
+          autoCorrect={false}
+          icon="lock"
+          name="password"
+          placeholder="password"
+          secureTextEntry
+          textContentType="password"
+        />
+        <SubmitButton title="login" />
+      </AppForm>
     </ImageBackground>
   );
 }
@@ -66,12 +66,11 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    padding: 5,
+    paddingTop: 100,
   },
-  container: {
-    backgroundColor: colors.dark,
-  },
+
   logo: {
     width: 200,
     height: 200,

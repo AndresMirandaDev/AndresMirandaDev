@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
 import React from 'react';
 import AppButton from '../components/AppButton';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colors from '../config/colors';
+import AppText from '../components/AppText';
 
 export default function WelcomeScreen() {
   return (
@@ -17,7 +19,7 @@ export default function WelcomeScreen() {
           style={styles.logo}
           resizeMode="contain"
         />
-        <Text style={styles.tagLine}>A ToolMaster Application</Text>
+        <AppText style={styles.tagLine}>A ToolMaster Application</AppText>
       </View>
       <View style={styles.buttonsContainer}>
         <AppButton
@@ -34,6 +36,10 @@ export default function WelcomeScreen() {
             console.log('register pressed');
           }}
         />
+        <AppText style={styles.copyright}>
+          Developed by Andres Miranda{' '}
+          <MaterialCommunityIcons name="copyright" color={colors.primary} />{' '}
+        </AppText>
       </View>
     </ImageBackground>
   );
@@ -62,5 +68,10 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     padding: 20,
     width: '100%',
+  },
+  copyright: {
+    color: colors.light,
+    textAlign: 'center',
+    fontSize: 12,
   },
 });

@@ -4,7 +4,8 @@ import AppTextInput from './components/forms/AppTextInput';
 import WelcomeScreen from './screens/WelcomeScreen';
 import Screen from './components/Screen';
 import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
 
 export default function App() {
-  return <LoginScreen />;
+  return <HomeScreen />;
 }

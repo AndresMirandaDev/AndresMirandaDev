@@ -1,5 +1,5 @@
 export default {
-  primary: '#e28007',
+  primary: '#0e3a5d',
   secondary: '#5d4f44',
   black: '#000',
   white: '#fff',
