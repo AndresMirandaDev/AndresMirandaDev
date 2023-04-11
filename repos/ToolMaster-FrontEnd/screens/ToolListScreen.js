@@ -5,6 +5,7 @@ import { LoadMoreFlatlist } from 'react-native-load-more-flatlist';
 import Screen from '../components/Screen';
 import ToolListItem from '../components/ToolListItem';
 import colors from '../config/colors';
+import FilterBar from '../components/FilterBar';
 
 const tools = [
   {
@@ -62,6 +63,7 @@ export default function ToolListScreen() {
   };
   return (
     <Screen style={styles.screen}>
+      <FilterBar data={listData} setData={setListData} />
       <LoadMoreFlatlist
         data={tools}
         renderFlatlistItem={({ item }) => {

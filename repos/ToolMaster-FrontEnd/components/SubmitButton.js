@@ -4,7 +4,7 @@ import AppButton from './AppButton';
 import { useFormikContext } from 'formik';
 import colors from '../config/colors';
 
-export default function SubmitButton({ title }) {
+export default function SubmitButton({ title, color }) {
   const { handleSubmit } = useFormikContext();
-  return <AppButton title={title} onPress={handleSubmit} />;
+  return <AppButton color={color} title={title} onPress={handleSubmit} />;
 }
