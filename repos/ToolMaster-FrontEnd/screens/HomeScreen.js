@@ -1,9 +1,10 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
+
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppText from '../components/AppText';
-import useWeek from '../hooks/useWeek';
+import HomeInfoList from '../components/HomeInfoList';
 
 const user = {
   id: 1,
@@ -18,8 +19,6 @@ const tools = [
 ];
 
 export default function HomeScreen() {
-  const week = useWeek();
-
   return (
     <Screen>
       <View style={styles.headBar}>
@@ -30,7 +29,7 @@ export default function HomeScreen() {
         />
         <AppText style={styles.username}>{user.name}</AppText>
       </View>
-      <AppText style={styles.week}>Week {week}</AppText>
+      <HomeInfoList />
     </Screen>
   );
 }
@@ -42,13 +41,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  week: {
-    backgroundColor: colors.secondary,
-    color: colors.light,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    letterSpacing: 3,
   },
   logo: {
     width: 80,
