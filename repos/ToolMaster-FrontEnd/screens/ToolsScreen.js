@@ -20,7 +20,7 @@ export default function ToolsScreen() {
         keyExtractor={(item) => item.title}
         numColumns={1}
         renderItem={({ item }) => {
-          return <NavButton icon={item.icon} title={item.title} />; //have to pass onpress for navigation
+          return <NavButton icon={item.icon} title={item.title} />; //remember to pass onpress for navigation
         }}
         ItemSeparatorComponent={ListItemSeparator}
       />
