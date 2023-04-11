@@ -1,4 +1,4 @@
-import { ImageBackground, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
 
 import InfoCard from './InfoCard';
@@ -25,19 +25,18 @@ export default function HomeInfoList() {
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
-        <ImageBackground
-          source={require('../assets/background.jpg')}
-          blurRadius={10}
-        >
+        <View>
           <InfoCard infoToDisplay="Vecka" data={week} />
-          <InfoCard infoToDisplay="Aktiv Projekt:" data={projects.length} />
+          <InfoCard infoToDisplay="Aktiva Projekt:" data={projects.length} />
           <InfoCard infoToDisplay="Hyrda maskiner:" data={rentedTools.length} />
-        </ImageBackground>
+        </View>
       </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    minHeight: '100%',
+  },
 });

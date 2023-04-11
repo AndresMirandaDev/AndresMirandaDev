@@ -5,7 +5,8 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import Screen from './components/Screen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
+import ToolsScreen from './screens/ToolsScreen';
 
 export default function App() {
-  return <HomeScreen />;
+  return <ToolsScreen />;
 }

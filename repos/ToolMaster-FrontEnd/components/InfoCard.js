@@ -17,19 +17,18 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     padding: 50,
     margin: 20,
     shadowOpacity: 0.2,
     shadowColor: colors.dark,
     shadowOffset: { height: 10, width: 10 },
+    shadowRadius: 12,
     borderRadius: 20,
     elevation: 12,
   },
   text: {
-    fontSize: 30,
-    fontWeight: 'bold',
+    fontSize: 20,
     color: colors.medium,
-    textAlign: 'center',
   },
 });

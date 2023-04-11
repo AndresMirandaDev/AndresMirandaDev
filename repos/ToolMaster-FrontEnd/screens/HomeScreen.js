@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import Screen from '../components/Screen';
@@ -8,7 +8,7 @@ import HomeInfoList from '../components/HomeInfoList';
 
 const user = {
   id: 1,
-  name: 'Andres Miranda',
+  name: 'Andres',
   email: 'andres@domail.com',
 };
 
@@ -21,20 +21,25 @@ const tools = [
 export default function HomeScreen() {
   return (
     <Screen>
-      <View style={styles.headBar}>
-        <Image
-          source={require('../assets/logo.png')}
-          resizeMode="contain"
-          style={styles.logo}
-        />
-        <AppText style={styles.username}>{user.name}</AppText>
+      <View style={styles.container}>
+        <View style={styles.headBar}>
+          <Image
+            source={require('../assets/logo.png')}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <AppText style={styles.username}>{user.name}</AppText>
+        </View>
+        <HomeInfoList />
       </View>
-      <HomeInfoList />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.light,
+  },
   headBar: {
     backgroundColor: colors.primary,
     padding: 10,
