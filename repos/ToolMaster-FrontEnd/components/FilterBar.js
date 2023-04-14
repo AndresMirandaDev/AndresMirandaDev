@@ -141,7 +141,7 @@ export default function FilterBar({ setData }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.lightf,
+    backgroundColor: colors.light,
     padding: 5,
   },
   head: {

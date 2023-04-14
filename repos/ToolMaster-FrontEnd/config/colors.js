@@ -9,4 +9,5 @@ export default {
   danger: '#ff5252',
   yellow: '#ffe66d',
   green: '#00ad84',
+  primaryOpacity: 'rgba(14,58,93,0.7399334733893557)',
 };
