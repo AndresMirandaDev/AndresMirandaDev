@@ -1,15 +1,15 @@
 import {
   StyleSheet,
-  Animated,
   TouchableWithoutFeedback,
   View,
   Modal,
   Button,
-  Keyboard,
+  ScrollView,
 } from 'react-native';
 import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Yup from 'yup';
+import { GestureDetector } from 'react-native-gesture-handler';
 
 import colors from '../config/colors';
 import AppFormField from './forms/AppFormField';
@@ -39,16 +39,16 @@ const toolGroups = [
 ];
 
 const status = [
-  { name: 'tillgängliga', id: 9, value: true },
-  { name: 'visa alla', id: 10, value: '' },
-  { name: 'upptagna', id: 11, value: false },
+  { name: 'tillgängliga verktyg', id: 9, value: true },
+  { name: 'visa alla verktyg', id: 10, value: '' },
+  { name: 'upptagna verktyg', id: 11, value: false },
 ];
 
 //validation schema for form component
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(1).label('Name'),
-  serieNumber: Yup.number().min(4).max(10).label('Serie Number'),
+  serieNumber: Yup.number().label('Serie Number'),
   project: Yup.object().nullable().label('Project'),
   toolGroup: Yup.object().nullable().label('Tool Group'),
   available: Yup.object().nullable().label('Status'),
@@ -80,57 +80,60 @@ export default function FilterBar({ setData }) {
           />
         </TouchableWithoutFeedback>
       </View>
+
       <Modal visible={showFilter} animationType="fade">
-        <Screen>
-          <Button
-            title="close"
-            onPress={() => setShowFilter(false)}
-            color={colors.primary}
-          />
-          <AppForm
-            initialValues={{
-              name: '',
-              serieNumber: '',
-              project: '',
-              available: '',
-              toolGroup: '',
-            }}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <AppFormField icon="text-search" name="name" placeholder="Name" />
-            <AppFormField
-              icon="text-search"
-              name="serieNumber"
-              placeholder="Serie Nr"
+        <ScrollView keyboardShouldPersistTaps="never" scrollEnabled={false}>
+          <Screen>
+            <Button
+              title="close"
+              onPress={() => setShowFilter(false)}
+              color={colors.primary}
             />
-            <AppFormPicker
-              icon="text-search"
-              items={projects}
-              name="project"
-              placeholder="Projekt"
-              width="50%"
-              PickerItemComponent={AppPickerItem}
-            />
-            <AppFormPicker
-              icon="text-search"
-              name="toolGroup"
-              placeholder="Group"
-              items={toolGroups}
-              width="50%"
-              PickerItemComponent={AppPickerItem}
-            />
-            <AppFormPicker
-              icon="text-search"
-              name="available"
-              placeholder="Visa alla"
-              items={status}
-              width="50%"
-            />
-            <SubmitButton title="search" />
-            <FormResetButton title="reset" color="secondary" />
-          </AppForm>
-        </Screen>
+            <AppForm
+              initialValues={{
+                name: '',
+                serieNumber: '',
+                project: '',
+                available: '',
+                toolGroup: '',
+              }}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              <AppFormField icon="text-search" name="name" placeholder="Name" />
+              <AppFormField
+                icon="text-search"
+                name="serieNumber"
+                placeholder="Serie Nr"
+              />
+              <AppFormPicker
+                icon="text-search"
+                items={projects}
+                name="project"
+                placeholder="Projekt"
+                width="50%"
+                PickerItemComponent={AppPickerItem}
+              />
+              <AppFormPicker
+                icon="text-search"
+                name="toolGroup"
+                placeholder="Group"
+                items={toolGroups}
+                width="50%"
+                PickerItemComponent={AppPickerItem}
+              />
+              <AppFormPicker
+                icon="text-search"
+                name="available"
+                placeholder="Visa alla"
+                items={status}
+                width="50%"
+              />
+              <SubmitButton title="search" />
+              <FormResetButton title="reset" color="secondary" />
+            </AppForm>
+          </Screen>
+        </ScrollView>
       </Modal>
     </View>
   );

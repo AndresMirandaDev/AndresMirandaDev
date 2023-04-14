@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Screen from '../components/Screen';
 import NavButton from '../components/NavButton';
@@ -30,7 +30,7 @@ export default function ToolsScreen() {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.primaryOpacity,
     minHeight: '100%',
     flexDirection: 'row',
     justifyContent: 'center',

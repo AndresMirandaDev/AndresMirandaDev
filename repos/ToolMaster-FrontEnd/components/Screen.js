@@ -13,11 +13,9 @@ import colors from '../config/colors';
 const colorScheme = Appearance.getColorScheme();
 export default function Screen({ children, style }) {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={[styles.screen, style]}>
-        <View style={style}>{children}</View>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+    <SafeAreaView style={[styles.screen, style]}>
+      <View style={style}>{children}</View>
+    </SafeAreaView>
   );
 }
 
