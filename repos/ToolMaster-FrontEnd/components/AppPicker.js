@@ -49,7 +49,11 @@ export default function AppPicker({
       </TouchableWithoutFeedback>
       <Modal visible={modal} animationType="slide">
         <Screen>
-          <Button title="close" onPress={() => setModalVisible(false)} />
+          <Button
+            title="close"
+            onPress={() => setModalVisible(false)}
+            color={colors.primary}
+          />
           <FlatList
             data={items}
             keyExtractor={(item) => item.id.toString()}
