@@ -37,7 +37,7 @@ export default function RegisterToolScreen() {
           <AppFormField icon="tools" name="name" placeholder="Namn" />
           <AppFormField
             icon="identifier"
-            name="name"
+            name="serieNumber"
             placeholder="Serie Nummer"
           />
           <AppFormPicker

@@ -17,6 +17,8 @@ const tool = {
 };
 
 //should recieve the tool from the route params comming in the tool list screen onpress handler with navigation to this component
+
+//edit button should navigate to the edit screen, passing the tool in the route params, so it can take the info of the about to edit toool and display it while editing
 export default function ToolDetailsScreen() {
   return (
     <Screen style={styles.screen}>
@@ -61,6 +63,7 @@ export default function ToolDetailsScreen() {
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
+    marginTop: 70,
   },
   container: {},
   info: {
