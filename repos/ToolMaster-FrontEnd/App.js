@@ -8,7 +8,8 @@ import HomeScreen from './screens/HomeScreen';
 import ToolsScreen from './screens/ToolsScreen';
 import ToolListScreen from './screens/ToolListScreen';
 import RegisterToolScreen from './screens/RegisterToolScreen';
+import ToolDetailsScreen from './screens/ToolDetailsScreen';
 
 export default function App() {
-  return <RegisterToolScreen />;
+  return <ToolDetailsScreen />;
 }

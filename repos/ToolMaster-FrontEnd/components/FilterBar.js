@@ -31,13 +31,6 @@ const projects = [
   { name: 'varberg', projectNumber: 44543, id: 4 },
 ];
 
-const toolGroups = [
-  { name: 'asbest sanering', id: 5 },
-  { name: 'bilmaskiner', id: 6 },
-  { name: 'håltagning', id: 7 },
-  { name: 'flexmaskiner', id: 8 },
-];
-
 const status = [
   { name: 'tillgängliga verktyg', id: 9, value: true },
   { name: 'visa alla verktyg', id: 10, value: '' },

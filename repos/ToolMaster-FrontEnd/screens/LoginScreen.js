@@ -15,6 +15,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
+  //loginfailed should later be changed to check if the login was successful in the call to the api
   const [loginFailed, setLoginFailed] = useState(true);
   const handleSubmit = (values) => {
     console.log(values);

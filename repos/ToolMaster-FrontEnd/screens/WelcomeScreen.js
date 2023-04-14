@@ -29,13 +29,7 @@ export default function WelcomeScreen() {
             console.log('login pressed');
           }}
         />
-        <AppButton
-          title="Register"
-          color="secondary"
-          onPress={() => {
-            console.log('register pressed');
-          }}
-        />
+
         <AppText style={styles.copyright}>
           Developed by Andres Miranda{' '}
           <MaterialCommunityIcons name="copyright" color={colors.primary} />{' '}
@@ -48,7 +42,7 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   logoContainer: {
