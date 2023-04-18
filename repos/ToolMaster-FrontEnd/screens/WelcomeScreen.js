@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../config/colors';
 import AppText from '../components/AppText';
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       source={require('../assets/background.jpg')}
@@ -26,7 +26,7 @@ export default function WelcomeScreen() {
           title="Login"
           color="primary"
           onPress={() => {
-            console.log('login pressed');
+            navigation.navigate('Login');
           }}
         />
 

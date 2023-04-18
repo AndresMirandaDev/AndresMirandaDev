@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HomeScreen from '../screens/HomeScreen';
 import ToolsNavigator from '../navigation/ToolsNavigator';
-import ProjectsScreen from '../screens/projects/ProjectsScreen';
+import ProjectsNavigator from '../navigation/ProjectsNavigator';
 import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
@@ -38,7 +38,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Projekt"
-        component={ProjectsScreen}
+        component={ProjectsNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
             return (

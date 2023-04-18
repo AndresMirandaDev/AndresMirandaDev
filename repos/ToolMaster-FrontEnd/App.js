@@ -7,6 +7,7 @@ import SearchProjectScreen from './screens/projects/SearchProjectScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './navigation/AppNavigator';
+import AuthNavigator from './navigation/AuthNavigator';
 
 export default function App() {
   return (

@@ -5,6 +5,7 @@ import EditToolScreen from '../screens/tools/EditToolScreen';
 import RegisterToolScreen from '../screens/tools/RegisterToolScreen';
 import ToolListScreen from '../screens/tools/ToolListScreen';
 import ToolsScreen from '../screens/tools/ToolsScreen';
+import ToolDetailsScreen from '../screens/tools/ToolDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const ToolsNavigator = () => {
       <Stack.Screen name="EditToolScreen" component={EditToolScreen} />
       <Stack.Screen name="RegisterToolScreen" component={RegisterToolScreen} />
       <Stack.Screen name="ToolListScreen" component={ToolListScreen} />
+      <Stack.Screen name="ToolDetailsScreen" component={ToolDetailsScreen} />
     </Stack.Navigator>
   );
 };

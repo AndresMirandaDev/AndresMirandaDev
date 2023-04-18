@@ -6,12 +6,12 @@ import colors from '../../config/colors';
 import ListItemSeparator from '../../components/ListItemSeparator';
 
 const toolsActions = [
-  { title: 'Visa Projekt', path: 'somepath', icon: 'magnify' },
-  { title: 'Ny Projekt', path: 'somepath1', icon: 'plus' },
+  { title: 'Visa Projekt', path: 'SearchProjectScreen', icon: 'magnify' },
+  { title: 'Ny Projekt', path: 'RegisterProjectScreen', icon: 'plus' },
   { title: 'Regidera Projekt', path: 'somepath2', icon: 'circle-edit-outline' },
 ];
 
-export default function ProjectsScreen() {
+export default function ProjectsScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <FlatList
@@ -19,7 +19,13 @@ export default function ProjectsScreen() {
         keyExtractor={(item) => item.title}
         numColumns={1}
         renderItem={({ item }) => {
-          return <NavButton icon={item.icon} title={item.title} />; //remember to pass onpress for navigation
+          return (
+            <NavButton
+              icon={item.icon}
+              title={item.title}
+              onPress={() => navigation.navigate(item.path)}
+            />
+          ); //remember to pass onpress for navigation
         }}
         ItemSeparatorComponent={ListItemSeparator}
       />

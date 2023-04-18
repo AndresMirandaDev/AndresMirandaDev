@@ -50,7 +50,7 @@ const tools = [
   },
 ];
 
-export default function ToolListScreen() {
+export default function ToolListScreen({ navigation }) {
   const [listData, setListData] = useState(tools);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,7 +67,14 @@ export default function ToolListScreen() {
       <LoadMoreFlatlist
         data={tools}
         renderFlatlistItem={({ item }) => {
-          return <ToolListItem tool={item} />;
+          return (
+            <ToolListItem
+              tool={item}
+              onPress={() => {
+                navigation.navigate('ToolDetailsScreen', item);
+              }}
+            />
+          );
         }}
         onListEndReached={onListEndReached}
         isLoading={isLoading}

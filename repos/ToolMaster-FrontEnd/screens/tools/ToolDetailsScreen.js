@@ -7,19 +7,20 @@ import AppButton from '../../components/AppButton';
 
 //dummy data
 
-const tool = {
-  name: 'hilti 1500',
-  id: 1,
-  serieNumber: 12345,
-  toolGroup: { name: 'asbestsanering', description: 'some description' },
-  project: { name: 'spiralen', projectNumber: 12333 },
-  available: true,
-};
+// const tool = {
+//   name: 'hilti 1500',
+//   id: 1,
+//   serieNumber: 12345,
+//   toolGroup: { name: 'asbestsanering', description: 'some description' },
+//   project: { name: 'spiralen', projectNumber: 12333 },
+//   available: true,
+// };
 
 //should recieve the tool from the route params comming in the tool list screen onpress handler with navigation to this component
 
 //edit button should navigate to the edit screen, passing the tool in the route params, so it can take the info of the about to edit toool and display it while editing
-export default function ToolDetailsScreen() {
+export default function ToolDetailsScreen({ route }) {
+  const tool = route.params;
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -30,8 +31,10 @@ export default function ToolDetailsScreen() {
         <AppText style={styles.info}>{tool.serieNumber}</AppText>
       </View>
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Nuvarande projekt</AppText>
-        <AppText style={styles.info}>{tool.project.name}</AppText>
+        <AppText style={styles.label}>Nuvarande plats</AppText>
+        <AppText style={styles.info}>
+          {tool.project ? tool.project.name : 'i förråd'}
+        </AppText>
       </View>
       <View style={styles.infoContainer}>
         <AppText style={styles.label}>Vertkygs Grupp</AppText>
