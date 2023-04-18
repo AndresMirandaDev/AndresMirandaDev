@@ -38,7 +38,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.medium,
   },
   headBar: {
     backgroundColor: colors.primary,
@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    shadowColor: colors.dark,
+    shadowOffset: { height: 10, width: 5 },
+    shadowOpacity: 0.1,
+    elevation: 20,
   },
   logo: {
     width: 80,
@@ -53,7 +57,6 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: colors.light,
   },
 });

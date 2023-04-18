@@ -37,7 +37,7 @@ export default function AppPicker({
               style={styles.icon}
             />
           )}
-          <AppText style={styles.text}>
+          <AppText style={selectedItem ? styles.text : styles.placeholder}>
             {selectedItem ? selectedItem.name : placeholder}
           </AppText>
           <MaterialCommunityIcons

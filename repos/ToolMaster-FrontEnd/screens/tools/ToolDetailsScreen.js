@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Screen from '../components/Screen';
-import colors from '../config/colors';
-import AppText from '../components/AppText';
-import AppButton from '../components/AppButton';
+import Screen from '../../components/Screen';
+import colors from '../../config/colors';
+import AppText from '../../components/AppText';
+import AppButton from '../../components/AppButton';
 
 //dummy data
 

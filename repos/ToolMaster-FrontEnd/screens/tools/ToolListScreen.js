@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 
 import { LoadMoreFlatlist } from 'react-native-load-more-flatlist';
-import Screen from '../components/Screen';
-import ToolListItem from '../components/ToolListItem';
-import colors from '../config/colors';
-import FilterBar from '../components/FilterBar';
+import Screen from '../../components/Screen';
+import ToolListItem from '../../components/ToolListItem';
+import colors from '../../config/colors';
+import FilterBar from '../../components/FilterBar';
 
 const tools = [
   {

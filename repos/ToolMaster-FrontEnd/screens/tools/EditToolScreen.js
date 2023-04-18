@@ -2,13 +2,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import * as Yup from 'yup';
 
-import Screen from '../components/Screen';
-import AppForm from '../components/forms/AppForm';
-import AppText from '../components/AppText';
-import AppFormField from '../components/forms/AppFormField';
-import SubmitButton from '../components/SubmitButton';
-import AppFormPicker from '../components/forms/AppFormPicker';
-import colors from '../config/colors';
+import Screen from '../../components/Screen';
+import AppForm from '../../components/forms/AppForm';
+import AppText from '../../components/AppText';
+import AppFormField from '../../components/forms/AppFormField';
+import SubmitButton from '../../components/SubmitButton';
+import AppFormPicker from '../../components/forms/AppFormPicker';
+import colors from '../../config/colors';
 
 //dummy data
 
@@ -36,7 +36,7 @@ const toolGroups = [
 //should take the tool from route params comming from the tool detalils screen in the edit button onpress function navigate implementation
 export default function EditToolScreen() {
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <AppText style={styles.info}>Regiderar : {tool.name}</AppText>
       <AppText style={styles.info}>Serie Nummer : {tool.serieNumber}</AppText>
       <AppForm
@@ -58,7 +58,7 @@ export default function EditToolScreen() {
           name="name"
           icon="select-group"
           placeholder={tool.toolGroup.name}
-          width="50%"
+          width="60%"
         />
         <SubmitButton title="upppdatera " color="green" />
       </AppForm>
@@ -67,11 +67,17 @@ export default function EditToolScreen() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.primary,
+    minHeight: '100%',
+    padding: 7,
+  },
   info: {
     textAlign: 'center',
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'capitalize',
-    color: colors.medium,
+    color: colors.light,
+    fontSize: 20,
   },
 });

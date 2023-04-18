@@ -37,6 +37,11 @@ const status = [
   { name: 'upptagna verktyg', id: 11, value: false },
 ];
 
+const toolGroups = [
+  { name: 'asbestsanering', description: 'some description', id: 12 },
+  { name: 'bilmaskiner', description: 'some description', id: 13 },
+  { name: 'håltagning', description: 'some description', id: 14 },
+];
 //validation schema for form component
 
 const validationSchema = Yup.object().shape({

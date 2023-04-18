@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Screen from '../components/Screen';
-import AppText from '../components/AppText';
-import colors from '../config/colors';
+import Screen from '../../components/Screen';
+import AppText from '../../components/AppText';
+import colors from '../../config/colors';
 
 //dummy data
 const project = {

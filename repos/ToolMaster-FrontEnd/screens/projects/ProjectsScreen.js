@@ -1,9 +1,9 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import Screen from '../components/Screen';
-import NavButton from '../components/NavButton';
-import colors from '../config/colors';
-import ListItemSeparator from '../components/ListItemSeparator';
+import Screen from '../../components/Screen';
+import NavButton from '../../components/NavButton';
+import colors from '../../config/colors';
+import ListItemSeparator from '../../components/ListItemSeparator';
 
 const toolsActions = [
   { title: 'Visa Projekt', path: 'somepath', icon: 'magnify' },
