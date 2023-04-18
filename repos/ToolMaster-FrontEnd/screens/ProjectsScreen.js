@@ -6,13 +6,12 @@ import colors from '../config/colors';
 import ListItemSeparator from '../components/ListItemSeparator';
 
 const toolsActions = [
-  { title: 'Sök verktyg', path: 'somepath', icon: 'magnify' },
-  { title: 'Registrera verktyg', path: 'somepath1', icon: 'plus' },
-  { title: 'Regidera verktyg', path: 'somepath2', icon: 'circle-edit-outline' },
-  { title: 'Inhyrda verktyg', path: 'somepath ', icon: 'calendar-alert' },
+  { title: 'Visa Projekt', path: 'somepath', icon: 'magnify' },
+  { title: 'Ny Projekt', path: 'somepath1', icon: 'plus' },
+  { title: 'Regidera Projekt', path: 'somepath2', icon: 'circle-edit-outline' },
 ];
 
-export default function ToolsScreen() {
+export default function ProjectsScreen() {
   return (
     <Screen style={styles.screen}>
       <FlatList

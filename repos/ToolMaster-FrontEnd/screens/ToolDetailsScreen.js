@@ -25,30 +25,27 @@ export default function ToolDetailsScreen() {
       <View style={styles.container}>
         <AppText style={styles.title}>{tool.name}</AppText>
       </View>
-      <View>
-        <AppText style={styles.info}>Serie nummer : {tool.serieNumber}</AppText>
+      <View style={styles.infoContainer}>
+        <AppText style={styles.label}>Serie nummer</AppText>
+        <AppText style={styles.info}>{tool.serieNumber}</AppText>
       </View>
-      <View>
-        <AppText style={styles.info}>
-          Nuvarande projekt : {tool.project.name}
-        </AppText>
+      <View style={styles.infoContainer}>
+        <AppText style={styles.label}>Nuvarande projekt</AppText>
+        <AppText style={styles.info}>{tool.project.name}</AppText>
       </View>
-      <View>
-        <AppText style={styles.info}>
-          Vertkygs Grupp : {tool.toolGroup.name}
-        </AppText>
+      <View style={styles.infoContainer}>
+        <AppText style={styles.label}>Vertkygs Grupp</AppText>
+        <AppText style={styles.info}>{tool.toolGroup.name}</AppText>
       </View>
-      <View>
-        <AppText style={styles.info}>
-          Status :{' '}
-          <AppText
-            style={{
-              color: tool.available ? colors.green : colors.danger,
-              fontWeight: 'bold',
-            }}
-          >
-            {tool.available ? 'Tillgängligt' : 'Upptagen'}
-          </AppText>
+      <View style={styles.infoContainer}>
+        <AppText style={styles.label}>Status : </AppText>
+        <AppText
+          style={{
+            color: tool.available ? colors.green : colors.danger,
+            fontWeight: 'bold',
+          }}
+        >
+          {tool.available ? 'Tillgängligt' : 'Upptagen'}
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
@@ -65,11 +62,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 70,
   },
-  container: {},
+  label: {
+    color: colors.yellow,
+    textTransform: 'capitalize',
+  },
   info: {
-    color: colors.medium,
+    color: colors.light,
     fontSize: 20,
-    padding: 10,
+    padding: 5,
     textTransform: 'capitalize',
   },
   screen: {
@@ -82,5 +82,19 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: colors.primary,
     textAlign: 'center',
+  },
+  infoContainer: {
+    flexDirection: 'column',
+    padding: 10,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    margin: 10,
+    borderRadius: 20,
+    shadowColor: colors.dark,
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 10, width: 10 },
+    shadowRadius: 6,
+    elevation: 10,
   },
 });

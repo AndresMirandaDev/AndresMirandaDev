@@ -7,6 +7,8 @@ import AppForm from '../components/forms/AppForm';
 import AppText from '../components/AppText';
 import AppFormField from '../components/forms/AppFormField';
 import SubmitButton from '../components/SubmitButton';
+import AppFormPicker from '../components/forms/AppFormPicker';
+import colors from '../config/colors';
 
 //dummy data
 
@@ -24,6 +26,13 @@ const validationSchema = Yup.object().shape({
   serieNumber: Yup.string().required(),
   toolGroup: Yup.object(),
 });
+
+const toolGroups = [
+  { name: 'asbest sanering', id: 5 },
+  { name: 'bilmaskiner', id: 6 },
+  { name: 'håltagning', id: 7 },
+  { name: 'flexmaskiner', id: 8 },
+];
 //should take the tool from route params comming from the tool detalils screen in the edit button onpress function navigate implementation
 export default function EditToolScreen() {
   return (
@@ -44,10 +53,12 @@ export default function EditToolScreen() {
           icon="identifier"
           placeholder={tool.serieNumber.toString()}
         />
-        <AppFormField
+        <AppFormPicker
+          items={toolGroups}
           name="name"
           icon="select-group"
           placeholder={tool.toolGroup.name}
+          width="50%"
         />
         <SubmitButton title="upppdatera " color="green" />
       </AppForm>
@@ -59,5 +70,8 @@ const styles = StyleSheet.create({
   info: {
     textAlign: 'center',
     fontWeight: 'bold',
+    padding: 10,
+    textTransform: 'capitalize',
+    color: colors.medium,
   },
 });

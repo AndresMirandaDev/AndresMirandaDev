@@ -10,7 +10,9 @@ import ToolListScreen from './screens/ToolListScreen';
 import RegisterToolScreen from './screens/RegisterToolScreen';
 import ToolDetailsScreen from './screens/ToolDetailsScreen';
 import EditToolScreen from './screens/EditToolScreen';
+import ProjectsScreen from './screens/ProjectsScreen';
+import ProjectInfoScreen from './screens/ProjectInfoScreen';
 
 export default function App() {
-  return <EditToolScreen />;
+  return <ProjectInfoScreen />;
 }
