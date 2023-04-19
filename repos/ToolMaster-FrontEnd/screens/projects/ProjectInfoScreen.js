@@ -3,6 +3,7 @@ import React from 'react';
 import Screen from '../../components/Screen';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
+import AppButton from '../../components/AppButton';
 
 //dummy data
 // const project = [
@@ -34,7 +35,7 @@ import colors from '../../config/colors';
 //   },
 // ];
 
-export default function ProjectInfoScreen({ route }) {
+export default function ProjectInfoScreen({ route, navigation }) {
   const {
     name,
     address,
@@ -68,6 +69,15 @@ export default function ProjectInfoScreen({ route }) {
         <View style={styles.infoContainer}>
           <AppText style={styles.label}>slut datum </AppText>
           <AppText style={styles.info}>{endDate}</AppText>
+        </View>
+        <View style={styles.buttonContainer}>
+          <AppButton
+            title="Redigera / Uppdatera"
+            color="green"
+            onPress={() => {
+              navigation.navigate('EditProjectScreen', route.params[0]);
+            }}
+          />
         </View>
       </ScrollView>
     </Screen>
@@ -108,5 +118,9 @@ const styles = StyleSheet.create({
   info: {
     color: colors.light,
     textTransform: 'capitalize',
+  },
+  buttonContainer: {
+    padding: 10,
+    margin: 10,
   },
 });

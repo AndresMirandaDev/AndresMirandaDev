@@ -4,11 +4,16 @@ import React from 'react';
 import AppText from './AppText';
 import colors from '../config/colors';
 import { Calendar } from 'react-native-calendars';
+import useWeek from '../hooks/useWeek';
 
-export default function DateInfoCard({ infoToDisplay, data }) {
+export default function DateInfoCard() {
+  const date = new Date();
+  const week = useWeek();
+
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>I dag</AppText>
+      <AppText style={styles.text}>Idag {date.getDate()}</AppText>
+      <AppText>Vecka {week}</AppText>
       <Calendar showWeekNumbers={true} />
     </View>
   );
@@ -31,5 +36,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: colors.medium,
+    fontWeight: 'bold',
   },
 });

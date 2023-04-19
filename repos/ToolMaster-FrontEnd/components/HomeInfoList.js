@@ -3,7 +3,6 @@ import React from 'react';
 
 import InfoCard from './InfoCard';
 import DateInfoCard from './DateInfoCard';
-import useWeek from '../hooks/useWeek';
 
 const projects = [
   { name: 'spiralen', projectNumber: 1111, active: true, id: 1 },
@@ -21,13 +20,11 @@ const rentedTools = [
 ];
 
 export default function HomeInfoList() {
-  const week = useWeek();
-
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
         <View>
-          <DateInfoCard infoToDisplay={week} />
+          <DateInfoCard />
           <View style={styles.infoContainer}>
             <InfoCard infoToDisplay="Aktiva Projekt:" data={projects.length} />
             <InfoCard

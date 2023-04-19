@@ -8,6 +8,7 @@ import AppFormField from '../../components/forms/AppFormField';
 import AppFormPicker from '../../components/forms/AppFormPicker';
 import SubmitButton from '../../components/SubmitButton';
 import colors from '../../config/colors';
+import AppText from '../../components/AppText';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -26,6 +27,7 @@ const toolGroups = [
 export default function RegisterToolScreen() {
   return (
     <Screen style={styles.screen}>
+      <AppText style={styles.text}>Registrera Verktyg </AppText>
       <AppForm
         initialValues={{
           name: '',
@@ -57,5 +59,11 @@ const styles = StyleSheet.create({
     minHeight: '100%',
     backgroundColor: colors.primary,
     padding: 10,
+  },
+  text: {
+    color: colors.light,
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 23,
   },
 });

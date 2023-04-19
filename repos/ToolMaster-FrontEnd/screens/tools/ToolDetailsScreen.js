@@ -19,7 +19,7 @@ import AppButton from '../../components/AppButton';
 //should recieve the tool from the route params comming in the tool list screen onpress handler with navigation to this component
 
 //edit button should navigate to the edit screen, passing the tool in the route params, so it can take the info of the about to edit toool and display it while editing
-export default function ToolDetailsScreen({ route }) {
+export default function ToolDetailsScreen({ route, navigation }) {
   const tool = route.params;
   return (
     <Screen style={styles.screen}>
@@ -52,7 +52,12 @@ export default function ToolDetailsScreen({ route }) {
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Regidera" />
+        <AppButton
+          title="Regidera"
+          onPress={() => {
+            navigation.navigate('EditToolScreen', [tool]);
+          }}
+        />
         <AppButton title="Radera Verktyg" color="danger" />
         <AppButton title="Sätt som tillgängligt" color="green" />
       </View>
