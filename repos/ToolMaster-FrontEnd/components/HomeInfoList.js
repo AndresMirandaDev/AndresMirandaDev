@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import React from 'react';
 
 import InfoCard from './InfoCard';
+import DateInfoCard from './DateInfoCard';
 import useWeek from '../hooks/useWeek';
 
 const projects = [
@@ -26,9 +27,14 @@ export default function HomeInfoList() {
     <>
       <ScrollView contentContainerStyle={styles.container}>
         <View>
-          <InfoCard infoToDisplay="Vecka" data={week} />
-          <InfoCard infoToDisplay="Aktiva Projekt:" data={projects.length} />
-          <InfoCard infoToDisplay="Hyrda maskiner:" data={rentedTools.length} />
+          <DateInfoCard infoToDisplay={week} />
+          <View style={styles.infoContainer}>
+            <InfoCard infoToDisplay="Aktiva Projekt:" data={projects.length} />
+            <InfoCard
+              infoToDisplay="Hyrda maskiner:"
+              data={rentedTools.length}
+            />
+          </View>
         </View>
       </ScrollView>
     </>
@@ -38,5 +44,8 @@ export default function HomeInfoList() {
 const styles = StyleSheet.create({
   container: {
     minHeight: '100%',
+  },
+  infoContainer: {
+    justifyContent: 'space-around',
   },
 });

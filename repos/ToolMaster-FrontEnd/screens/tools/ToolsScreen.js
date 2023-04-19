@@ -10,7 +10,7 @@ const toolsActions = [
   { title: 'Registrera verktyg', path: 'RegisterToolScreen', icon: 'plus' },
   {
     title: 'Regidera verktyg',
-    path: 'EditToolScreen',
+    path: 'SearchToolScreen',
     icon: 'circle-edit-outline',
   },
   { title: 'Inhyrda verktyg', path: 'somepath ', icon: 'calendar-alert' },

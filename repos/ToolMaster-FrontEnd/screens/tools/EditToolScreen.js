@@ -12,14 +12,14 @@ import colors from '../../config/colors';
 
 //dummy data
 
-const tool = {
-  name: 'hilti 1500',
-  id: 1,
-  serieNumber: 12345,
-  toolGroup: { name: 'asbestsanering', description: 'some description' },
-  project: { name: 'spiralen', projectNumber: 12333 },
-  available: true,
-};
+// const tool = {
+//   name: 'hilti 1500',
+//   id: 1,
+//   serieNumber: 12345,
+//   toolGroup: { name: 'asbestsanering', description: 'some description' },
+//   project: { name: 'spiralen', projectNumber: 12333 },
+//   available: true,
+// };
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -34,7 +34,9 @@ const toolGroups = [
   { name: 'flexmaskiner', id: 8 },
 ];
 //should take the tool from route params comming from the tool detalils screen in the edit button onpress function navigate implementation
-export default function EditToolScreen() {
+export default function EditToolScreen({ route }) {
+  const tool = route.params[0];
+  console.log(tool);
   return (
     <Screen style={styles.screen}>
       <AppText style={styles.info}>Regiderar : {tool.name}</AppText>

@@ -8,28 +8,67 @@ import AppFormField from '../../components/forms/AppFormField';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import SubmitButton from '../../components/SubmitButton';
+import AppFormPicker from '../../components/forms/AppFormPicker';
 
 const validationSchema = Yup.object().shape({
-  projectNumber: Yup.string().required().label('projekt nummer'),
+  project: Yup.object().required().label('projekt'),
 });
 
-export default function SearchProjectScreen() {
+const projects = [
+  {
+    name: 'spiralen',
+    address: 'uppmanargatan 25',
+    projectNumber: 11111,
+    active: true,
+    supervisor: {
+      name: 'chato luis',
+      id: 1,
+    },
+    id: 1,
+    startDate: '2/3/2023',
+    endDate: '6/9/2025',
+  },
+  {
+    name: 'drakenberg',
+    address: 'drakenbergsgatan 5',
+    projectNumber: 22222,
+    active: true,
+    supervisor: {
+      name: 'Roberto diaz',
+      id: 2,
+    },
+    id: 2,
+    startDate: '2/3/2023',
+    endDate: '6/9/2025',
+  },
+];
+
+export default function SearchProjectScreen({ navigation }) {
+  const handleSubmit = ({ project }) => {
+    const result = projects.filter((p) => {
+      return p.id === project.id;
+    });
+
+    if (result.length === 0) alert('Projekt hittades inte');
+
+    navigation.navigate('ProjectInfoScreen', result);
+  };
   return (
     <ScrollView keyboardShouldPersistTaps="never">
       <Screen style={styles.screen}>
         <View style={styles.container}>
-          <AppText>Ange Projekt Nummer</AppText>
+          <AppText>Välj projekt att visa</AppText>
           <AppForm
-            initialValues={{ projectNumber: '' }}
+            initialValues={{ project: '' }}
             validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
-            <AppFormField
-              name="projectNumber"
-              placeholder="Projekt Nummer"
-              icon="identifier"
-              keyboardType="numeric"
+            <AppFormPicker
+              name="project"
+              items={projects}
+              placeholder="Välj Projekt"
             />
-            <SubmitButton title="search" />
+            <SubmitButton title="visa" />
           </AppForm>
         </View>
       </Screen>
@@ -46,7 +85,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.white,
     padding: 30,
     shadowOffset: { height: 20, width: 10 },
     shadowColor: colors.dark,

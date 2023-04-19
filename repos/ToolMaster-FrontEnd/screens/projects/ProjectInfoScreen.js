@@ -5,21 +5,36 @@ import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 
 //dummy data
-const project = {
-  name: 'spiralen',
-  address: 'uppmanargatan 25',
-  projectNumber: 62254,
-  active: true,
-  supervisor: {
-    name: 'chato luis',
-    id: 1,
-  },
-  id: 1,
-  startDate: '2/3/2023',
-  endDate: '6/9/2025',
-};
+// const project = [
+//   {
+//     name: 'spiralen',
+//     address: 'uppmanargatan 25',
+//     projectNumber: 11111,
+//     active: true,
+//     supervisor: {
+//       name: 'chato luis',
+//       id: 1,
+//     },
+//     id: 1,
+//     startDate: '2/3/2023',
+//     endDate: '6/9/2025',
+//   },
+//   {
+//     name: 'drakenberg',
+//     address: 'drakenbergsgatan 5',
+//     projectNumber: 22222,
+//     active: true,
+//     supervisor: {
+//       name: 'Roberto diaz',
+//       id: 2,
+//     },
+//     id: 2,
+//     startDate: '2/3/2023',
+//     endDate: '6/9/2025',
+//   },
+// ];
 
-export default function ProjectInfoScreen() {
+export default function ProjectInfoScreen({ route }) {
   const {
     name,
     address,
@@ -28,7 +43,7 @@ export default function ProjectInfoScreen() {
     supervisor,
     startDate,
     endDate,
-  } = project;
+  } = route.params[0];
 
   return (
     <Screen style={styles.screen}>
@@ -69,6 +84,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     color: colors.medium,
     margin: 5,
+    padding: 20,
   },
   infoContainer: {
     flexDirection: 'column',
