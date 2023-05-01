@@ -5,6 +5,7 @@ import {
   Appearance,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
@@ -22,5 +23,7 @@ export default function Screen({ children, style }) {
 const styles = StyleSheet.create({
   screen: {
     paddingTop: Constants.statusBarHeight,
+    backgroundColor:
+      Appearance.getColorScheme() === 'dark' ? colors.black : colors.white,
   },
 });
