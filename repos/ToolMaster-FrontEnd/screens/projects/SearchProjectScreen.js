@@ -25,8 +25,8 @@ const projects = [
       id: 1,
     },
     id: 1,
-    startDate: '2/3/2023',
-    endDate: '6/9/2025',
+    startDate: new Date().toLocaleDateString(),
+    endDate: new Date().toLocaleDateString(),
   },
   {
     name: 'drakenberg',
@@ -38,8 +38,8 @@ const projects = [
       id: 2,
     },
     id: 2,
-    startDate: '2/3/2023',
-    endDate: '6/9/2025',
+    startDate: new Date().toLocaleDateString(),
+    endDate: new Date().toLocaleDateString(),
   },
 ];
 

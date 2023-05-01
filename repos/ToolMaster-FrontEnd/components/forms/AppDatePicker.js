@@ -28,7 +28,7 @@ export default function AppDatePicker({ name, placeholder }) {
         <AppText>{placeholder}</AppText>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <AppText style={styles.date}>
-            {values[name] ? values[name].toLocaleDateString() : 'Select Date'}
+            {values[name] ? values[name] : 'Select Date'}
           </AppText>
         </TouchableOpacity>
 

@@ -9,6 +9,7 @@ import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import SubmitButton from '../../components/SubmitButton';
 import AppFormPicker from '../../components/forms/AppFormPicker';
+import AppDatePicker from '../../components/forms/AppDatePicker';
 
 const validationSchema = Yup.object().shape({
   project: Yup.object().required().label('projekt'),
@@ -24,7 +25,7 @@ export default function EditProjectScreen({ route }) {
   const project = route.params;
 
   return (
-    <ScrollView keyboardShouldPersistTaps="never">
+    <ScrollView keyboardShouldPersistTaps="never" bounces={false}>
       <Screen style={styles.screen}>
         <AppText style={styles.info}>Regiderar : {project.name}</AppText>
         <AppText style={styles.info}>
@@ -58,24 +59,16 @@ export default function EditProjectScreen({ route }) {
             placeholder={project.projectNumber.toString()}
             icon="identifier"
           />
-          <AppText style={styles.label}>Start Datum</AppText>
-          <AppFormField
-            name="startDate"
-            placeholder={project.startDate}
-            icon="calendar"
-          />
-          <AppText style={styles.label}>Slut datum</AppText>
-          <AppFormField
-            name="endDate"
-            placeholder={project.startDate}
-            icon="calendar-clock"
-          />
           <AppText style={styles.label}>Arbetsledare</AppText>
           <AppFormPicker
             items={supervisors}
             placeholder={project.supervisor.name}
             name="supervisor"
           />
+          <AppText style={styles.label}>Start Datum</AppText>
+          <AppDatePicker name="startDate" />
+          <AppText style={styles.label}>Slut datum</AppText>
+          <AppDatePicker name="endDate" />
           <SubmitButton title="uppdatera" color="green" />
         </AppForm>
       </Screen>
@@ -86,11 +79,11 @@ export default function EditProjectScreen({ route }) {
 const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     paddingTop: 50,
   },
   label: {
-    color: colors.light,
+    color: colors.medium,
     padding: 5,
   },
   info: {
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'capitalize',
-    color: colors.light,
+    color: colors.primary,
     fontSize: 20,
     margin: 5,
   },
