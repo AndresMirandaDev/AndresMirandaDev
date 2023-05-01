@@ -13,11 +13,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Screen from './components/Screen';
 import { useState } from 'react';
 import RentedToolsListScreen from './screens/rented/RentedToolsListScreen';
+import ToolListScreen from './screens/tools/ToolListScreen';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <RentedToolsListScreen />
+      <AppNavigator />
     </NavigationContainer>
   );
 }

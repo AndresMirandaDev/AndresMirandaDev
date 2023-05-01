@@ -6,7 +6,7 @@ import colors from '../../config/colors';
 import ListItemSeparator from '../../components/ListItemSeparator';
 
 const toolsActions = [
-  { title: 'Visa alla', path: 'ToolListScreen', icon: 'magnify' },
+  { title: 'Visa alla', path: 'RentedToolsListScreen', icon: 'magnify' },
   {
     title: 'Registrera hyrt verktyg',
     path: 'RegisterRentedTool',

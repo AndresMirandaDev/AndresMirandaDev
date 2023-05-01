@@ -87,6 +87,6 @@ export default function ToolListScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
   },
 });

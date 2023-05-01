@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
   screen: {
     paddingTop: 100,
     minHeight: '100%',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     padding: 10,
   },
   text: {
-    color: colors.light,
+    color: colors.primary,
     textAlign: 'center',
     padding: 10,
     fontSize: 23,

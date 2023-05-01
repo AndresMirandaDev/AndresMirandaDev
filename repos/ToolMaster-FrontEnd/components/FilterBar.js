@@ -66,7 +66,7 @@ export default function FilterBar({ setData }) {
       <View style={styles.head}>
         <MaterialCommunityIcons
           name="filter-outline"
-          color={colors.light}
+          color={colors.primary}
           size={30}
         />
         <AppText style={styles.headText}>Filter</AppText>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   headText: {
-    color: colors.light,
+    color: colors.primary,
     fontSize: 25,
   },
   hiddenFilterBar: {

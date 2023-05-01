@@ -12,7 +12,7 @@ export default function DateInfoCard() {
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>Idag {date.getDate()}</AppText>
+      <AppText style={styles.text}>Idag {date.toLocaleDateString()}</AppText>
       <AppText>Vecka {week}</AppText>
       <Calendar showWeekNumbers={true} />
     </View>
