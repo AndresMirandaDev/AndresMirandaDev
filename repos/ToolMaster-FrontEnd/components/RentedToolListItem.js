@@ -12,7 +12,7 @@ export default function RentedToolListItem({ tool, onPress }) {
         <View style={styles.card}>
           <AppText style={styles.toolName}>{name}</AppText>
           <AppText style={styles.info}>Uthyrnings företag : {rentedTo}</AppText>
-          <AppText>Inhyrd frân : {rentStart.toLocaleDateString()}</AppText>
+          <AppText>Inhyrd frân : {rentStart}</AppText>
         </View>
       </View>
     </TouchableWithoutFeedback>

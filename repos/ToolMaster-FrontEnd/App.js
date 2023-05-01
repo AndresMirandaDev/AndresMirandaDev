@@ -14,6 +14,7 @@ import Screen from './components/Screen';
 import { useState } from 'react';
 import RentedToolsListScreen from './screens/rented/RentedToolsListScreen';
 import ToolListScreen from './screens/tools/ToolListScreen';
+import RentedToolDetailsScreen from './screens/rented/RentedToolDetailsScreen';
 
 export default function App() {
   return (

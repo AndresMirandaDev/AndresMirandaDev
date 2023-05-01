@@ -22,12 +22,14 @@ export default function HomeScreen() {
   return (
     <Screen>
       <View style={styles.container}>
-        <View style={styles.headBar}>
+        <View style={styles.logoContainer}>
           <Image
             source={require('../assets/logo.png')}
             resizeMode="contain"
             style={styles.logo}
           />
+        </View>
+        <View style={styles.headBar}>
           <AppText style={styles.username}>{user.name}</AppText>
         </View>
         <HomeInfoList />
@@ -38,7 +40,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.light,
   },
   headBar: {
     backgroundColor: colors.primary,
@@ -50,10 +52,22 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 10, width: 5 },
     shadowOpacity: 0.1,
     elevation: 20,
+    marginTop: 10,
   },
   logo: {
     width: 80,
     height: 80,
+  },
+  logoContainer: {
+    backgroundColor: colors.medium,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.yellow,
+    borderRadius: 50,
+    position: 'absolute',
+    zIndex: 10,
+    top: -10,
+    left: 20,
   },
   username: {
     fontSize: 25,

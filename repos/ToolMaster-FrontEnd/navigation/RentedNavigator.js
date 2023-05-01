@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RentedToolsScreen from '../screens/rented/RentedToolsScreen';
 import RegisterRentedTool from '../screens/rented/RegisterRentedTool';
 import RentedToolsListScreen from '../screens/rented/RentedToolsListScreen';
+import RentedToolDetailsScreen from '../screens/rented/RentedToolDetailsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,10 @@ const RentedToolsNavigator = () => {
       <Stack.Screen
         name="RentedToolsListScreen"
         component={RentedToolsListScreen}
+      />
+      <Stack.Screen
+        name="RentedToolDetailsScreen"
+        component={RentedToolDetailsScreen}
       />
     </Stack.Navigator>
   );

@@ -10,54 +10,54 @@ const rentedTools = [
   {
     name: 'dianova',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 1,
   },
   {
     name: 'cobra',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 2,
   },
   {
     name: 'fräsmaskin',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 3,
   },
   {
     name: 'dammsugare liten',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 4,
   },
   {
     name: 'dammsugare',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 5,
   },
   {
     name: 'cobra',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 6,
   },
   {
     name: 'hilti 1500',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 7,
   },
   {
     name: 'flex',
     rentedTo: 'global',
-    rentStart: new Date(),
+    rentStart: new Date().toLocaleDateString(),
     id: 8,
   },
 ];
 
-export default function RentedToolsListScreen() {
+export default function RentedToolsListScreen({ navigation }) {
   const [data, setData] = useState(rentedTools);
   const [showData, setShowData] = useState(rentedTools);
 
@@ -87,7 +87,14 @@ export default function RentedToolsListScreen() {
       <FlatList
         data={rentedTools}
         renderItem={({ item }) => {
-          return <RentedToolListItem tool={item} />; //pass on press to edit the rented tool and change its status
+          return (
+            <RentedToolListItem
+              tool={item}
+              onPress={() =>
+                navigation.navigate('RentedToolDetailsScreen', item)
+              }
+            />
+          ); //pass on press to edit the rented tool and change its status
         }}
         keyExtractor={(item) => item.id}
         // onTouchEnd={loadMore}
