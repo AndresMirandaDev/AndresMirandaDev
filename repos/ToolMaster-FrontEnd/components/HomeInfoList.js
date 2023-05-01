@@ -28,7 +28,7 @@ export default function HomeInfoList() {
           <View style={styles.infoContainer}>
             <InfoCard infoToDisplay="Aktiva Projekt:" data={projects.length} />
             <InfoCard
-              infoToDisplay="Hyrda maskiner:"
+              infoToDisplay="Hyrda verktyg:"
               data={rentedTools.length}
             />
           </View>
@@ -41,6 +41,7 @@ export default function HomeInfoList() {
 const styles = StyleSheet.create({
   container: {
     minHeight: '100%',
+    padding: 10,
   },
   infoContainer: {
     justifyContent: 'space-around',

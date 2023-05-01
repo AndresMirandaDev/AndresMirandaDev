@@ -13,7 +13,6 @@ const toolsActions = [
     path: 'SearchToolScreen',
     icon: 'circle-edit-outline',
   },
-  { title: 'Inhyrda verktyg', path: 'somepath ', icon: 'calendar-alert' },
 ];
 
 export default function ToolsScreen({ navigation }) {

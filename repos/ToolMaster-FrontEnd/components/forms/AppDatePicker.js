@@ -1,53 +1,50 @@
-import { StyleSheet, Text, View, Button, Modal } from 'react-native';
-import React, { useState } from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useFormikContext } from 'formik';
+
 import Screen from '../Screen';
 import colors from '../../config/colors';
-import { useFormikContext } from 'formik';
 import AppText from '../AppText';
 
-//still has to research about getting the date from the picker
 export default function AppDatePicker({ name, placeholder }) {
-  const [modalVisible, setModalVisible] = useState(false);
-
   const { setFieldValue, values } = useFormikContext();
 
-  const setDate = (event, date) => {
-    const {
-      type,
-      nativeEvent: { timestamp },
-    } = event;
-    console.log(event);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    console.log(currentDate);
+  }, []);
+
+  const setDate = (date) => {
+    setFieldValue(name, date);
+    setModalVisible(false);
   };
+
   return (
     <Screen>
       <View style={styles.container}>
-        <AppText></AppText>
-        <Button
-          title={placeholder}
-          onPress={() => setModalVisible(true)}
-          color={colors.medium}
-        />
-        <Modal visible={modalVisible} animationType="slide">
-          <Screen>
-            <DateTimePicker
-              value={new Date()}
-              display="spinner"
-              onChange={setDate}
-              mode="date"
-            />
-            <Button
-              title="Sätt Start Datum"
-              onPress={() => setModalVisible(false)}
-              color={colors.green}
-            />
-            <Button
-              title="Stäng"
-              onPress={() => setModalVisible(false)}
-              color={colors.danger}
-            />
-          </Screen>
-        </Modal>
+        <AppText>{placeholder}</AppText>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <AppText style={styles.date}>
+            {values[name] ? values[name].toLocaleDateString() : 'Select Date'}
+          </AppText>
+        </TouchableOpacity>
+
+        {modalVisible && (
+          <View>
+            <Screen>
+              <DateTimePickerModal
+                date={currentDate}
+                mode="date"
+                onConfirm={setDate}
+                onCancel={() => setModalVisible(false)}
+                isVisible={modalVisible}
+              />
+            </Screen>
+          </View>
+        )}
       </View>
     </Screen>
   );
@@ -56,5 +53,9 @@ export default function AppDatePicker({ name, placeholder }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  date: {
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });

@@ -8,11 +8,16 @@ import SearchProjectScreen from './screens/projects/SearchProjectScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './navigation/AppNavigator';
 import AuthNavigator from './navigation/AuthNavigator';
+import RegisterRentedTool from './screens/rented/RegisterRentedTool';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Screen from './components/Screen';
+import { useState } from 'react';
+import RentedToolsListScreen from './screens/rented/RentedToolsListScreen';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <AppNavigator />
+      <RentedToolsListScreen />
     </NavigationContainer>
   );
 }
