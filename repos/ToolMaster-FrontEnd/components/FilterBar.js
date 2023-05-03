@@ -82,54 +82,60 @@ export default function FilterBar({ setData }) {
       <Modal visible={showFilter} animationType="fade">
         <ScrollView keyboardShouldPersistTaps="never" scrollEnabled={false}>
           <Screen>
-            <Button
-              title="close"
-              onPress={() => setShowFilter(false)}
-              color={colors.primary}
-            />
-            <AppForm
-              initialValues={{
-                name: '',
-                serieNumber: '',
-                project: '',
-                available: '',
-                toolGroup: '',
-              }}
-              onSubmit={handleSubmit}
-              validationSchema={validationSchema}
-            >
-              <AppFormField icon="text-search" name="name" placeholder="Name" />
-              <AppFormField
-                icon="text-search"
-                name="serieNumber"
-                placeholder="Serie Nr"
+            <View style={styles.formContainer}>
+              <Button
+                title="close"
+                onPress={() => setShowFilter(false)}
+                color={colors.primary}
               />
-              <AppFormPicker
-                icon="text-search"
-                items={projects}
-                name="project"
-                placeholder="Projekt"
-                width="50%"
-                PickerItemComponent={AppPickerItem}
-              />
-              <AppFormPicker
-                icon="text-search"
-                name="toolGroup"
-                placeholder="Group"
-                items={toolGroups}
-                width="50%"
-                PickerItemComponent={AppPickerItem}
-              />
-              <AppFormPicker
-                icon="text-search"
-                name="available"
-                placeholder="Visa alla"
-                items={status}
-                width="50%"
-              />
-              <SubmitButton title="search" />
-              <FormResetButton title="reset" color="secondary" />
-            </AppForm>
+              <AppForm
+                initialValues={{
+                  name: '',
+                  serieNumber: '',
+                  project: '',
+                  available: '',
+                  toolGroup: '',
+                }}
+                onSubmit={handleSubmit}
+                validationSchema={validationSchema}
+              >
+                <AppFormField
+                  icon="text-search"
+                  name="name"
+                  placeholder="Name"
+                />
+                <AppFormField
+                  icon="text-search"
+                  name="serieNumber"
+                  placeholder="Serie Nr"
+                />
+                <AppFormPicker
+                  icon="text-search"
+                  items={projects}
+                  name="project"
+                  placeholder="Projekt"
+                  width="50%"
+                  PickerItemComponent={AppPickerItem}
+                />
+                <AppFormPicker
+                  icon="text-search"
+                  name="toolGroup"
+                  placeholder="Group"
+                  items={toolGroups}
+                  width="50%"
+                  PickerItemComponent={AppPickerItem}
+                />
+                <AppFormPicker
+                  icon="text-search"
+                  name="available"
+                  placeholder="Visa alla"
+                  items={status}
+                  width="50%"
+                />
+                <SubmitButton title="search" />
+                <FormResetButton title="reset" color="secondary" />
+              </AppForm>
+            </View>
           </Screen>
         </ScrollView>
       </Modal>
@@ -154,5 +160,8 @@ const styles = StyleSheet.create({
   hiddenFilterBar: {
     height: 60,
     overflow: 'hidden',
+  },
+  formContainer: {
+    backgroundColor: colors.white,
   },
 });

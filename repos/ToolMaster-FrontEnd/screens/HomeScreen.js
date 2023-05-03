@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     height: 80,
   },
   logoContainer: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.primaryOpacity,
     padding: 10,
     borderWidth: 1,
     borderColor: colors.yellow,

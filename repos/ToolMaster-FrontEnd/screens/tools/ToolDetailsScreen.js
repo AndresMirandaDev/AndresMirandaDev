@@ -30,16 +30,20 @@ export default function ToolDetailsScreen({ route, navigation }) {
         <AppText style={styles.label}>Serie nummer</AppText>
         <AppText style={styles.info}>{tool.serieNumber}</AppText>
       </View>
-      <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Nuvarande plats</AppText>
-        <AppText style={styles.info}>
-          {tool.project ? tool.project.name : 'i förråd'}
-        </AppText>
-      </View>
-      <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Vertkygs Grupp</AppText>
-        <AppText style={styles.info}>{tool.toolGroup.name}</AppText>
-      </View>
+      {tool.project && (
+        <View style={styles.infoContainer}>
+          <AppText style={styles.label}>Nuvarande plats</AppText>
+          <AppText style={styles.info}>
+            {tool.project ? tool.project.name : 'i förråd'}
+          </AppText>
+        </View>
+      )}
+      {tool.toolGroup && (
+        <View style={styles.infoContainer}>
+          <AppText style={styles.label}>Vertkygs Grupp</AppText>
+          <AppText style={styles.info}>{tool.toolGroup.name}</AppText>
+        </View>
+      )}
       <View style={styles.infoContainer}>
         <AppText style={styles.label}>Status : </AppText>
         <AppText
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 20,
     shadowColor: colors.dark,
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.2,
     shadowOffset: { height: 10, width: 10 },
     shadowRadius: 6,
     elevation: 10,

@@ -53,6 +53,7 @@ export default function AppDatePicker({ name, placeholder }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    backgroundColor: colors.white,
   },
   date: {
     textAlign: 'center',

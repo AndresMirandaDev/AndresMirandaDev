@@ -7,6 +7,7 @@ import AppForm from '../../components/forms/AppForm';
 import AppFormField from '../../components/forms/AppFormField';
 import SubmitButton from '../../components/SubmitButton';
 import AppDatePicker from '../../components/forms/AppDatePicker';
+import colors from '../../config/colors';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -50,5 +51,6 @@ const styles = StyleSheet.create({
   screen: {
     padding: 10,
     paddingTop: 100,
+    backgroundColor: colors.white,
   },
 });

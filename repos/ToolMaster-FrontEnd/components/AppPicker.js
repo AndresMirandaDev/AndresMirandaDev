@@ -49,28 +49,30 @@ export default function AppPicker({
       </TouchableWithoutFeedback>
       <Modal visible={modal} animationType="slide">
         <Screen>
-          <Button
-            title="close"
-            onPress={() => setModalVisible(false)}
-            color={colors.primary}
-          />
-          <FlatList
-            data={items}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={nummberOfColumns}
-            renderItem={({ item }) => {
-              return (
-                <AppPickerItem
-                  item={item}
-                  label={item.name}
-                  onPress={() => {
-                    setModalVisible(false);
-                    onSelectItem(item);
-                  }}
-                />
-              );
-            }}
-          />
+          <View style={styles.modal}>
+            <Button
+              title="close"
+              onPress={() => setModalVisible(false)}
+              color={colors.primary}
+            />
+            <FlatList
+              data={items}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={nummberOfColumns}
+              renderItem={({ item }) => {
+                return (
+                  <AppPickerItem
+                    item={item}
+                    label={item.name}
+                    onPress={() => {
+                      setModalVisible(false);
+                      onSelectItem(item);
+                    }}
+                  />
+                );
+              }}
+            />
+          </View>
         </Screen>
       </Modal>
     </>
@@ -93,5 +95,8 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+  },
+  modal: {
+    backgroundColor: colors.white,
   },
 });

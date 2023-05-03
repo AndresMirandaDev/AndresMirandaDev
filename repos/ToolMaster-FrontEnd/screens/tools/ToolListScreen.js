@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 
 import { LoadMoreFlatlist } from 'react-native-load-more-flatlist';
 import Screen from '../../components/Screen';
 import ToolListItem from '../../components/ToolListItem';
 import colors from '../../config/colors';
 import FilterBar from '../../components/FilterBar';
+import useApi from '../../hooks/useApi';
+import toolsApi from '../../api/tools';
+import AppActivityIndicator from '../../components/AppActivityIndicator';
+import AppText from '../../components/AppText';
+import AppButton from '../../components/AppButton';
 
 const tools = [
   {
@@ -51,22 +56,33 @@ const tools = [
 ];
 
 export default function ToolListScreen({ navigation }) {
+  const {
+    data: tools,
+    error,
+    loading,
+    request: loadTools,
+  } = useApi(toolsApi.getTools);
+
+  useEffect(() => {
+    loadTools();
+  }, []);
+
   const [listData, setListData] = useState(tools);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onListEndReached = async () => {
-    setIsLoading(true);
-    await setTimeout(() => {
-      setListData([...listData, ...tools]);
-      setIsLoading(false);
-    }, 2000);
-  };
   return (
     <Screen style={styles.screen}>
-      <FilterBar data={listData} setData={setListData} />
-      <LoadMoreFlatlist
+      <AppActivityIndicator visible={loading} />
+      {error && (
+        <View style={styles.errorScreen}>
+          <AppText>Data kunde inte hämtas.</AppText>
+          <AppButton title="försök igen" onPress={loadTools} />
+        </View>
+      )}
+      {!error && <FilterBar data={listData} setData={setListData} />}
+      <FlatList
         data={tools}
-        renderFlatlistItem={({ item }) => {
+        renderItem={({ item }) => {
           return (
             <ToolListItem
               tool={item}
@@ -76,9 +92,6 @@ export default function ToolListScreen({ navigation }) {
             />
           );
         }}
-        onListEndReached={onListEndReached}
-        isLoading={isLoading}
-        indicatorColor={colors.yellow}
       />
     </Screen>
   );
@@ -88,5 +101,10 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
+  },
+  errorScreen: {
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

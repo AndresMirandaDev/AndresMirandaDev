@@ -20,39 +20,41 @@ export default function RegisterProjectScreen() {
   return (
     <ScrollView keyboardShouldPersistTaps="never" scrollEnabled={false}>
       <Screen style={styles.screen}>
-        <AppForm
-          initialValues={{
-            name: '',
-            address: '',
-            projectNumber: '',
-            supervisor: '',
-            startDate: '',
-            endDate: '',
-          }}
-        >
-          <AppFormField
-            icon="alphabetical-variant"
-            name="name"
-            placeholder="Namn"
-          />
-          <AppFormField
-            icon="identifier"
-            name="projectNumber"
-            placeholder="Projekt Nummer"
-          />
-          <AppFormPicker
-            items={supervisors}
-            placeholder="Arbetsledare"
-            name="supervisor"
-          />
-          <AppDatePicker placeholder="Start datum" name="startDate" />
-          <AppDatePicker placeholder="Slut datum" name="endDate" />
+        <View style={styles.container}>
+          <AppForm
+            initialValues={{
+              name: '',
+              address: '',
+              projectNumber: '',
+              supervisor: '',
+              startDate: '',
+              endDate: '',
+            }}
+          >
+            <AppFormField
+              icon="alphabetical-variant"
+              name="name"
+              placeholder="Namn"
+            />
+            <AppFormField
+              icon="identifier"
+              name="projectNumber"
+              placeholder="Projekt Nummer"
+            />
+            <AppFormPicker
+              items={supervisors}
+              placeholder="Arbetsledare"
+              name="supervisor"
+            />
+            <AppDatePicker placeholder="Start datum" name="startDate" />
+            <AppDatePicker placeholder="Slut datum" name="endDate" />
 
-          <View style={styles.buttonContainer}>
-            <SubmitButton title="Registrera ny projekt" />
-            <FormResetButton title="reset" color="secondary" />
-          </View>
-        </AppForm>
+            <View style={styles.buttonContainer}>
+              <SubmitButton title="Registrera ny projekt" />
+              <FormResetButton title="reset" color="secondary" />
+            </View>
+          </AppForm>
+        </View>
       </Screen>
     </ScrollView>
   );
@@ -62,9 +64,13 @@ const styles = StyleSheet.create({
   screen: {
     paddingTop: 100,
     minHeight: '100%',
+    backgroundColor: colors.white,
   },
   buttonContainer: {
     margin: 10,
     marginTop: 50,
+  },
+  container: {
+    backgroundColor: colors.white,
   },
 });

@@ -32,7 +32,7 @@ export default function WelcomeScreen({ navigation }) {
 
         <AppText style={styles.copyright}>
           Developed by Andres Miranda{' '}
-          <MaterialCommunityIcons name="copyright" color={colors.primary} />{' '}
+          <MaterialCommunityIcons name="copyright" color={colors.yellow} />{' '}
         </AppText>
       </View>
     </ImageBackground>

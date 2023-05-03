@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.primaryOpacity,
     padding: 50,
     margin: 10,
     shadowOpacity: 0.2,
@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   text: {
-    color: colors.medium,
+    color: colors.white,
   },
 });
