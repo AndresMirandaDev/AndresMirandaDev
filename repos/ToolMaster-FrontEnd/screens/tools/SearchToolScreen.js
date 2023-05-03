@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -8,31 +8,43 @@ import AppFormField from '../../components/forms/AppFormField';
 import AppText from '../../components/AppText';
 import SubmitButton from '../../components/SubmitButton';
 import colors from '../../config/colors';
+import toolsApi from '../../api/tools';
 
 const validationSchema = Yup.object().shape({
   serieNumber: Yup.string().required().label('serie nummer'),
 });
 
-const tools = [
-  {
-    name: 'hilti 1500',
-    id: 1,
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-  },
-  {
-    name: 'flex',
-    id: 2,
-    serieNumber: 45678,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-  },
-];
+// const tools = [
+//   {
+//     name: 'hilti 1500',
+//     id: 1,
+//     serieNumber: 12345,
+//     toolGroup: { name: 'asbestsanering', description: 'some description' },
+//     project: { name: 'spiralen', projectNumber: 12333 },
+//     available: true,
+//   },
+//   {
+//     name: 'flex',
+//     id: 2,
+//     serieNumber: 45678,
+//     toolGroup: { name: 'asbestsanering', description: 'some description' },
+//     project: { name: 'spiralen', projectNumber: 12333 },
+//     available: true,
+//   },
+// ];
 
 export default function SearchToolScreen({ navigation }) {
+  const {
+    data: tools,
+    error,
+    loading,
+    request: loadTools,
+  } = useApi(toolsApi.getTools);
+
+  useEffect(() => {
+    loadTools();
+  }, []);
+
   const handleSubmit = ({ serieNumber }) => {
     const tool = tools.filter((tool) => {
       return tool.serieNumber === parseInt(serieNumber);

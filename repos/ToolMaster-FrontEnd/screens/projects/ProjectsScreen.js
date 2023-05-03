@@ -34,7 +34,7 @@ export default function ProjectsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.primaryOpacity,
     minHeight: '100%',
     flexDirection: 'row',
     justifyContent: 'center',

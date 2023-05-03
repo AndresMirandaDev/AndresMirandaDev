@@ -39,7 +39,7 @@ export default function ToolsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.medium,
+    backgroundColor: colors.primaryOpacity,
     minHeight: '100%',
     flexDirection: 'row',
     justifyContent: 'center',

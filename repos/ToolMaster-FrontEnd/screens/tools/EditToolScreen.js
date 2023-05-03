@@ -70,7 +70,7 @@ export default function EditToolScreen({ route }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     minHeight: '100%',
     padding: 7,
   },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'capitalize',
-    color: colors.light,
+    color: colors.primary,
     fontSize: 20,
   },
 });

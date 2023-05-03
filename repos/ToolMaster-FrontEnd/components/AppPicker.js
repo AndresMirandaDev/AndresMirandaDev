@@ -57,7 +57,7 @@ export default function AppPicker({
             />
             <FlatList
               data={items}
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item) => item._id}
               numColumns={nummberOfColumns}
               renderItem={({ item }) => {
                 return (

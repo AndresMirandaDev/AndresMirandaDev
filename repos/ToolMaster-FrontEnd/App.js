@@ -19,8 +19,6 @@ import AuthContext from './auth/context';
 import authStorage from './auth/storage';
 import * as SplashScreen from 'expo-splash-screen';
 
-SplashScreen.preventAutoHideAsync();
-
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
@@ -28,26 +26,23 @@ export default function App() {
     const user = await authStorage.getUser();
     if (user) setUser(user);
   };
-  const onLayoutRootView = useCallback(async () => {
-    if (isReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [isReady]);
-
-  if (!isReady) {
-    return null;
-  }
 
   useEffect(() => {
-    try {
-      restoreUser();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsReady(true);
-    }
-  }, []);
+    async function loadPersistedUser() {
+      try {
+        SplashScreen.preventAutoHideAsync();
 
+        restoreUser();
+      } catch (e) {
+        // We might want to provide this error information to an error reporting service
+        console.warn(e);
+      }
+      setIsReady(true);
+      SplashScreen.hideAsync();
+    }
+    loadPersistedUser();
+  }, []);
+  if (!isReady) return null;
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <NavigationContainer>

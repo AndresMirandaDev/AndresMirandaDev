@@ -62,7 +62,9 @@ export default function EditProjectScreen({ route }) {
           <AppText style={styles.label}>Arbetsledare</AppText>
           <AppFormPicker
             items={supervisors}
-            placeholder={project.supervisor.name}
+            placeholder={
+              project.supervisor ? project.supervisor.name : 'Arbetsledare'
+            }
             name="supervisor"
           />
           <AppText style={styles.label}>Start Datum</AppText>

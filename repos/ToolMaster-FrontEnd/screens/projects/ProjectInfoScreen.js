@@ -58,10 +58,12 @@ export default function ProjectInfoScreen({ route, navigation }) {
           <AppText style={styles.label}>projekt nummer </AppText>
           <AppText style={styles.info}>{projectNumber}</AppText>
         </View>
-        <View style={styles.infoContainer}>
-          <AppText style={styles.label}>arbetsledare </AppText>
-          <AppText style={styles.info}>{supervisor.name}</AppText>
-        </View>
+        {supervisor && (
+          <View style={styles.infoContainer}>
+            <AppText style={styles.label}>arbetsledare </AppText>
+            <AppText style={styles.info}>{supervisor.name}</AppText>
+          </View>
+        )}
         <View style={styles.infoContainer}>
           <AppText style={styles.label}>start datum </AppText>
           <AppText style={styles.info}>{startDate}</AppText>
@@ -87,6 +89,7 @@ export default function ProjectInfoScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
+    backgroundColor: colors.white,
   },
   projectName: {
     textAlign: 'center',
