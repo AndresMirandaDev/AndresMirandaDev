@@ -56,6 +56,7 @@ export default function ToolDetailsScreen({ route, navigation }) {
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
+        <AppButton title="Sätt som tillgängligt" color="green" />
         <AppButton
           title="Regidera"
           onPress={() => {
@@ -63,7 +64,6 @@ export default function ToolDetailsScreen({ route, navigation }) {
           }}
         />
         <AppButton title="Radera Verktyg" color="danger" />
-        <AppButton title="Sätt som tillgängligt" color="green" />
       </View>
     </Screen>
   );
@@ -72,10 +72,10 @@ export default function ToolDetailsScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
-    marginTop: 70,
+    marginTop: 20,
   },
   label: {
-    color: colors.yellow,
+    color: colors.light,
     textTransform: 'capitalize',
   },
   info: {
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryOpacity,
     margin: 10,
     borderRadius: 20,
     shadowColor: colors.dark,

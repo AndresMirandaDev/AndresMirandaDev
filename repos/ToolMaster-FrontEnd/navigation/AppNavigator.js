@@ -8,6 +8,8 @@ import ProjectsNavigator from '../navigation/ProjectsNavigator';
 import colors from '../config/colors';
 import RentedToolsScreen from '../screens/rented/RentedToolsScreen';
 import RentedToolsNavigator from './RentedNavigator';
+import AccountScreen from '../screens/AccountScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -62,6 +64,22 @@ export default function AppNavigator() {
             return (
               <MaterialCommunityIcons
                 name="calendar-alert"
+                size={size}
+                color={color}
+              />
+            );
+          },
+          tabBarActiveTintColor: colors.primary,
+        }}
+      />
+      <Tab.Screen
+        name="Min konto"
+        component={AccountScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons
+                name="account"
                 size={size}
                 color={color}
               />

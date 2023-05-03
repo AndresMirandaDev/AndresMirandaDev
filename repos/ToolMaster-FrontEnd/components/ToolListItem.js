@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   card: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.primaryOpacity,
     width: '100%',
     padding: 20,
     borderRadius: 15,
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: colors.primary,
+    color: colors.light,
     textTransform: 'capitalize',
   },
   info: {
     textTransform: 'capitalize',
-    color: colors.medium,
+    color: colors.light,
     padding: 5,
   },
   status: {
