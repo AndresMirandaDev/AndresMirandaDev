@@ -11,15 +11,48 @@ import AuthNavigator from './navigation/AuthNavigator';
 import RegisterRentedTool from './screens/rented/RegisterRentedTool';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Screen from './components/Screen';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import RentedToolsListScreen from './screens/rented/RentedToolsListScreen';
 import ToolListScreen from './screens/tools/ToolListScreen';
 import RentedToolDetailsScreen from './screens/rented/RentedToolDetailsScreen';
+import AuthContext from './auth/context';
+import authStorage from './auth/storage';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [user, setUser] = useState();
+  const [isReady, setIsReady] = useState(false);
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if (user) setUser(user);
+  };
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return null;
+  }
+
+  useEffect(() => {
+    try {
+      restoreUser();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsReady(true);
+    }
+  }, []);
+
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer>
+        {user ? <AppNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }

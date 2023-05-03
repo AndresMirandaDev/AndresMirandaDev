@@ -8,6 +8,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import AppFormField from '../components/forms/AppFormField';
 import colors from '../config/colors';
 import SubmitButton from '../components/SubmitButton';
+import authApi from '../api/auth';
+import useAuth from '../auth/useAuth';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -15,10 +17,16 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
-  //loginfailed should later be changed to check if the login was successful in the call to the api
+  const auth = useAuth();
+
   const [loginFailed, setLoginFailed] = useState(true);
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async ({ email, password }) => {
+    const result = await authApi.login(email, password);
+
+    if (!result.ok) return setLoginFailed(true);
+    setLoginFailed(false);
+
+    auth.logIn(result.data);
   };
   return (
     <ImageBackground
