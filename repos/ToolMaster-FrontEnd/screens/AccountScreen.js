@@ -42,7 +42,12 @@ export default function AccountScreen({ navigation }) {
             color="primary"
             onPress={() => navigation.navigate('EditUserInfoScreen', user)}
           />
-          {user.isAdmin && <AppButton title="hantera behörigheter" />}
+          {user.isAdmin && (
+            <AppButton
+              title="hantera behörigheter"
+              onPress={() => navigation.navigate('ManagePermissionsScreen')}
+            />
+          )}
           <AppButton title="logga ut" onPress={logOut} color="danger" />
         </View>
       </View>
