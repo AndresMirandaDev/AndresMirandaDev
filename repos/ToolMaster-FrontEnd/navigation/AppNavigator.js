@@ -10,6 +10,7 @@ import RentedToolsScreen from '../screens/rented/RentedToolsScreen';
 import RentedToolsNavigator from './RentedNavigator';
 import AccountScreen from '../screens/AccountScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
+import AccountNavigator from './AccountNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +75,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Min konto"
-        component={AccountScreen}
+        component={AccountNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
             return (

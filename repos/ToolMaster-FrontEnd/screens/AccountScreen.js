@@ -8,7 +8,7 @@ import AppText from '../components/AppText';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   const { user, logOut } = useAuth();
 
   return (
@@ -37,7 +37,11 @@ export default function AccountScreen() {
           <AppText style={styles.info}>{user.phone}</AppText>
         </View>
         <View style={styles.buttonContainer}>
-          <AppButton title="regidera min information" color="primary" />
+          <AppButton
+            title="regidera min information"
+            color="primary"
+            onPress={() => navigation.navigate('EditUserInfoScreen', user)}
+          />
           {user.isAdmin && <AppButton title="hantera behörigheter" />}
           <AppButton title="logga ut" onPress={logOut} color="danger" />
         </View>

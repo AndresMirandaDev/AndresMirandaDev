@@ -5,12 +5,14 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppText from '../components/AppText';
 import HomeInfoList from '../components/HomeInfoList';
+import useAuth from '../auth/useAuth';
+import AuthContext from '../auth/context';
 
-const user = {
-  id: 1,
-  name: 'Andres',
-  email: 'andres@domail.com',
-};
+// const user = {
+//   id: 1,
+//   name: 'Andres',
+//   email: 'andres@domail.com',
+// };
 
 const tools = [
   { name: 'hili 1500', id: 1 },
@@ -19,6 +21,8 @@ const tools = [
 ];
 
 export default function HomeScreen() {
+  const { user } = useAuth(AuthContext);
+
   return (
     <Screen>
       <View style={styles.container}>
@@ -72,5 +76,6 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 25,
     color: colors.light,
+    textTransform: 'capitalize',
   },
 });
