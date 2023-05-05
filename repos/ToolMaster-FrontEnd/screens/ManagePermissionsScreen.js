@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import usersApi from '../api/users';
 import AppText from '../components/AppText';
+import UserListItem from '../components/UserListItem';
 
 export default function ManagePermissionsScreen() {
   const {
@@ -16,11 +17,16 @@ export default function ManagePermissionsScreen() {
     loadUsers();
   }, []);
 
+  console.log(users);
   return (
     <View>
-      {users.map((u) => {
-        return <AppText key={u._id}>{u.name}</AppText>;
-      })}
+      <FlatList
+        data={users}
+        keyExtractor={(user) => user._id}
+        renderItem={({ item }) => {
+          return <UserListItem user={item} />;
+        }}
+      />
     </View>
   );
 }

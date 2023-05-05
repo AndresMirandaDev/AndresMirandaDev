@@ -68,7 +68,6 @@ export default function ToolListScreen({ navigation }) {
   }, []);
 
   const [listData, setListData] = useState(tools);
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Screen style={styles.screen}>
