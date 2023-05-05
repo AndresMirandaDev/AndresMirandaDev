@@ -11,6 +11,7 @@ import toolsApi from '../../api/tools';
 import AppActivityIndicator from '../../components/AppActivityIndicator';
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
+import ConnectivityError from '../../components/ConnectivityError';
 
 const tools = [
   {
@@ -72,12 +73,7 @@ export default function ToolListScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <AppActivityIndicator visible={loading} />
-      {error && (
-        <View style={styles.errorScreen}>
-          <AppText>Data kunde inte hämtas.</AppText>
-          <AppButton title="försök igen" onPress={loadTools} />
-        </View>
-      )}
+      {error && <ConnectivityError loadDataFunction={loadTools} />}
       {!error && <FilterBar data={listData} setData={setListData} />}
       <FlatList
         data={tools}
@@ -100,10 +96,5 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
-  },
-  errorScreen: {
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 import usersApi from '../api/users';
 import AppText from '../components/AppText';
 import UserListItem from '../components/UserListItem';
+import AppActivityIndicator from '../components/AppActivityIndicator';
+import ConnectivityError from '../components/ConnectivityError';
+import colors from '../config/colors';
 
 export default function ManagePermissionsScreen() {
   const {
@@ -25,7 +28,9 @@ export default function ManagePermissionsScreen() {
 
   console.log(users);
   return (
-    <View>
+    <View style={styles.container}>
+      <AppActivityIndicator visible={loading} />
+      {error && <ConnectivityError loadDataFunction={loadUsers} />}
       <FlatList
         data={users}
         keyExtractor={(user) => user._id}
@@ -42,4 +47,9 @@ export default function ManagePermissionsScreen() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.light,
+    minHeight: '100%',
+  },
+});
