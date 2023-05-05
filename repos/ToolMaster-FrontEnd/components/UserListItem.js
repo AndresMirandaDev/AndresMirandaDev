@@ -4,7 +4,7 @@ import AppText from './AppText';
 import colors from '../config/colors';
 import AppButton from './AppButton';
 
-export default function UserListItem({ user, style }) {
+export default function UserListItem({ user, onPress }) {
   const { name, email, isAdmin } = user;
   return (
     <View style={styles.container}>
@@ -21,6 +21,7 @@ export default function UserListItem({ user, style }) {
       <AppButton
         title={isAdmin ? 'avbryta administratör' : 'göra administratör'}
         color={isAdmin ? 'danger' : 'green'}
+        onPress={onPress}
       />
     </View>
   );

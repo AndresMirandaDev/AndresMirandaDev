@@ -17,6 +17,12 @@ export default function ManagePermissionsScreen() {
     loadUsers();
   }, []);
 
+  const handleAdminPermission = async (user) => {
+    const result = await usersApi.updatePermission(user);
+
+    if (result.ok) loadUsers();
+  };
+
   console.log(users);
   return (
     <View>
@@ -24,7 +30,12 @@ export default function ManagePermissionsScreen() {
         data={users}
         keyExtractor={(user) => user._id}
         renderItem={({ item }) => {
-          return <UserListItem user={item} />;
+          return (
+            <UserListItem
+              user={item}
+              onPress={() => handleAdminPermission(item)}
+            />
+          );
         }}
       />
     </View>
