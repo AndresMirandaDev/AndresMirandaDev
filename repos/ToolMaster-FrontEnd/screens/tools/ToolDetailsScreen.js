@@ -27,6 +27,12 @@ export default function ToolDetailsScreen({ route, navigation }) {
     const updatedTool = await toolsApi.getToolById(tool);
     setTool(updatedTool.data);
   };
+
+  const handleDelete = async (tool) => {
+    const result = await toolsApi.deleteTool(tool);
+
+    if (!result.ok) alert('Verktyg gick inte raderas.');
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -75,7 +81,11 @@ export default function ToolDetailsScreen({ route, navigation }) {
             navigation.navigate('EditToolScreen', [tool]);
           }}
         />
-        <AppButton title="Radera Verktyg" color="danger" />
+        <AppButton
+          title="Radera Verktyg"
+          color="danger"
+          onPress={() => handleDelete(tool)}
+        />
       </View>
     </Screen>
   );

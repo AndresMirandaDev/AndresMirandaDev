@@ -12,6 +12,7 @@ import AppActivityIndicator from '../../components/AppActivityIndicator';
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import ConnectivityError from '../../components/ConnectivityError';
+import ListItemSeparator from '../../components/ListItemSeparator';
 
 const tools = [
   {

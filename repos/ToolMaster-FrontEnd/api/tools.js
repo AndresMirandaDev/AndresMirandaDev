@@ -2,6 +2,14 @@ import client from './client';
 
 const endpoint = '/tools';
 
+const addTool = (tool, onUploadProgress) => {
+  return client.post(endpoint, tool, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
+
 const getTools = () => {
   return client.get(endpoint);
 };
@@ -23,8 +31,14 @@ const updateStatus = (tool) => {
   return client.put(endpoint + '/' + tool._id, updatedTool);
 };
 
+const deleteTool = (tool) => {
+  return client.delete(endpoint + '/' + tool._id);
+};
+
 export default {
+  addTool,
   getTools,
   getToolById,
   updateStatus,
+  deleteTool,
 };
