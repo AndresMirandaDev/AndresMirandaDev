@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
+import toolsApi from '../../api/tools';
 
 //dummy data
 
@@ -16,11 +18,15 @@ import AppButton from '../../components/AppButton';
 //   available: true,
 // };
 
-//should recieve the tool from the route params comming in the tool list screen onpress handler with navigation to this component
-
-//edit button should navigate to the edit screen, passing the tool in the route params, so it can take the info of the about to edit toool and display it while editing
 export default function ToolDetailsScreen({ route, navigation }) {
-  const tool = route.params;
+  const [tool, setTool] = useState(route.params);
+
+  const handleStatus = async (tool) => {
+    const result = await toolsApi.updateStatus(tool);
+
+    const updatedTool = await toolsApi.getToolById(tool);
+    setTool(updatedTool.data);
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -56,7 +62,13 @@ export default function ToolDetailsScreen({ route, navigation }) {
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Sätt som tillgängligt" color="green" />
+        {!tool.available ? (
+          <AppButton
+            title="Sätt som tillgängligt"
+            color="green"
+            onPress={() => handleStatus(tool)}
+          />
+        ) : null}
         <AppButton
           title="Regidera"
           onPress={() => {

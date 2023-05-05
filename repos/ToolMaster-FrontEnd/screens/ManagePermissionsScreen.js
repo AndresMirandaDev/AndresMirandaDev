@@ -2,7 +2,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import usersApi from '../api/users';
-import AppText from '../components/AppText';
 import UserListItem from '../components/UserListItem';
 import AppActivityIndicator from '../components/AppActivityIndicator';
 import ConnectivityError from '../components/ConnectivityError';

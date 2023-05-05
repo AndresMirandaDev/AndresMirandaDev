@@ -59,7 +59,7 @@ export default function EditToolScreen({ route }) {
           items={toolGroups}
           name="name"
           icon="select-group"
-          placeholder={tool.toolGroup.name}
+          placeholder={tool.toolGroup ? tool.toolGroup.name : 'Verktygs grupp'}
           width="60%"
         />
         <SubmitButton title="upppdatera " color="green" />
