@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 
 import Screen from '../../components/Screen';
@@ -6,6 +6,7 @@ import colors from '../../config/colors';
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import toolsApi from '../../api/tools';
+import RemovedScreen from '../RemovedScreen';
 
 //dummy data
 
@@ -20,6 +21,7 @@ import toolsApi from '../../api/tools';
 
 export default function ToolDetailsScreen({ route, navigation }) {
   const [tool, setTool] = useState(route.params);
+  const [removedVisible, setRemovedVisible] = useState(false);
 
   const handleStatus = async (tool) => {
     const result = await toolsApi.updateStatus(tool);
@@ -29,12 +31,32 @@ export default function ToolDetailsScreen({ route, navigation }) {
   };
 
   const handleDelete = async (tool) => {
+    setRemovedVisible(true);
     const result = await toolsApi.deleteTool(tool);
 
     if (!result.ok) alert('Verktyg gick inte raderas.');
   };
+
+  const handleDeleteButtonPress = (tool) => {
+    Alert.alert(
+      'Är du säkert?',
+      `${tool.name} kommer att raderas, vill du forsätta?`,
+      [
+        { text: 'Nej' },
+        {
+          text: 'Radera',
+          onPress: () => handleDelete(tool),
+          style: 'destructive',
+        },
+      ]
+    );
+  };
   return (
     <Screen style={styles.screen}>
+      <RemovedScreen
+        visible={removedVisible}
+        onDone={() => setRemovedVisible(false)}
+      />
       <View style={styles.container}>
         <AppText style={styles.title}>{tool.name}</AppText>
       </View>
@@ -84,7 +106,7 @@ export default function ToolDetailsScreen({ route, navigation }) {
         <AppButton
           title="Radera Verktyg"
           color="danger"
-          onPress={() => handleDelete(tool)}
+          onPress={() => handleDeleteButtonPress(tool)}
         />
       </View>
     </Screen>
