@@ -55,7 +55,12 @@ export default function ToolDetailsScreen({ route, navigation }) {
     <Screen style={styles.screen}>
       <RemovedScreen
         visible={removedVisible}
-        onDone={() => setRemovedVisible(false)}
+        onDone={() => {
+          setRemovedVisible(false);
+          setTimeout(() => {
+            navigation.navigate('ToolsScreen');
+          }, 1000);
+        }}
       />
       <View style={styles.container}>
         <AppText style={styles.title}>{tool.name}</AppText>

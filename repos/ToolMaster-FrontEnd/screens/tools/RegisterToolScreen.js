@@ -70,6 +70,7 @@ export default function RegisterToolScreen() {
           toolGroup: '',
         }}
         onSubmit={handleSubmit}
+        validationSchema={validationSchema}
       >
         <AppFormField icon="tools" name="name" placeholder="Namn" />
         <AppFormField
