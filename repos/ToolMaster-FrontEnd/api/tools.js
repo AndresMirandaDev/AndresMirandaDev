@@ -18,6 +18,20 @@ const getToolById = (tool) => {
   return client.get(endpoint + '/' + tool._id);
 };
 
+const updateTool = (tool, onUploadProgress) => {
+  const updatedTool = {
+    name: tool.name,
+    serieNumber: tool.serieNumber,
+    toolGroup: tool.toolGroup._id,
+  };
+
+  return client.put(endpoint + '/' + tool._id, updatedTool, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
+
 const updateStatus = (tool) => {
   const updatedTool = {
     name: tool.name,
@@ -40,5 +54,6 @@ export default {
   getTools,
   getToolById,
   updateStatus,
+  updateTool,
   deleteTool,
 };
