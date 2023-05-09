@@ -6,7 +6,7 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Yup from 'yup';
 import { GestureDetector } from 'react-native-gesture-handler';
@@ -22,14 +22,9 @@ import AppFormPicker from './forms/AppFormPicker';
 import AppPickerItem from './AppPickerItem';
 import AppButton from './AppButton';
 import FormResetButton from './forms/FormResetButton';
-
-//dummy data
-const projects = [
-  { name: 'spiralen', projectNumber: 12333, id: 1 },
-  { name: 'drakenberg', projectNumber: 11133, id: 2 },
-  { name: 'tuben', projectNumber: 67633, id: 3 },
-  { name: 'varberg', projectNumber: 44543, id: 4 },
-];
+import toolGroupsApi from '../api/toolGroups';
+import projectsApi from '../api/projects';
+import useApi from '../hooks/useApi';
 
 const status = [
   { name: 'tillgängliga verktyg', id: 9, value: true },
@@ -37,11 +32,6 @@ const status = [
   { name: 'upptagna verktyg', id: 11, value: false },
 ];
 
-const toolGroups = [
-  { name: 'asbestsanering', description: 'some description', id: 12 },
-  { name: 'bilmaskiner', description: 'some description', id: 13 },
-  { name: 'håltagning', description: 'some description', id: 14 },
-];
 //validation schema for form component
 
 const validationSchema = Yup.object().shape({
@@ -53,6 +43,23 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function FilterBar({ setData }) {
+  const {
+    data: toolGroups,
+    error: toolGropupsError,
+    request: loadToolGroups,
+    loading: loadingToolGroups,
+  } = useApi(toolGroupsApi.getToolGroups);
+  const {
+    data: projects,
+    error: projectsError,
+    request: loadProjects,
+    loading: loadingProjects,
+  } = useApi(projectsApi.getProjects);
+
+  useEffect(() => {
+    loadProjects(), loadToolGroups();
+  }, []);
+
   const [showFilter, setShowFilter] = useState(false);
   const handleSubmit = (values) => {
     console.log(values);
