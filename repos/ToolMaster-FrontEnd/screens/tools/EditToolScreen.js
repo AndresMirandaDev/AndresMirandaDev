@@ -68,7 +68,6 @@ export default function EditToolScreen({ route }) {
       setProgress(progress);
     });
 
-    console.log(result.data);
     if (!result.ok) {
       setUploadVisible(false);
       alert('Verktyg kunde inte uppdateras');

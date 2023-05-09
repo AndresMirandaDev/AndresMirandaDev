@@ -42,7 +42,7 @@ const validationSchema = Yup.object().shape({
   available: Yup.object().nullable().label('Status'),
 });
 
-export default function FilterBar({ setData }) {
+export default function FilterBar({ data: tools, setData }) {
   const {
     data: toolGroups,
     error: toolGropupsError,
@@ -61,8 +61,24 @@ export default function FilterBar({ setData }) {
   }, []);
 
   const [showFilter, setShowFilter] = useState(false);
+
   const handleSubmit = (values) => {
-    console.log(values);
+    const recievedValues = {
+      name: values.name,
+      serieNumber: values.serieNumber,
+      project: values.project ? values.project._id : values.project,
+      toolGroup: values.toolGroup ? values.toolGroup._id : values.toolGroup,
+    };
+
+    let toolToSearch = {};
+
+    for (prop in recievedValues) {
+      if (values[prop]) {
+        toolToSearch[prop] = recievedValues[prop];
+      }
+    }
+
+    //think the way of filtering depending on what is passed
   };
 
   const showFilterBar = () => {

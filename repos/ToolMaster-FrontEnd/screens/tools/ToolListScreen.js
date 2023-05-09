@@ -69,15 +69,15 @@ export default function ToolListScreen({ navigation }) {
     loadTools();
   }, []);
 
-  const [listData, setListData] = useState(tools);
+  const [filteredData, setFilteredData] = useState(null);
 
   return (
     <Screen style={styles.screen}>
       <AppActivityIndicator visible={loading} />
       {error && <ConnectivityError loadDataFunction={loadTools} />}
-      {!error && <FilterBar data={listData} setData={setListData} />}
+      {!error && <FilterBar data={tools} setData={setFilteredData} />}
       <FlatList
-        data={tools}
+        data={filteredData ? filteredData : tools}
         renderItem={({ item }) => {
           return (
             <ToolListItem

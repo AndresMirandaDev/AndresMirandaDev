@@ -22,7 +22,7 @@ const updateTool = (tool, onUploadProgress) => {
   const updatedTool = {
     name: tool.name,
     serieNumber: tool.serieNumber,
-    toolGroup: tool.toolGroup._id,
+    toolGroup: tool.toolGroup,
   };
 
   return client.put(endpoint + '/' + tool._id, updatedTool, {
