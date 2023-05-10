@@ -77,13 +77,13 @@ export default function ProjectInfoScreen({ route, navigation }) {
             title="Redigera / Uppdatera"
             color="green"
             onPress={() => {
-              navigation.navigate('EditProjectScreen', route.params[0]);
+              navigation.navigate('EditProjectScreen', route.params);
             }}
           />
           <AppButton
             title="avsända verktyg"
             onPress={() => {
-              navigation.navigate('DispatchToolScreen', route.params[0]);
+              navigation.navigate('DispatchToolScreen', route.params);
             }}
           />
         </View>

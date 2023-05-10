@@ -53,7 +53,7 @@ const deleteTool = (tool, onUploadProgress) => {
   });
 };
 
-const dispatchTool = (tool) => {
+const dispatchTool = (tool, onUploadProgress) => {
   const updatedTool = {
     name: tool.name,
     serieNumber: tool.serieNumber,
@@ -61,7 +61,11 @@ const dispatchTool = (tool) => {
     project: tool.project,
   };
 
-  return client.put(endpoint + '/' + tool._id, updatedTool);
+  return client.put(endpoint + '/' + tool._id, updatedTool, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
 };
 
 export default {

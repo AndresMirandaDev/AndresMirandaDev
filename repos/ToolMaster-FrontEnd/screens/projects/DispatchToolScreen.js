@@ -20,21 +20,27 @@ export default function DispatchToolScreen({ route }) {
     loadTools();
   }, []);
 
-  const handleSubmit = async ({ serieNumber }) => {
+  const handleSubmit = async ({ serieNumber }, { resetForm }) => {
+    setProgress(0);
+    setUploadVisible(true);
     const toolToDispatch = tools.filter((tool) => {
       return tool.serieNumber === parseInt(serieNumber);
     });
 
     toolToDispatch[0].project = project._id;
 
-    const result = await toolsApi.dispatchTool(toolToDispatch, (progress) => {
-      setProgress(progress);
-    });
+    const result = await toolsApi.dispatchTool(
+      toolToDispatch[0],
+      (progress) => {
+        setProgress(progress);
+      }
+    );
 
     if (!result.ok) {
       setUploadVisible(false);
       alert('Det gick inte att avsända vertkyg');
     }
+    resetForm();
   };
 
   return (
