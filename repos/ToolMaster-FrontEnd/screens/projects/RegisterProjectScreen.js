@@ -1,5 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
 import AppForm from '../../components/forms/AppForm';
@@ -9,18 +10,56 @@ import SubmitButton from '../../components/SubmitButton';
 import FormResetButton from '../../components/forms/FormResetButton';
 import colors from '../../config/colors';
 import AppDatePicker from '../../components/forms/AppDatePicker';
+import useApi from '../../hooks/useApi';
+import usersApi from '../../api/users';
+import projectsApi from '../../api/projects';
+import UploadScreen from '../UploadScreen';
+import AppText from '../../components/AppText';
 
-const supervisors = [
-  { name: 'Luis Bazan', id: 1 },
-  { name: 'Roberto Diaz', id: 1 },
-  { name: 'Eduardo Martinez', id: 1 },
-];
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required().label('Name'),
+  address: Yup.string().required().label('Address'),
+  projectNumber: Yup.string().required().label('Project Number'),
+  supervisor: Yup.object(),
+  startDate: Yup.date().required().label('Start date'),
+  endDate: Yup.date().required().label('End date'),
+});
 
 export default function RegisterProjectScreen() {
+  const { data: users, request: loadUsers } = useApi(usersApi.getAllUsers);
+
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const handleSubmit = async (project, { resetForm }) => {
+    setProgress(0);
+    setUploadVisible(true);
+    const result = await projectsApi.addProject(project, (progress) => {
+      setProgress(progress);
+    });
+
+    console.log(result);
+    if (!result.ok) {
+      setUploadVisible(false);
+      alert('Det gick inte att registrera nya projektet.');
+    }
+    resetForm();
+  };
+
   return (
     <ScrollView keyboardShouldPersistTaps="never" scrollEnabled={false}>
       <Screen style={styles.screen}>
+        <UploadScreen
+          visible={uploadVisible}
+          progress={progress}
+          onDone={() => setUploadVisible(false)}
+        />
         <View style={styles.container}>
+          <AppText style={styles.text}>Registrera ny Projekt</AppText>
           <AppForm
             initialValues={{
               name: '',
@@ -30,6 +69,8 @@ export default function RegisterProjectScreen() {
               startDate: '',
               endDate: '',
             }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
             <AppFormField
               icon="alphabetical-variant"
@@ -41,8 +82,13 @@ export default function RegisterProjectScreen() {
               name="projectNumber"
               placeholder="Projekt Nummer"
             />
+            <AppFormField
+              icon="map-marker"
+              name="address"
+              placeholder="Address"
+            />
             <AppFormPicker
-              items={supervisors}
+              items={users}
               placeholder="Arbetsledare"
               name="supervisor"
             />
@@ -72,5 +118,11 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white,
+  },
+  text: {
+    color: colors.primary,
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 23,
   },
 });

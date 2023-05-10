@@ -71,7 +71,7 @@ export default function EditProjectScreen({ route }) {
         setProgress(progress);
       }
     );
-    console.log(result.data);
+
     if (!result.ok) {
       setUploadVisible(false);
       alert('Projekt gick inte att uppdateras');

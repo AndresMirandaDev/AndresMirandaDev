@@ -13,10 +13,6 @@ export default function AppDatePicker({ name, placeholder }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    console.log(currentDate);
-  }, []);
-
   const setDate = (date) => {
     setFieldValue(name, date);
     setModalVisible(false);
@@ -28,7 +24,7 @@ export default function AppDatePicker({ name, placeholder }) {
         <AppText>{placeholder}</AppText>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <AppText style={styles.date}>
-            {values[name] ? values[name] : 'Select Date'}
+            {values[name] ? values[name].toLocaleDateString() : 'Select Date'}
           </AppText>
         </TouchableOpacity>
 
