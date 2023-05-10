@@ -23,7 +23,15 @@ const updatePermission = (user) => {
   return client.put(endpoint + '/' + user._id, updatedUser);
 };
 
+const addUser = (user, onUploadProgress) => {
+  return client.post(endpoint, user, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
 export default {
+  addUser,
   getAllUsers,
   updatePermission,
 };

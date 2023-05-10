@@ -4,6 +4,7 @@ import AccountScreen from '../screens/AccountScreen';
 import EditUserInfoScreen from '../screens/EditUserInfoScreen';
 import colors from '../config/colors';
 import ManagePermissionsScreen from '../screens/ManagePermissionsScreen';
+import RegisterUserScreen from '../screens/RegisterUserScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,11 @@ const AccountNavigator = () => {
         name="ManagePermissionsScreen"
         component={ManagePermissionsScreen}
         options={{ headerTitle: 'Regidera behörigheter' }}
+      />
+      <Stack.Screen
+        name="RegisterUserScreen"
+        component={RegisterUserScreen}
+        options={{ headerTitle: 'Registrera ny användare' }}
       />
     </Stack.Navigator>
   );

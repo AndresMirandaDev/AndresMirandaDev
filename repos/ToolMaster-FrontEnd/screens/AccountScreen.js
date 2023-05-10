@@ -48,6 +48,12 @@ export default function AccountScreen({ navigation }) {
               onPress={() => navigation.navigate('ManagePermissionsScreen')}
             />
           )}
+          {user.isAdmin && (
+            <AppButton
+              title="registrera ny användare"
+              onPress={() => navigation.navigate('RegisterUserScreen')}
+            />
+          )}
           <AppButton title="logga ut" onPress={logOut} color="danger" />
         </View>
       </View>
