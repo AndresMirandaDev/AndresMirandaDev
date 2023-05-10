@@ -57,13 +57,9 @@ export default function SearchProjectScreen({ navigation }) {
   }, []);
 
   const handleSubmit = ({ project }) => {
-    const result = projects.filter((p) => {
-      return p.id === project.id;
-    });
-
-    if (result.length === 0) alert('Projekt hittades inte');
-
-    navigation.navigate('ProjectInfoScreen', result);
+    console.log(project);
+    if (!project) return alert('Projekt hittades inte');
+    navigation.navigate('ProjectInfoScreen', project);
   };
 
   return (

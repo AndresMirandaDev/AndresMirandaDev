@@ -45,8 +45,23 @@ const updateStatus = (tool) => {
   return client.put(endpoint + '/' + tool._id, updatedTool);
 };
 
-const deleteTool = (tool) => {
-  return client.delete(endpoint + '/' + tool._id);
+const deleteTool = (tool, onUploadProgress) => {
+  return client.delete(endpoint + '/' + tool._id, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
+
+const dispatchTool = (tool) => {
+  const updatedTool = {
+    name: tool.name,
+    serieNumber: tool.serieNumber,
+    toolGroup: tool.toolGroup._id,
+    project: tool.project,
+  };
+
+  return client.put(endpoint + '/' + tool._id, updatedTool);
 };
 
 export default {
@@ -56,4 +71,5 @@ export default {
   updateStatus,
   updateTool,
   deleteTool,
+  dispatchTool,
 };

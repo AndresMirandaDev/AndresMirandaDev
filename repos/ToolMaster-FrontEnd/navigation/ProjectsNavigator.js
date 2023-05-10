@@ -6,6 +6,7 @@ import SearchProjectScreen from '../screens/projects/SearchProjectScreen';
 import RegisterProjectScreen from '../screens/projects/RegisterProjectScreen';
 import ProjectInfoScreen from '../screens/projects/ProjectInfoScreen';
 import EditProjectScreen from '../screens/projects/EditProjectScreen';
+import DispatchToolScreen from '../screens/projects/DispatchToolScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const ProjectsNavigator = () => {
       />
       <Stack.Screen name="ProjectInfoScreen" component={ProjectInfoScreen} />
       <Stack.Screen name="EditProjectScreen" component={EditProjectScreen} />
+      <Stack.Screen name="DispatchToolScreen" component={DispatchToolScreen} />
     </Stack.Navigator>
   );
 };

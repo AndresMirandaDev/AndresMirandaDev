@@ -44,7 +44,7 @@ export default function ProjectInfoScreen({ route, navigation }) {
     supervisor,
     startDate,
     endDate,
-  } = route.params[0];
+  } = route.params;
 
   return (
     <Screen style={styles.screen}>
@@ -78,6 +78,12 @@ export default function ProjectInfoScreen({ route, navigation }) {
             color="green"
             onPress={() => {
               navigation.navigate('EditProjectScreen', route.params[0]);
+            }}
+          />
+          <AppButton
+            title="avsända verktyg"
+            onPress={() => {
+              navigation.navigate('DispatchToolScreen', route.params[0]);
             }}
           />
         </View>
