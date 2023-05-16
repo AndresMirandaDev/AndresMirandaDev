@@ -12,6 +12,7 @@ const toolsActions = [
     path: 'RegisterRentedTool',
     icon: 'plus',
   },
+  { title: 'Återlämnad verktyg', path: 'ReturnsScreen', icon: 'archive-check' },
 ];
 
 export default function RentedToolsScreen({ navigation }) {
