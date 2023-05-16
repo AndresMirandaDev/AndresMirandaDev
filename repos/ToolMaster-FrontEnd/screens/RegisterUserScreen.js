@@ -60,8 +60,9 @@ export default function RegisterUserScreen() {
         <AppFormField name="email" icon="email" placeholder="Email" />
         <AppFormField name="password" icon="lock" placeholder="Lösenord" />
         <AppFormField name="phone" icon="phone" placeholder="Mobil Nummer" />
-
-        <SubmitButton title="registrera" />
+        <View style={styles.button}>
+          <SubmitButton title="registrera" color="green" />
+        </View>
       </AppForm>
     </Screen>
   );
@@ -71,5 +72,8 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
+  },
+  button: {
+    padding: 10,
   },
 });

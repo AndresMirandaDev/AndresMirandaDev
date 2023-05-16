@@ -5,6 +5,11 @@ import AppText from '../../components/AppText';
 
 import RentedToolListItem from '../../components/RentedToolListItem';
 import colors from '../../config/colors';
+import rentedToolsApi from '../../api/rented';
+import useApi from '../../hooks/useApi';
+import AppActivityIndicator from '../../components/AppActivityIndicator';
+import ConnectivityError from '../../components/ConnectivityError';
+import AppButton from '../../components/AppButton';
 
 const rentedTools = [
   {
@@ -58,34 +63,25 @@ const rentedTools = [
 ];
 
 export default function RentedToolsListScreen({ navigation }) {
-  const [data, setData] = useState(rentedTools);
-  const [showData, setShowData] = useState(rentedTools);
+  const {
+    data: rentedTools,
+    request: loadRentedTools,
+    error,
+    loading,
+    limitedData,
+    loadMore,
+  } = useApi(rentedToolsApi.getRentedTools);
 
-  // const getData = async () => {
-  //   fetch('https://jsonplaceholder.typicode.com/todos/')
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       setData(json);
-  //       setShowData(json.splice(0, 10));
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const fetchData = getData();
-  //   setData(fetchData);
-  // }, []);
-
-  // const loadMore = () => {
-  //   const last = showData.length - 1;
-  //   const newData = data.splice(showData[last], 10);
-
-  //   setShowData([...showData, ...newData]);
-  // };
+  useEffect(() => {
+    loadRentedTools();
+  }, []);
 
   return (
     <Screen style={styles.container}>
+      <AppActivityIndicator visible={loading} />
+      {error && <ConnectivityError loadDataFunction={loadRentedTools} />}
       <FlatList
-        data={rentedTools}
+        data={limitedData}
         renderItem={({ item }) => {
           return (
             <RentedToolListItem
@@ -96,8 +92,8 @@ export default function RentedToolsListScreen({ navigation }) {
             />
           ); //pass on press to edit the rented tool and change its status
         }}
-        keyExtractor={(item) => item.id}
-        // onTouchEnd={loadMore}
+        keyExtractor={(item) => item._id}
+        onScrollEndDrag={loadMore}
       />
     </Screen>
   );
@@ -107,5 +103,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    padding: 10,
   },
 });

@@ -4,10 +4,13 @@ export default useApi = (apiFunc) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [limitedData, setLimitedData] = useState([]);
 
   const request = async (...args) => {
+    let data;
     setLoading(true);
     const response = await apiFunc(...args);
+    data = [...response.data];
     setLoading(false);
 
     if (!response.ok) {
@@ -17,7 +20,17 @@ export default useApi = (apiFunc) => {
 
     setError(false);
     setData(response.data);
+    setLimitedData(data.slice(0, 5));
     return response;
   };
-  return { data, error, loading, request };
+
+  const loadMore = () => {
+    setLoading(true);
+    const last = limitedData.length - 1;
+    const newData = data.slice(last + 1, last + 6);
+
+    setLimitedData([...limitedData, ...newData]);
+    setLoading(false);
+  };
+  return { data, error, loading, request, limitedData, loadMore };
 };

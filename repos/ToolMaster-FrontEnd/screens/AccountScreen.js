@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import Icon from '../components/Icon';
 
@@ -13,7 +13,7 @@ export default function AccountScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.infoContainer}>
           <View style={styles.icon}>
             <Icon
@@ -39,7 +39,7 @@ export default function AccountScreen({ navigation }) {
         <View style={styles.buttonContainer}>
           <AppButton
             title="regidera min information"
-            color="primary"
+            color="green"
             onPress={() => navigation.navigate('EditUserInfoScreen', user)}
           />
           {user.isAdmin && (
@@ -56,7 +56,7 @@ export default function AccountScreen({ navigation }) {
           )}
           <AppButton title="logga ut" onPress={logOut} color="danger" />
         </View>
-      </View>
+      </ScrollView>
     </Screen>
   );
 }

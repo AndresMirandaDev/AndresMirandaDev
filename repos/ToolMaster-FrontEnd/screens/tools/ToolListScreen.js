@@ -63,6 +63,8 @@ export default function ToolListScreen({ navigation }) {
     error,
     loading,
     request: loadTools,
+    limitedData,
+    loadMore,
   } = useApi(toolsApi.getTools);
 
   useEffect(() => {
@@ -77,7 +79,7 @@ export default function ToolListScreen({ navigation }) {
       {error && <ConnectivityError loadDataFunction={loadTools} />}
       {!error && <FilterBar data={tools} setData={setFilteredData} />}
       <FlatList
-        data={filteredData ? filteredData : tools}
+        data={filteredData ? filteredData : limitedData}
         renderItem={({ item }) => {
           return (
             <ToolListItem
@@ -88,6 +90,7 @@ export default function ToolListScreen({ navigation }) {
             />
           );
         }}
+        onScrollEndDrag={loadMore}
       />
     </Screen>
   );
