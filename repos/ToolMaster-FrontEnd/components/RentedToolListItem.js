@@ -4,15 +4,19 @@ import AppText from './AppText';
 import colors from '../config/colors';
 
 export default function RentedToolListItem({ tool, onPress }) {
-  const { name, rentedTo, rentStart, rentEnd } = tool;
+  const { name, rentedTo, rentStart } = tool;
 
+  //converting the date string to a date object so its possible to display locale date string
+  const startDate = new Date(rentStart);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.card}>
           <AppText style={styles.toolName}>{name}</AppText>
           <AppText style={styles.info}>Uthyrnings företag : {rentedTo}</AppText>
-          <AppText style={styles.info}>Inhyrd frân : {rentStart}</AppText>
+          <AppText style={styles.info}>
+            Inhyrd frân den: {startDate.toLocaleDateString()}
+          </AppText>
         </View>
       </View>
     </TouchableWithoutFeedback>

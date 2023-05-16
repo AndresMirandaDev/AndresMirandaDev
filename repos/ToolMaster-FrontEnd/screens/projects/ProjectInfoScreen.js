@@ -46,6 +46,9 @@ export default function ProjectInfoScreen({ route, navigation }) {
     endDate,
   } = route.params;
 
+  const projectStartDate = new Date(startDate);
+  const projectEndDate = new Date(endDate);
+
   return (
     <Screen style={styles.screen}>
       <ScrollView>
@@ -66,11 +69,15 @@ export default function ProjectInfoScreen({ route, navigation }) {
         )}
         <View style={styles.infoContainer}>
           <AppText style={styles.label}>start datum </AppText>
-          <AppText style={styles.info}>{startDate}</AppText>
+          <AppText style={styles.info}>
+            {projectStartDate.toLocaleDateString()}
+          </AppText>
         </View>
         <View style={styles.infoContainer}>
           <AppText style={styles.label}>slut datum </AppText>
-          <AppText style={styles.info}>{endDate}</AppText>
+          <AppText style={styles.info}>
+            {projectEndDate.toLocaleDateString()}
+          </AppText>
         </View>
         <View style={styles.buttonContainer}>
           <AppButton

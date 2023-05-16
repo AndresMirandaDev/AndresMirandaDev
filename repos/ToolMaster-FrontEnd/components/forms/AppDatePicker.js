@@ -14,7 +14,7 @@ export default function AppDatePicker({ name, placeholder }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const setDate = (date) => {
-    setFieldValue(name, date);
+    setFieldValue(name, new Date(date));
     setModalVisible(false);
   };
 

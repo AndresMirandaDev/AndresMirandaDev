@@ -57,7 +57,6 @@ export default function SearchProjectScreen({ navigation }) {
   }, []);
 
   const handleSubmit = ({ project }) => {
-    console.log(project);
     if (!project) return alert('Projekt hittades inte');
     navigation.navigate('ProjectInfoScreen', project);
   };
