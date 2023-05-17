@@ -2,6 +2,10 @@ import client from './client';
 
 const endpoint = '/returns';
 
+const getReturns = () => {
+  return client.get(endpoint);
+};
+
 const addReturn = (newReturn, onUploadProgress) => {
   return client.post(endpoint, newReturn, {
     onUploadProgress: (progress) => {
@@ -12,4 +16,5 @@ const addReturn = (newReturn, onUploadProgress) => {
 
 export default {
   addReturn,
+  getReturns,
 };

@@ -10,7 +10,6 @@ export default useApi = (apiFunc) => {
     let data;
     setLoading(true);
     const response = await apiFunc(...args);
-    data = [...response.data];
     setLoading(false);
 
     if (!response.ok) {
@@ -18,6 +17,7 @@ export default useApi = (apiFunc) => {
       return response;
     }
 
+    data = [...response.data];
     setError(false);
     setData(response.data);
     setLimitedData(data.slice(0, 5));
