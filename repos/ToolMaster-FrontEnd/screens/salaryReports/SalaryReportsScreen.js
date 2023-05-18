@@ -1,29 +1,23 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import React from 'react';
 import Screen from '../../components/Screen';
 import NavButton from '../../components/NavButton';
 import colors from '../../config/colors';
 import ListItemSeparator from '../../components/ListItemSeparator';
 
-const toolsActions = [
-  { title: 'Visa alla', path: 'RentedToolsListScreen', icon: 'magnify' },
+const menuButtons = [
   {
-    title: 'Registrera hyrt verktyg',
-    path: 'RegisterRentedTool',
-    icon: 'plus',
-  },
-  {
-    title: 'Returnerade verktyg',
-    path: 'ReturnsScreen',
-    icon: 'archive-check',
+    title: 'Visa Lön rapporter',
+    path: 'SearchSalaryReportScreen',
+    icon: 'magnify',
   },
 ];
 
-export default function RentedToolsScreen({ navigation }) {
+export default function SalaryReportsScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <FlatList
-        data={toolsActions}
+        data={menuButtons}
         keyExtractor={(item) => item.title}
         numColumns={1}
         renderItem={({ item }) => {
@@ -31,9 +25,9 @@ export default function RentedToolsScreen({ navigation }) {
             <NavButton
               icon={item.icon}
               title={item.title}
-              onPress={() => navigation.navigate(item.path)}
+              onPress={() => navigation.navigate('SearchSalaryReportScreen')}
             />
-          );
+          ); //add onpress when the screens are made
         }}
         ItemSeparatorComponent={ListItemSeparator}
       />

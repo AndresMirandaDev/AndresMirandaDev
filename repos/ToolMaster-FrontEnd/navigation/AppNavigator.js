@@ -11,6 +11,7 @@ import RentedToolsNavigator from './RentedNavigator';
 import AccountScreen from '../screens/AccountScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AccountNavigator from './AccountNavigator';
+import SalaryReportsNavigator from './SalaryReportsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -65,6 +66,22 @@ export default function AppNavigator() {
             return (
               <MaterialCommunityIcons
                 name="calendar-alert"
+                size={size}
+                color={color}
+              />
+            );
+          },
+          tabBarActiveTintColor: colors.primary,
+        }}
+      />
+      <Tab.Screen
+        name="Lõn rapport"
+        component={SalaryReportsNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons
+                name="file-sign"
                 size={size}
                 color={color}
               />
