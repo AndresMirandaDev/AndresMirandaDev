@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import usersApi from '../../api/users';
@@ -10,8 +10,9 @@ import AppForm from '../../components/forms/AppForm';
 import AppFormPicker from '../../components/forms/AppFormPicker';
 import SubmitButton from '../../components/SubmitButton';
 import AppText from '../../components/AppText';
-import returnsApi from '../../api/returns';
+import salaryreportsApi from '../../api/salaryreports';
 import AppButton from '../../components/AppButton';
+import AppActivityIndicator from '../../components/AppActivityIndicator';
 
 const months = {
   1: 'Januari',
@@ -30,19 +31,27 @@ const months = {
 
 export default function SearchSalaryReportScreen() {
   const { data: users, request: loadUsers } = useApi(usersApi.getAllUsers);
-  const { data: returns, request: loadReturns } = useApi(returnsApi.getReturns);
+  const {
+    data: reports,
+    request: loadReports,
+    loading,
+  } = useApi(salaryreportsApi.getReports);
   const date = new Date();
+  const [sentReports, setSentReports] = useState([]);
 
-  const getSentReturns = () => {
-    const sentReturns = returns.filter((r) => {
-      return r.date.get;
+  const getSentSalaryReports = () => {
+    salaryreportsApi.getReports().then((json) => {
+      const sent = json.data.filter((r) => {
+        return new Date(r.date).getMonth() === date.getMonth();
+      });
+
+      setSentReports(sent);
     });
-    console.log(sentReturns);
   };
 
   useEffect(() => {
     loadUsers();
-    loadReturns();
+    getSentSalaryReports();
   }, []);
 
   return (
@@ -62,7 +71,8 @@ export default function SearchSalaryReportScreen() {
         </AppForm>
       </View>
       <View style={styles.info}>
-        <AppText style={styles.returnsNumber}>{returns.length}</AppText>
+        <AppActivityIndicator visible={loading} />
+        <AppText style={styles.returnsNumber}>{sentReports.length}</AppText>
         <AppText style={styles.text}>
           Inckickade Rapporter i {months[date.getMonth() + 1]}
         </AppText>
