@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Yup from 'yup';
 
 import usersApi from '../../api/users';
 import useApi from '../../hooks/useApi';
@@ -29,31 +30,47 @@ const months = {
   12: 'December',
 };
 
-export default function SearchSalaryReportScreen() {
+const validationSchema = Yup.object().shape({
+  user: Yup.object().required(),
+});
+export default function SearchSalaryReportScreen({ navigation }) {
   const { data: users, request: loadUsers } = useApi(usersApi.getAllUsers);
-  const {
-    data: reports,
-    request: loadReports,
-    loading,
-  } = useApi(salaryreportsApi.getReports);
+  const { data: reports, request: loadReports } = useApi(
+    salaryreportsApi.getReports
+  );
   const date = new Date();
   const [sentReports, setSentReports] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getSentSalaryReports = () => {
+    setLoading(true);
     salaryreportsApi.getReports().then((json) => {
       const sent = json.data.filter((r) => {
         return new Date(r.date).getMonth() === date.getMonth();
       });
 
       setSentReports(sent);
+      setLoading(false);
     });
   };
 
   useEffect(() => {
     loadUsers();
     getSentSalaryReports();
+    loadReports();
   }, []);
 
+  const handleSubmit = ({ user }) => {
+    const reportsToShow = reports.filter((r) => {
+      return r.worker._id === user._id;
+    });
+
+    console.log(reportsToShow);
+    navigation.navigate('UserSalaryReportsScreen', {
+      user: user,
+      reports: reportsToShow,
+    });
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.formContainer}>
@@ -61,8 +78,10 @@ export default function SearchSalaryReportScreen() {
           initialValues={{
             user: '',
           }}
+          onSubmit={handleSubmit}
         >
           <AppFormPicker
+            name="user"
             items={users}
             icon="text-account"
             placeholder="Välj jobbare för att visa rapporter"

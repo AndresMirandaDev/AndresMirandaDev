@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SalaryReportsScreen from '../screens/salaryReports/SalaryReportsScreen';
 import SearchSalaryReportScreen from '../screens/salaryReports/SearchSalaryReportScreen';
+import UserSalaryReportsScreen from '../screens/salaryReports/UserSalaryReportsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,10 @@ const SalaryReportsNavigator = () => {
       <Stack.Screen
         name="SearchSalaryReportScreen"
         component={SearchSalaryReportScreen}
+      />
+      <Stack.Screen
+        name="UserSalaryReportsScreen"
+        component={UserSalaryReportsScreen}
       />
     </Stack.Navigator>
   );
