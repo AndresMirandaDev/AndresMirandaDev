@@ -7,7 +7,11 @@ import Screen from '../Screen';
 import colors from '../../config/colors';
 import AppText from '../AppText';
 
-export default function AppDatePicker({ name, placeholder }) {
+export default function AppDatePicker({
+  name,
+  placeholder = 'Select Date',
+  mode = 'date',
+}) {
   const { setFieldValue, values } = useFormikContext();
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,10 +25,9 @@ export default function AppDatePicker({ name, placeholder }) {
   return (
     <Screen>
       <View style={styles.container}>
-        <AppText>{placeholder}</AppText>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <AppText style={styles.date}>
-            {values[name] ? values[name].toLocaleDateString() : 'Select Date'}
+            {values[name] ? values[name].toLocaleDateString() : placeholder}
           </AppText>
         </TouchableOpacity>
 

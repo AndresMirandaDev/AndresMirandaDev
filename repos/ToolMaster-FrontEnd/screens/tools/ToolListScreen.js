@@ -78,20 +78,22 @@ export default function ToolListScreen({ navigation }) {
       <AppActivityIndicator visible={loading} />
       {error && <ConnectivityError loadDataFunction={loadTools} />}
       {!error && <FilterBar data={tools} setData={setFilteredData} />}
-      <FlatList
-        data={filteredData ? filteredData : limitedData}
-        renderItem={({ item }) => {
-          return (
-            <ToolListItem
-              tool={item}
-              onPress={() => {
-                navigation.navigate('ToolDetailsScreen', item);
-              }}
-            />
-          );
-        }}
-        onScrollEndDrag={loadMore}
-      />
+      <View style={styles.listContainer}>
+        <FlatList
+          data={filteredData ? filteredData : limitedData}
+          renderItem={({ item }) => {
+            return (
+              <ToolListItem
+                tool={item}
+                onPress={() => {
+                  navigation.navigate('ToolDetailsScreen', item);
+                }}
+              />
+            );
+          }}
+          onScrollEndDrag={loadMore}
+        />
+      </View>
     </Screen>
   );
 }
@@ -100,5 +102,9 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
+  },
+  listContainer: {
+    flex: 1,
+    paddingBottom: 50,
   },
 });

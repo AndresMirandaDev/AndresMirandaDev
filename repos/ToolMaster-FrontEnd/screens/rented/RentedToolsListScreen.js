@@ -80,21 +80,24 @@ export default function RentedToolsListScreen({ navigation }) {
     <Screen style={styles.container}>
       <AppActivityIndicator visible={loading} />
       {error && <ConnectivityError loadDataFunction={loadRentedTools} />}
-      <FlatList
-        data={limitedData}
-        renderItem={({ item }) => {
-          return (
-            <RentedToolListItem
-              tool={item}
-              onPress={() =>
-                navigation.navigate('RentedToolDetailsScreen', item)
-              }
-            />
-          ); //pass on press to edit the rented tool and change its status
-        }}
-        keyExtractor={(item) => item._id}
-        onScrollEndDrag={loadMore}
-      />
+
+      <View style={styles.listContainer}>
+        <FlatList
+          data={limitedData}
+          renderItem={({ item }) => {
+            return (
+              <RentedToolListItem
+                tool={item}
+                onPress={() =>
+                  navigation.navigate('RentedToolDetailsScreen', item)
+                }
+              />
+            );
+          }}
+          keyExtractor={(item) => item._id}
+          onScrollEndDrag={loadMore}
+        />
+      </View>
     </Screen>
   );
 }
@@ -104,5 +107,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     padding: 10,
+  },
+  listContainer: {
+    flex: 1,
+    paddingBottom: 50,
   },
 });

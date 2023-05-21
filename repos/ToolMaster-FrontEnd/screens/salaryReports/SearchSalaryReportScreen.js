@@ -65,7 +65,9 @@ export default function SearchSalaryReportScreen({ navigation }) {
       return r.worker._id === user._id;
     });
 
-    console.log(reportsToShow);
+    if (!user) {
+      return alert('Ingen jobbare har valts');
+    }
     navigation.navigate('UserSalaryReportsScreen', {
       user: user,
       reports: reportsToShow,

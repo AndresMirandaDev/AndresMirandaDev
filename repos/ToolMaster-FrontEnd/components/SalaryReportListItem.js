@@ -47,7 +47,7 @@ export default function SalaryReportListItem({ report }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    margin: 5,
+
     padding: 30,
   },
   icon: {
