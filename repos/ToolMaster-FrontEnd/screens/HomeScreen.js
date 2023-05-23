@@ -7,6 +7,7 @@ import AppText from '../components/AppText';
 import HomeInfoList from '../components/HomeInfoList';
 import useAuth from '../auth/useAuth';
 import AuthContext from '../auth/context';
+import useWeekDay from '../hooks/useWeekDay';
 
 // const user = {
 //   id: 1,

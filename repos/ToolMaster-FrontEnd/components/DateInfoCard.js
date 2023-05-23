@@ -5,14 +5,16 @@ import AppText from './AppText';
 import colors from '../config/colors';
 import { Calendar } from 'react-native-calendars';
 import useWeek from '../hooks/useWeek';
+import useWeekDay from '../hooks/useWeekDay';
 
 export default function DateInfoCard() {
   const date = new Date();
   const week = useWeek();
+  const weekDay = useWeekDay(date);
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>Idag {date.toLocaleDateString()}</AppText>
+      <AppText style={styles.text}>Idag {weekDay}</AppText>
       <AppText>Vecka {week}</AppText>
       <Calendar showWeekNumbers={true} />
     </View>

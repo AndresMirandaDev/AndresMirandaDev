@@ -19,13 +19,13 @@ export default function ReportListFooter({ report }) {
   return (
     <View style={styles.container}>
       <View style={styles.tableHead}>
-        <View>
+        <View style={styles.headingTextContainer}>
           <AppText style={styles.headingText}>Arbetsplatser</AppText>
         </View>
-        <View>
+        <View style={styles.headingTextContainer}>
           <AppText style={styles.headingText}>Summa timmar</AppText>
         </View>
-        <View>
+        <View style={styles.headingTextContainer}>
           <AppText style={styles.headingText}>Projekt nr</AppText>
         </View>
       </View>
@@ -70,11 +70,16 @@ export default function ReportListFooter({ report }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
   tableHead: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     padding: 8,
     backgroundColor: colors.primaryOpacity,
+  },
+  headingTextContainer: {
+    width: 130,
   },
   headingText: {
     color: colors.white,
