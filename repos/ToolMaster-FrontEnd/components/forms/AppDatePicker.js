@@ -23,7 +23,7 @@ export default function AppDatePicker({
   };
 
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <AppText style={styles.date}>
@@ -50,12 +50,15 @@ export default function AppDatePicker({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
+  screen: {
     backgroundColor: colors.white,
   },
+  container: {
+    padding: 10,
+    backgroundColor: colors.light,
+    borderRadius: 20,
+  },
   date: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+    color: colors.medium,
   },
 });

@@ -43,7 +43,7 @@ export default function ReportListFooter({ report }) {
             });
           });
           return (
-            <View key={place.index} style={styles.infoContainer}>
+            <View key={index} style={styles.infoContainer}>
               <View>
                 <AppText style={styles.infoText}>{place}</AppText>
               </View>

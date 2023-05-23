@@ -7,9 +7,14 @@ import ListItemSeparator from '../../components/ListItemSeparator';
 
 const menuButtons = [
   {
-    title: 'Visa Lön rapporter',
+    title: 'Visa lön rapporter',
     path: 'SearchSalaryReportScreen',
     icon: 'magnify',
+  },
+  {
+    title: 'Skicka lön rapport',
+    path: 'NewSalaryReport',
+    icon: 'file-send-outline',
   },
 ];
 
@@ -25,7 +30,7 @@ export default function SalaryReportsScreen({ navigation }) {
             <NavButton
               icon={item.icon}
               title={item.title}
-              onPress={() => navigation.navigate('SearchSalaryReportScreen')}
+              onPress={() => navigation.navigate(item.path)}
             />
           ); //add onpress when the screens are made
         }}
