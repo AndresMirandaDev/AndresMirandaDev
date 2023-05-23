@@ -50,7 +50,6 @@ export default function WorkDayListItem({ data: workDay }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-
     padding: 5,
     backgroundColor: colors.white,
   },

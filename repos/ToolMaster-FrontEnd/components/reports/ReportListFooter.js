@@ -9,6 +9,13 @@ export default function ReportListFooter({ report }) {
     .flat()
     .filter((value, index, self) => self.indexOf(value) === index);
 
+  const reportTotalHours = report.workDays.reduce((accumulator, workDay) => {
+    const dayTotalHours = workDay.places.reduce((dayAccumulator, place) => {
+      return dayAccumulator + place.hours;
+    }, 0);
+
+    return accumulator + dayTotalHours;
+  }, 0);
   return (
     <View style={styles.container}>
       <View style={styles.tableHead}>
@@ -50,6 +57,14 @@ export default function ReportListFooter({ report }) {
           );
         })}
       </View>
+      <View style={styles.reportFooter}>
+        <View>
+          <AppText style={styles.totalHoursText}>Summa timmar</AppText>
+        </View>
+        <View>
+          <AppText style={styles.totalHours}>{reportTotalHours}</AppText>
+        </View>
+      </View>
     </View>
   );
 }
@@ -77,5 +92,23 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     textAlign: 'center',
     width: 120,
+  },
+  reportFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: colors.primaryOpacity,
+    marginTop: 10,
+  },
+  totalHoursText: {
+    fontSize: 35,
+    color: colors.light,
+    fontWeight: 400,
+    fontStyle: 'italic',
+  },
+  totalHours: {
+    fontSize: 35,
+    color: colors.light,
+    fontStyle: 'italic',
+    fontWeight: 500,
   },
 });

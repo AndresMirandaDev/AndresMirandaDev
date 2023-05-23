@@ -6,16 +6,16 @@ import colors from '../../config/colors';
 export default function ReportListHeader() {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.infoContainer}>
         <AppText style={styles.text}>Datum</AppText>
       </View>
-      <View>
+      <View style={styles.infoContainer}>
         <AppText style={styles.text}>Veckodag</AppText>
       </View>
-      <View>
+      <View style={styles.infoContainer}>
         <AppText style={styles.text}>Arbetsplats</AppText>
       </View>
-      <View>
+      <View style={styles.infoContainer}>
         <AppText style={styles.text}>Timmar</AppText>
       </View>
     </View>
@@ -25,9 +25,11 @@ export default function ReportListHeader() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     padding: 5,
     backgroundColor: colors.primaryOpacity,
+  },
+  infoContainer: {
+    width: 105,
   },
   text: {
     color: colors.light,
