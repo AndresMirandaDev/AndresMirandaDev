@@ -7,6 +7,7 @@ import useMonth from '../../hooks/useMonth';
 import WorkDayListItem from '../../components/reports/WorkDayListItem';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import ReportListHeader from '../../components/reports/ReportListHeader';
+import ReportListFooter from '../../components/reports/ReportListFooter';
 
 export default function ReportDetailsScreen({ route }) {
   const report = route.params;
@@ -30,6 +31,7 @@ export default function ReportDetailsScreen({ route }) {
             }}
             ItemSeparatorComponent={ListItemSeparator}
             ListHeaderComponent={ReportListHeader}
+            ListFooterComponent={<ReportListFooter report={report} />}
           />
         </View>
       </View>
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     padding: 5,
+    margin: 10,
   },
   headingText: {
     textAlign: 'center',
