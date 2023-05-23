@@ -88,4 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 5,
   },
+  screen: {
+    backgroundColor: colors.primaryOpacity,
+  },
 });

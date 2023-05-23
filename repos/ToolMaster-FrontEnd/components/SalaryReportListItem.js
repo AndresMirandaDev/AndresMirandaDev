@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -20,27 +20,29 @@ const months = {
   12: 'December',
 };
 
-export default function SalaryReportListItem({ report }) {
+export default function SalaryReportListItem({ report, onPress }) {
   const { date, workdDays } = report;
 
   const showDate = new Date(date);
   return (
-    <View style={styles.container}>
-      <View style={styles.info}>
-        <View style={styles.icon}>
-          <MaterialCommunityIcons
-            name="file-document-outline"
-            size={30}
-            color={colors.primaryOpacity}
-          />
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.info}>
+          <View style={styles.icon}>
+            <MaterialCommunityIcons
+              name="file-document-outline"
+              size={30}
+              color={colors.primaryOpacity}
+            />
+          </View>
+          <AppText style={styles.label}>Lön rapport</AppText>
+          <AppText style={styles.month}>
+            {months[showDate.getMonth() + 1]}
+          </AppText>
         </View>
-        <AppText style={styles.label}>Lön rapport</AppText>
-        <AppText style={styles.month}>
-          {months[showDate.getMonth() + 1]}
-        </AppText>
+        <View></View>
       </View>
-      <View></View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

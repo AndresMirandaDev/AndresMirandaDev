@@ -11,7 +11,7 @@ import ListItemSeparator from '../../components/ListItemSeparator';
 import AppDatePicker from '../../components/forms/AppDatePicker';
 import AppForm from '../../components/forms/AppForm';
 
-export default function UserSalaryReportsScreen({ route }) {
+export default function UserSalaryReportsScreen({ route, navigation }) {
   const user = route.params.user;
   const reports = route.params.reports;
 
@@ -32,7 +32,12 @@ export default function UserSalaryReportsScreen({ route }) {
           data={reports}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
-            return <SalaryReportListItem report={item} />;
+            return (
+              <SalaryReportListItem
+                report={item}
+                onPress={() => navigation.navigate('ReportDetailsScreen', item)}
+              />
+            );
           }}
           ItemSeparatorComponent={ListItemSeparator}
         />
@@ -43,7 +48,7 @@ export default function UserSalaryReportsScreen({ route }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.primaryOpacity,
     minHeight: '100%',
   },
   headerContainer: {

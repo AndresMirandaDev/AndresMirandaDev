@@ -38,7 +38,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
   const { data: reports, request: loadReports } = useApi(
     salaryreportsApi.getReports
   );
-  const date = new Date();
+  const currentDate = new Date();
   const [sentReports, setSentReports] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +46,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
     setLoading(true);
     salaryreportsApi.getReports().then((json) => {
       const sent = json.data.filter((r) => {
-        return new Date(r.date).getMonth() === date.getMonth();
+        return new Date(r.date).getMonth() === currentDate.getMonth();
       });
 
       setSentReports(sent);
@@ -95,7 +95,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
         <AppActivityIndicator visible={loading} />
         <AppText style={styles.returnsNumber}>{sentReports.length}</AppText>
         <AppText style={styles.text}>
-          Inckickade Rapporter i {months[date.getMonth() + 1]}
+          Inckickade Rapporter i {months[currentDate.getMonth() + 1]}
         </AppText>
         <View>
           <MaterialCommunityIcons
@@ -111,7 +111,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.light,
     minHeight: '100%',
   },
   formContainer: {

@@ -24,7 +24,7 @@ export default function HomeScreen() {
   const { user } = useAuth(AuthContext);
 
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
@@ -43,6 +43,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.primaryOpacity,
+  },
   container: {
     backgroundColor: colors.light,
   },
