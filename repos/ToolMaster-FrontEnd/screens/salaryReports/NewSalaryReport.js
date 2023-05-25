@@ -14,12 +14,16 @@ import AppButton from '../../components/AppButton';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import WorkDayListItem from '../../components/reports/WorkDayListItem';
 import WorkDayFormInput from '../../components/reports/WorkDayFormInput';
+import SubmitButton from '../../components/SubmitButton';
 
 export default function NewSalaryReport() {
   const auth = useAuth(AuthContext);
   const { user } = auth;
   const month = useMonth(new Date());
 
+  const handleSubmit = (values) => {
+    console.log(values);
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -30,10 +34,14 @@ export default function NewSalaryReport() {
         </View>
         <AppForm
           initialValues={{
-            worker: '',
+            worker: user,
+            date: new Date(),
+            workDays: [],
           }}
+          onSubmit={handleSubmit}
         >
-          <WorkDayFormInput />
+          <WorkDayFormInput name="workDays" />
+          <SubmitButton title="Skicka in rapport" color="green" />
         </AppForm>
       </View>
     </Screen>
