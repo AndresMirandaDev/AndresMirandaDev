@@ -91,13 +91,16 @@ export default function WorkDayFormInput({ name }) {
   };
 
   const handleWorkDaySubmit = (workDay, { resetForm }) => {
-    console.log(workPlaces.length);
-    const newWorkDay = {
-      date: workDay.date,
-      places: [...workPlaces],
-    };
+    if (workPlaces.length > 0) {
+      const newWorkDay = {
+        date: workDay.date,
+        places: [...workPlaces],
+      };
 
-    setFieldValue(name, [...values[name], newWorkDay]);
+      setFieldValue(name, [...values[name], newWorkDay]);
+    } else {
+      alert('Ingen projekt har valts');
+    }
 
     resetForm();
     resetPlaces();
