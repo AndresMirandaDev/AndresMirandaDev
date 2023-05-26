@@ -26,7 +26,7 @@ export default function SubmittedDayListitem({ workDay }) {
         <View style={styles.places}>
           {workDay.places.map((place) => {
             return (
-              <View key={place.date} style={styles.info}>
+              <View key={place.project._id} style={styles.info}>
                 <View>
                   <AppText>
                     {place.project.name} {place.hours} (t)

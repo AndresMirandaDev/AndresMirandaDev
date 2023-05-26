@@ -36,6 +36,10 @@ const placeSchema = Yup.object().shape({
   hours: Yup.string().required(),
 });
 
+const workDaySchema = Yup.object().shape({
+  date: Yup.date().required(),
+});
+
 export default function WorkDayFormInput({ name }) {
   const { setFieldValue, values } = useFormikContext();
 
@@ -87,6 +91,7 @@ export default function WorkDayFormInput({ name }) {
   };
 
   const handleWorkDaySubmit = (workDay, { resetForm }) => {
+    console.log(workPlaces.length);
     const newWorkDay = {
       date: workDay.date,
       places: [...workPlaces],
@@ -98,13 +103,15 @@ export default function WorkDayFormInput({ name }) {
     resetPlaces();
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <ScrollView>
         <AppForm
           initialValues={{
             date: '',
+            workPlaces: [],
           }}
           onSubmit={handleWorkDaySubmit}
+          validationSchema={workDaySchema}
         >
           <AppDatePicker name="date" />
           {projectButtons.map((button) => {
@@ -155,21 +162,21 @@ export default function WorkDayFormInput({ name }) {
           <SubmitButton title="Skicka in arbetsdag" />
         </AppForm>
         <View style={styles.separator} />
-        <View>
-          <SubmittedDaysHeader />
-          <FlatList
-            data={values[name]}
-            nestedScrollEnabled
-            keyExtractor={(item) => item.date}
-            renderItem={({ item }) => {
-              return <SubmittedDayListitem workDay={item} />;
-            }}
-            ListFooterComponent={
-              <SubmittedWorkDaysListFooter workDays={values[name]} />
-            }
-          />
-        </View>
       </ScrollView>
+      <View>
+        <SubmittedDaysHeader />
+        <FlatList
+          data={values[name]}
+          nestedScrollEnabled
+          keyExtractor={(item) => item.date}
+          renderItem={({ item }) => {
+            return <SubmittedDayListitem workDay={item} />;
+          }}
+          ListFooterComponent={
+            <SubmittedWorkDaysListFooter workDays={values[name]} />
+          }
+        />
+      </View>
     </View>
   );
 }
