@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
+import { Swipeable } from 'react-native-gesture-handler';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppDatePicker from '../forms/AppDatePicker';
@@ -23,6 +24,7 @@ import { useFormikContext } from 'formik';
 import SubmittedDayListitem from './SubmittedDayListitem';
 import SubmittedDaysHeader from './SubmittedDaysHeader';
 import SubmittedWorkDaysListFooter from './SubmittedWorkDaysListFooter';
+import ListItemDeleteAction from '../ListItemDeleteAction';
 
 const projectsButtons = [
   {
@@ -180,9 +182,16 @@ export default function WorkDayFormInput({ name }) {
         <SubmittedDaysHeader />
         {values[name].map((item) => {
           return (
-            <View key={item.places[0].project._id + item.date}>
-              <SubmittedDayListitem workDay={item} />
-            </View>
+            <Swipeable
+              renderRightActions={() => {
+                return <ListItemDeleteAction />;
+              }}
+              key={item.places[0].project._id + item.date}
+            >
+              <View>
+                <SubmittedDayListitem workDay={item} />
+              </View>
+            </Swipeable>
           );
         })}
         <SubmittedWorkDaysListFooter workDays={values[name]} />
@@ -207,5 +216,4 @@ const styles = StyleSheet.create({
     minHeight: 2,
     backgroundColor: colors.light,
   },
-  submittedDays: {},
 });

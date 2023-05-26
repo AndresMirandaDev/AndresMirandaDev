@@ -13,35 +13,37 @@ export default function SubmittedDayListitem({ workDay }) {
   }, 0);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.infoContainer}>
-        <View style={styles.info}>
-          <AppText style={styles.date}>
-            {date.getMonth() + 1 + '/' + date.getDate()}
-          </AppText>
-        </View>
-        <View style={styles.info}>
-          <AppText>{weekDay}</AppText>
-        </View>
-        <View style={styles.places}>
-          {workDay.places.map((place) => {
-            return (
-              <View key={place.project._id} style={styles.info}>
-                <View>
-                  <AppText>
-                    {place.project.name} {place.hours} (t)
-                  </AppText>
+    <>
+      <View style={styles.container}>
+        <View style={styles.infoContainer}>
+          <View style={styles.info}>
+            <AppText style={styles.date}>
+              {date.getMonth() + 1 + '/' + date.getDate()}
+            </AppText>
+          </View>
+          <View style={styles.info}>
+            <AppText>{weekDay}</AppText>
+          </View>
+          <View style={styles.places}>
+            {workDay.places.map((place) => {
+              return (
+                <View key={place.project._id} style={styles.info}>
+                  <View>
+                    <AppText>
+                      {place.project.name} {place.hours} (t)
+                    </AppText>
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-        </View>
-        <View>
-          <AppText style={styles.totalHours}>{totalHours}</AppText>
+              );
+            })}
+          </View>
+          <View>
+            <AppText style={styles.totalHours}>{totalHours}</AppText>
+          </View>
         </View>
       </View>
       <View style={styles.separator} />
-    </View>
+    </>
   );
 }
 
