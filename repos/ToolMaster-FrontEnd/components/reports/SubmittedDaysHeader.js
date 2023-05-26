@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 5,
-    backgroundColor: colors.primaryOpacity,
+    backgroundColor: colors.primary,
   },
   infoContainer: {
     width: 105,

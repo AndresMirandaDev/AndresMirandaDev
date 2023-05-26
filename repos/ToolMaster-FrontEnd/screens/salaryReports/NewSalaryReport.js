@@ -41,6 +41,7 @@ export default function NewSalaryReport() {
           onSubmit={handleSubmit}
         >
           <WorkDayFormInput name="workDays" />
+
           <SubmitButton title="Skicka in rapport" color="green" />
         </AppForm>
       </View>

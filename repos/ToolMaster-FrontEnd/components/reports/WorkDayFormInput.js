@@ -6,7 +6,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -49,6 +49,7 @@ export default function WorkDayFormInput({ name }) {
     projectsApi.getProjects
   );
 
+  const submittedDaysScrollView = useRef();
   useEffect(() => {
     loadProjects();
   }, []);
@@ -106,7 +107,7 @@ export default function WorkDayFormInput({ name }) {
     resetPlaces();
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <AppForm
           initialValues={{
@@ -134,11 +135,14 @@ export default function WorkDayFormInput({ name }) {
                       items={projects}
                       width={200}
                       name="project"
+                      icon="city"
                     />
                     <AppFormField
                       width={200}
                       placeholder="Timmar"
                       name="hours"
+                      icon="clock"
+                      keyboardType="numeric"
                     />
                   </View>
                   <PlaceSubmitButton />
@@ -166,20 +170,23 @@ export default function WorkDayFormInput({ name }) {
         </AppForm>
         <View style={styles.separator} />
       </ScrollView>
-      <View>
+      <ScrollView
+        ref={submittedDaysScrollView}
+        onContentSizeChange={() =>
+          submittedDaysScrollView.current.scrollToEnd()
+        }
+        stickyHeaderIndices={[0]}
+      >
         <SubmittedDaysHeader />
-        <FlatList
-          data={values[name]}
-          nestedScrollEnabled
-          keyExtractor={(item) => item.date}
-          renderItem={({ item }) => {
-            return <SubmittedDayListitem workDay={item} />;
-          }}
-          ListFooterComponent={
-            <SubmittedWorkDaysListFooter workDays={values[name]} />
-          }
-        />
-      </View>
+        {values[name].map((item) => {
+          return (
+            <View key={item.places[0].project._id + item.date}>
+              <SubmittedDayListitem workDay={item} />
+            </View>
+          );
+        })}
+        <SubmittedWorkDaysListFooter workDays={values[name]} />
+      </ScrollView>
     </View>
   );
 }
@@ -200,4 +207,5 @@ const styles = StyleSheet.create({
     minHeight: 2,
     backgroundColor: colors.light,
   },
+  submittedDays: {},
 });
