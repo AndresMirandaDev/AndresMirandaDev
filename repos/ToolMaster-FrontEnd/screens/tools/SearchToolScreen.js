@@ -57,6 +57,9 @@ export default function SearchToolScreen({ navigation }) {
   return (
     <ScrollView keyboardShouldPersistTaps="never">
       <Screen style={styles.screen}>
+        <View style={styles.heading}>
+          <AppText style={styles.headingText}>Regidera verktyg</AppText>
+        </View>
         <View style={styles.container}>
           <AppText>Ange Serie Nummer</AppText>
           <AppForm
@@ -82,7 +85,6 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.light,
-    paddingTop: 100,
   },
   container: {
     justifyContent: 'center',
@@ -93,5 +95,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 20,
     elevation: 30,
+  },
+  heading: {
+    backgroundColor: colors.yellow,
+    padding: 10,
+  },
+  headingText: {
+    color: colors.primaryOpacity,
+    textAlign: 'center',
+    fontSize: 25,
   },
 });

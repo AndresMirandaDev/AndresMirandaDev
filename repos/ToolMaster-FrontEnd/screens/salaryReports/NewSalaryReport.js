@@ -45,6 +45,7 @@ export default function NewSalaryReport() {
     }
     resetForm();
   };
+
   return (
     <Screen style={styles.screen}>
       <UploadScreen

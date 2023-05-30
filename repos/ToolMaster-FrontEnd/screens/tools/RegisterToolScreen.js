@@ -62,43 +62,51 @@ export default function RegisterToolScreen() {
         visible={uploadVisible}
         onDone={() => setUploadVisible(false)}
       />
-      <AppText style={styles.text}>Registrera Verktyg </AppText>
-      <AppForm
-        initialValues={{
-          name: '',
-          serieNumber: '',
-          toolGroup: '',
-        }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <AppFormField icon="tools" name="name" placeholder="Namn" />
-        <AppFormField
-          icon="identifier"
-          name="serieNumber"
-          placeholder="Serie Nummer"
-        />
-        <AppFormPicker
-          name="toolGroup"
-          items={toolGroups}
-          icon="select-group"
-          placeholder="Verktygs grupp"
-          width="60%"
-        />
-        <SubmitButton title="Registrera ny verktyg" color="green" />
-      </AppForm>
+      <View style={styles.heading}>
+        <AppText style={styles.headingText}>Registrera Verktyg </AppText>
+      </View>
+      <View style={styles.formContainer}>
+        <AppForm
+          initialValues={{
+            name: '',
+            serieNumber: '',
+            toolGroup: '',
+          }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <AppFormField icon="tools" name="name" placeholder="Namn" />
+          <AppFormField
+            icon="identifier"
+            name="serieNumber"
+            placeholder="Serie Nummer"
+          />
+          <AppFormPicker
+            name="toolGroup"
+            items={toolGroups}
+            icon="select-group"
+            placeholder="Verktygs grupp"
+            width="60%"
+          />
+          <SubmitButton title="Registrera ny verktyg" color="green" />
+        </AppForm>
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: 100,
     minHeight: '100%',
     backgroundColor: colors.white,
+  },
+  formContainer: {
     padding: 10,
   },
-  text: {
+  heading: {
+    backgroundColor: colors.yellow,
+  },
+  headingText: {
     color: colors.primary,
     textAlign: 'center',
     padding: 10,

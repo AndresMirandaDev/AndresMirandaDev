@@ -177,12 +177,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   headText: {
-    color: colors.primary,
+    color: colors.primaryOpacity,
     fontSize: 25,
   },
   hiddenFilterBar: {
     height: 60,
     overflow: 'hidden',
+    backgroundColor: colors.yellow,
   },
   formContainer: {
     backgroundColor: colors.white,

@@ -13,6 +13,11 @@ const toolsActions = [
     path: 'SearchToolScreen',
     icon: 'circle-edit-outline',
   },
+  {
+    title: 'Verktygs Grupper',
+    path: 'ToolGroupsScreen',
+    icon: 'tools',
+  },
 ];
 
 export default function ToolsScreen({ navigation }) {

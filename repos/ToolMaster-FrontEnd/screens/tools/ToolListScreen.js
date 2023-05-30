@@ -92,6 +92,7 @@ export default function ToolListScreen({ navigation }) {
             );
           }}
           onScrollEndDrag={loadMore}
+          ItemSeparatorComponent={<ListItemSeparator />}
         />
       </View>
     </Screen>

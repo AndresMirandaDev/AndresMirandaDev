@@ -36,17 +36,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
   },
   card: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     width: '100%',
     padding: 10,
-    borderRadius: 15,
-    elevation: 8,
-    shadowOffset: { height: 10, width: 10 },
-    shadowColor: colors.medium,
-    shadowOpacity: 0.1,
   },
   toolName: {
     fontSize: 25,
