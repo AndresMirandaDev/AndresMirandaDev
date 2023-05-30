@@ -50,6 +50,11 @@ export default function WorkDayFormInput({ name }) {
   const { data: projects, request: loadProjects } = useApi(
     projectsApi.getProjects
   );
+  const [submittedDays, setSubmittedDays] = useState([]);
+
+  useEffect(() => {
+    setSubmittedDays(values[name]);
+  }, [values[name]]);
 
   const submittedDaysScrollView = useRef();
   useEffect(() => {
@@ -108,6 +113,14 @@ export default function WorkDayFormInput({ name }) {
     resetForm();
     resetPlaces();
   };
+
+  const handleDeleteSubmittedDay = (workDay) => {
+    const newWorkDays = values[name].filter((i) => {
+      return i.date !== workDay.date;
+    });
+    setFieldValue(name, newWorkDays);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -180,11 +193,15 @@ export default function WorkDayFormInput({ name }) {
         stickyHeaderIndices={[0]}
       >
         <SubmittedDaysHeader />
-        {values[name].map((item) => {
+        {submittedDays.map((item) => {
           return (
             <Swipeable
               renderRightActions={() => {
-                return <ListItemDeleteAction />;
+                return (
+                  <ListItemDeleteAction
+                    onPress={() => handleDeleteSubmittedDay(item)}
+                  />
+                );
               }}
               key={item.places[0].project._id + item.date}
             >
