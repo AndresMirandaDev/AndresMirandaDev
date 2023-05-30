@@ -11,7 +11,7 @@ import ToolGroupListItem from '../../components/toolGroups/ToolGroupListItem';
 import AppText from '../../components/AppText';
 import ListItemSeparator from '../../components/ListItemSeparator';
 
-export default function ToolGroupsScreen() {
+export default function ToolGroupsScreen({ navigation }) {
   const {
     data: toolGroups,
     request: loadGroups,
@@ -35,7 +35,14 @@ export default function ToolGroupsScreen() {
           data={toolGroups}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
-            return <ToolGroupListItem group={item} />; // pass the onpress function
+            return (
+              <ToolGroupListItem
+                group={item}
+                onPress={() =>
+                  navigation.navigate('ToolGroupDetailScreen', item)
+                }
+              />
+            ); // pass the onpress function
           }}
           ItemSeparatorComponent={ListItemSeparator}
         />

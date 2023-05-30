@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textTransform: 'capitalize',
+    color: colors.primaryOpacity,
   },
   infoContainer: {
     flexDirection: 'row',

@@ -1,0 +1,105 @@
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Screen from '../../components/Screen';
+import AppText from '../../components/AppText';
+import colors from '../../config/colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import toolsApi from '../../api/tools';
+import ToolListItem from '../../components/ToolListItem';
+import ListItemSeparator from '../../components/ListItemSeparator';
+
+export default function ToolGroupDetailScreen({ route, navigation }) {
+  const group = route.params;
+  const [tools, setTools] = useState([]);
+
+  const getToolsInGroup = () => {
+    toolsApi.getTools().then((json) => {
+      const toolsInGroup = json.data.filter((t) => {
+        return t.toolGroup && t.toolGroup._id === group._id;
+      });
+      setTools(toolsInGroup);
+    });
+  };
+
+  useEffect(() => {
+    getToolsInGroup();
+  }, []);
+  return (
+    <Screen style={styles.screen}>
+      <View style={styles.heading}>
+        <AppText style={styles.headingText}>{group.name}</AppText>
+      </View>
+      <View style={styles.descriptionContainer}>
+        <AppText style={styles.description}>{group.description}</AppText>
+      </View>
+      <View style={styles.toolsHeadingContainer}>
+        <View>
+          <MaterialCommunityIcons
+            name="tools"
+            size={50}
+            color={colors.primaryOpacity}
+          />
+        </View>
+        <AppText style={styles.toolsHeading}>Verktyg</AppText>
+      </View>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={tools}
+          renderItem={({ item }) => {
+            return (
+              <ToolListItem
+                tool={item}
+                onPress={() => {
+                  navigation.navigate('ToolDetailsScreen', item);
+                }}
+              />
+            );
+          }}
+          ItemSeparatorComponent={<ListItemSeparator />}
+        />
+      </View>
+    </Screen>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.white,
+    minHeight: '100%',
+  },
+  descriptionContainer: {
+    borderStyle: 'solid',
+    borderBottomColor: colors.light,
+    borderBottomWidth: 1,
+  },
+  description: {
+    color: colors.primaryOpacity,
+    padding: 10,
+  },
+  heading: {
+    backgroundColor: colors.yellow,
+  },
+  headingText: {
+    fontSize: 25,
+    color: colors.primaryOpacity,
+    padding: 10,
+    textAlign: 'center',
+    textTransform: 'capitalize',
+  },
+  toolsHeadingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2,
+  },
+  toolsHeading: {
+    fontSize: 30,
+    color: colors.primaryOpacity,
+    marginLeft: 20,
+    fontWeight: 'bold',
+  },
+  listContainer: {
+    flex: 1,
+    paddingBottom: 50,
+  },
+});

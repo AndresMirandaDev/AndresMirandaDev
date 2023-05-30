@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     color: colors.primaryOpacity,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   container: {
-    padding: 10,
+    padding: 20,
     flexDirection: 'row',
   },
   description: {

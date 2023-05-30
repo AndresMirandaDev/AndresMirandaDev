@@ -46,7 +46,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
     setLoading(true);
     salaryreportsApi.getReports().then((json) => {
       const sent = json.data.filter((r) => {
-        return new Date(r.date).getMonth() === currentDate.getMonth();
+        return new Date(r.date).getMonth() === currentDate.getMonth(); //fix this to make it check also the year and not only month
       });
 
       setSentReports(sent);

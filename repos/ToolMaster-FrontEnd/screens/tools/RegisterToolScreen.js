@@ -20,8 +20,6 @@ const validationSchema = Yup.object().shape({
   toolGroup: Yup.object(),
 });
 
-//dummy data
-
 export default function RegisterToolScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);

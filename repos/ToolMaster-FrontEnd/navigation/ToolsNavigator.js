@@ -8,6 +8,7 @@ import ToolsScreen from '../screens/tools/ToolsScreen';
 import ToolDetailsScreen from '../screens/tools/ToolDetailsScreen';
 import SearchToolScreen from '../screens/tools/SearchToolScreen';
 import ToolGroupsScreen from '../screens/tools/ToolGroupsScreen';
+import ToolGroupDetailScreen from '../screens/tools/ToolGroupDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,10 @@ const ToolsNavigator = () => {
       <Stack.Screen name="ToolDetailsScreen" component={ToolDetailsScreen} />
       <Stack.Screen name="SearchToolScreen" component={SearchToolScreen} />
       <Stack.Screen name="ToolGroupsScreen" component={ToolGroupsScreen} />
+      <Stack.Screen
+        name="ToolGroupDetailScreen"
+        component={ToolGroupDetailScreen}
+      />
     </Stack.Navigator>
   );
 };
