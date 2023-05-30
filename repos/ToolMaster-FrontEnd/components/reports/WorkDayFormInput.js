@@ -192,7 +192,7 @@ export default function WorkDayFormInput({ name }) {
         }
         stickyHeaderIndices={[0]}
       >
-        <SubmittedDaysHeader />
+        {submittedDays.length > 0 && <SubmittedDaysHeader />}
         {submittedDays.map((item) => {
           return (
             <Swipeable
@@ -211,7 +211,9 @@ export default function WorkDayFormInput({ name }) {
             </Swipeable>
           );
         })}
-        <SubmittedWorkDaysListFooter workDays={values[name]} />
+        {submittedDays.length > 0 && (
+          <SubmittedWorkDaysListFooter workDays={values[name]} />
+        )}
       </ScrollView>
     </View>
   );
