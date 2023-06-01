@@ -1,9 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import colors from '../../config/colors';
 import AppText from '../AppText';
+import { LanguageContext } from '../../language/languageContext';
+
+const totalHoursText = {
+  en: 'Total hours',
+  sv: 'Summa timmar',
+  es: 'Total horas',
+};
 
 export default function SubmittedWorkDaysListFooter({ workDays }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const totalHours = workDays.reduce((total, workDay) => {
     const placeHours = workDay.places.reduce(
       (sum, place) => sum + parseInt(place.hours),
@@ -14,7 +23,7 @@ export default function SubmittedWorkDaysListFooter({ workDays }) {
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
-        <AppText style={styles.text}>Summa timmar</AppText>
+        <AppText style={styles.text}>{totalHoursText[language]}</AppText>
       </View>
       <View>
         <AppText style={styles.totalHours}>{totalHours}</AppText>

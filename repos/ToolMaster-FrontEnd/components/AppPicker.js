@@ -6,13 +6,20 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../config/colors';
 import AppText from './AppText';
 import Screen from './Screen';
 import AppPickerItem from './AppPickerItem';
+import { LanguageContext } from '../language/languageContext';
+
+const closeButtonText = {
+  en: 'close',
+  sv: 'stäng',
+  es: 'cerrar',
+};
 
 export default function AppPicker({
   icon,
@@ -25,6 +32,7 @@ export default function AppPicker({
   PickerItemComponent = AppPickerItem,
 }) {
   const [modal, setModalVisible] = useState(false);
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
@@ -51,7 +59,7 @@ export default function AppPicker({
         <Screen>
           <View style={styles.modal}>
             <Button
-              title="close"
+              title={closeButtonText[language]}
               onPress={() => setModalVisible(false)}
               color={colors.primary}
             />

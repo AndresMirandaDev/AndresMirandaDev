@@ -1,9 +1,28 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppText from '../AppText';
 import colors from '../../config/colors';
+import { LanguageContext } from '../../language/languageContext';
+
+const workPlacesLabel = {
+  en: 'Work places',
+  sv: 'Arbetsplatser',
+  es: 'Lugares de trabajo',
+};
+const totalHoursLabel = {
+  en: 'Total hours',
+  sv: 'Summa timmar',
+  es: 'Total horas',
+};
+const projectNumberLabel = {
+  en: 'Project Nr',
+  sv: 'Projekt Nr',
+  es: 'Nr Projecto',
+};
 
 export default function ReportListFooter({ report }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const places = report.workDays
     .map((workDay) => workDay.places.map((place) => place.project.name))
     .flat()
@@ -20,13 +39,19 @@ export default function ReportListFooter({ report }) {
     <View style={styles.container}>
       <View style={styles.tableHead}>
         <View style={styles.headingTextContainer}>
-          <AppText style={styles.headingText}>Arbetsplatser</AppText>
+          <AppText style={styles.headingText}>
+            {workPlacesLabel[language]}
+          </AppText>
         </View>
         <View style={styles.headingTextContainer}>
-          <AppText style={styles.headingText}>Summa timmar</AppText>
+          <AppText style={styles.headingText}>
+            {totalHoursLabel[language]}
+          </AppText>
         </View>
         <View style={styles.headingTextContainer}>
-          <AppText style={styles.headingText}>Projekt nr</AppText>
+          <AppText style={styles.headingText}>
+            {projectNumberLabel[language]}
+          </AppText>
         </View>
       </View>
       <View>
@@ -59,7 +84,9 @@ export default function ReportListFooter({ report }) {
       </View>
       <View style={styles.reportFooter}>
         <View>
-          <AppText style={styles.totalHoursText}>Summa timmar</AppText>
+          <AppText style={styles.totalHoursText}>
+            {totalHoursLabel[language]}
+          </AppText>
         </View>
         <View>
           <AppText style={styles.totalHours}>{reportTotalHours}</AppText>

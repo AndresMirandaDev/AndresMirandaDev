@@ -1,12 +1,31 @@
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppButton from '../components/AppButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colors from '../config/colors';
 import AppText from '../components/AppText';
+import { LanguageContext } from '../language/languageContext';
 
+const buttonText = {
+  en: 'Log in',
+  sv: 'Logga in',
+  es: 'Inicia Sesion',
+};
+
+const slogan = {
+  en: 'A ToolMaster application.',
+  sv: 'En Toolmaster Applikation.',
+  es: 'Una aplicacion ToolMaster',
+};
+
+const copyright = {
+  en: 'Developed by Andres Miranda',
+  sv: 'Utvecklad av Andres Miranda',
+  es: 'Desarrollado por Andres Miranda',
+};
 export default function WelcomeScreen({ navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   return (
     <ImageBackground
       source={require('../assets/background.jpg')}
@@ -19,11 +38,11 @@ export default function WelcomeScreen({ navigation }) {
           style={styles.logo}
           resizeMode="contain"
         />
-        <AppText style={styles.tagLine}>A ToolMaster Application</AppText>
+        <AppText style={styles.tagLine}>{slogan[language]}</AppText>
       </View>
       <View style={styles.buttonsContainer}>
         <AppButton
-          title="Login"
+          title={buttonText[language]}
           color="primary"
           onPress={() => {
             navigation.navigate('Login');
@@ -31,7 +50,7 @@ export default function WelcomeScreen({ navigation }) {
         />
 
         <AppText style={styles.copyright}>
-          Developed by Andres Miranda{' '}
+          {copyright[language]}{' '}
           <MaterialCommunityIcons name="copyright" color={colors.yellow} />{' '}
         </AppText>
       </View>

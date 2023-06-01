@@ -6,10 +6,9 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Yup from 'yup';
-import { GestureDetector } from 'react-native-gesture-handler';
 
 import colors from '../config/colors';
 import AppFormField from './forms/AppFormField';
@@ -17,7 +16,6 @@ import AppForm from './forms/AppForm';
 import AppText from './AppText';
 import SubmitButton from './SubmitButton';
 import Screen from './Screen';
-import AppPicker from './AppPicker';
 import AppFormPicker from './forms/AppFormPicker';
 import AppPickerItem from './AppPickerItem';
 import AppButton from './AppButton';
@@ -25,6 +23,7 @@ import FormResetButton from './forms/FormResetButton';
 import toolGroupsApi from '../api/toolGroups';
 import projectsApi from '../api/projects';
 import useApi from '../hooks/useApi';
+import { LanguageContext } from '../language/languageContext';
 
 const status = [
   { name: 'tillgängliga verktyg', id: 9, value: true },
@@ -42,7 +41,28 @@ const validationSchema = Yup.object().shape({
   available: Yup.object().nullable().label('Status'),
 });
 
+//language text options
+
+const closeButtonText = {
+  en: 'Close',
+  sv: 'Stäng',
+  es: 'Cerrar',
+};
+
+const submitButtonText = {
+  en: 'Search',
+  sv: 'Sök',
+  es: 'Buscar',
+};
+
+const resetButtonText = {
+  en: 'Reset',
+  sv: 'återställa',
+  es: 'Reset',
+};
+
 export default function FilterBar({ data: tools, setData }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   const {
     data: toolGroups,
     error: toolGropupsError,
@@ -107,7 +127,7 @@ export default function FilterBar({ data: tools, setData }) {
           <Screen>
             <View style={styles.formContainer}>
               <Button
-                title="close"
+                title={closeButtonText[language]}
                 onPress={() => setShowFilter(false)}
                 color={colors.primary}
               />
@@ -155,8 +175,11 @@ export default function FilterBar({ data: tools, setData }) {
                   items={status}
                   width="50%"
                 />
-                <SubmitButton title="search" />
-                <FormResetButton title="reset" color="secondary" />
+                <SubmitButton title={submitButtonText[language]} />
+                <FormResetButton
+                  title={resetButtonText[language]}
+                  color="secondary"
+                />
               </AppForm>
             </View>
           </Screen>

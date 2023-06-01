@@ -12,15 +12,15 @@ export default function ToolGroupListItem({ group, onPress }) {
         <AppText style={styles.name}>{group.name}</AppText>
         <AppText style={styles.description}>{group.description}</AppText>
       </View>
-      <TouchableWithoutFeedback onPress={onPress}>
-        <View style={{ marginLeft: 5 }}>
+      <View style={{ marginLeft: 5, justifyContent: 'flex-end' }}>
+        <TouchableWithoutFeedback onPress={onPress}>
           <MaterialCommunityIcons
             name="chevron-right"
             size={50}
             color={colors.medium}
           />
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 }
@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
   },
   description: {
     color: colors.medium,
+    maxWidth: 340,
   },
 });

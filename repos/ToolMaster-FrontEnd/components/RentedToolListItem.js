@@ -1,9 +1,22 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppText from './AppText';
 import colors from '../config/colors';
+import { LanguageContext } from '../language/languageContext';
 
+const rentedCompanyText = {
+  en: 'Rent Company',
+  sv: 'Uthyrnings företag',
+  es: 'Empresa de arriendo',
+};
+
+const rentedFromText = {
+  en: 'Rented from',
+  sv: 'Inhyrd från den',
+  es: 'Arriendo desde el',
+};
 export default function RentedToolListItem({ tool, onPress }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   const { name, rentedTo, rentStart } = tool;
 
   //converting the date string to a date object so its possible to display locale date string
@@ -13,9 +26,11 @@ export default function RentedToolListItem({ tool, onPress }) {
       <View style={styles.container}>
         <View style={styles.card}>
           <AppText style={styles.toolName}>{name}</AppText>
-          <AppText style={styles.info}>Uthyrnings företag : {rentedTo}</AppText>
           <AppText style={styles.info}>
-            Inhyrd frân den: {startDate.toLocaleDateString()}
+            {rentedCompanyText[language]} : {rentedTo}
+          </AppText>
+          <AppText style={styles.info}>
+            {rentedFromText[language]}: {startDate.toLocaleDateString()}
           </AppText>
         </View>
       </View>

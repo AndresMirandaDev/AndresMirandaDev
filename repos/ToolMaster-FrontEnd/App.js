@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import AuthContext from './auth/context';
 import authStorage from './auth/storage';
 import * as SplashScreen from 'expo-splash-screen';
+import { LanguageProvider } from './language/languageContext';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -32,9 +33,11 @@ export default function App() {
   if (!isReady) return null;
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer>
-        {user ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
+      <LanguageProvider>
+        <NavigationContainer>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </LanguageProvider>
     </AuthContext.Provider>
   );
 }

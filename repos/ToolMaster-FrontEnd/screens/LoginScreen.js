@@ -1,5 +1,5 @@
 import { StyleSheet, Image, ImageBackground } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
@@ -10,14 +10,22 @@ import colors from '../config/colors';
 import SubmitButton from '../components/SubmitButton';
 import authApi from '../api/auth';
 import useAuth from '../auth/useAuth';
+import { LanguageContext } from '../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(4).label('Password'),
 });
 
+const buttonText = {
+  en: 'Log in',
+  sv: 'Logga in',
+  es: 'Iniciar Sesion',
+};
+
 export default function LoginScreen() {
   const auth = useAuth();
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   const [loginFailed, setLoginFailed] = useState(true);
   const handleSubmit = async ({ email, password }) => {
@@ -66,7 +74,7 @@ export default function LoginScreen() {
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="login" />
+        <SubmitButton title={buttonText[language]} />
       </AppForm>
     </ImageBackground>
   );

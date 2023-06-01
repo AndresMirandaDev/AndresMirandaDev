@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -8,12 +8,7 @@ import HomeInfoList from '../components/HomeInfoList';
 import useAuth from '../auth/useAuth';
 import AuthContext from '../auth/context';
 import useWeekDay from '../hooks/useWeekDay';
-
-// const user = {
-//   id: 1,
-//   name: 'Andres',
-//   email: 'andres@domail.com',
-// };
+import { LanguageContext } from '../language/languageContext';
 
 const tools = [
   { name: 'hili 1500', id: 1 },

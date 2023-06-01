@@ -1,21 +1,40 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import AppText from './AppText';
 import colors from '../config/colors';
 import { Calendar } from 'react-native-calendars';
 import useWeek from '../hooks/useWeek';
 import useWeekDay from '../hooks/useWeekDay';
+import { LanguageContext } from '../language/languageContext';
+
+const todayText = {
+  en: 'Today',
+  sv: 'Idag',
+  es: 'Hoy',
+};
+
+const weekText = {
+  en: 'Week',
+  sv: 'Vecka',
+  es: 'Semana',
+};
 
 export default function DateInfoCard() {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   const date = new Date();
+
   const week = useWeek();
   const weekDay = useWeekDay(date);
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>Idag {weekDay}</AppText>
-      <AppText>Vecka {week}</AppText>
+      <AppText style={styles.text}>
+        {todayText[language]} {weekDay}
+      </AppText>
+      <AppText>
+        {weekText[language]} {week}
+      </AppText>
       <Calendar showWeekNumbers={true} />
     </View>
   );

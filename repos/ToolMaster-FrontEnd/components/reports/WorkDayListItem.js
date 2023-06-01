@@ -22,7 +22,7 @@ export default function WorkDayListItem({ data: workDay }) {
   }, []);
   return (
     <View style={styles.container}>
-      <View style={styles.info}>
+      <View style={[styles.info, { marginLeft: -20 }]}>
         <AppText style={styles.text}>{workDayDate.getDate()}</AppText>
       </View>
       <View style={styles.info}>
