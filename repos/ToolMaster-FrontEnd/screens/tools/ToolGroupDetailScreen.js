@@ -7,17 +7,23 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import toolsApi from '../../api/tools';
 import ToolListItem from '../../components/ToolListItem';
 import ListItemSeparator from '../../components/ListItemSeparator';
+import AppActivityIndicator from '../../components/AppActivityIndicator';
+import AppButton from '../../components/AppButton';
 
 export default function ToolGroupDetailScreen({ route, navigation }) {
   const group = route.params;
   const [tools, setTools] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
   const getToolsInGroup = () => {
+    setLoading(true);
     toolsApi.getTools().then((json) => {
       const toolsInGroup = json.data.filter((t) => {
         return t.toolGroup && t.toolGroup._id === group._id;
       });
       setTools(toolsInGroup);
+      setLoading(false);
     });
   };
 
@@ -43,6 +49,7 @@ export default function ToolGroupDetailScreen({ route, navigation }) {
         <AppText style={styles.toolsHeading}>Verktyg</AppText>
       </View>
       <View style={styles.listContainer}>
+        <AppActivityIndicator visible={loading} />
         <FlatList
           data={tools}
           renderItem={({ item }) => {
@@ -56,6 +63,12 @@ export default function ToolGroupDetailScreen({ route, navigation }) {
             );
           }}
           ItemSeparatorComponent={<ListItemSeparator />}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <AppButton
+          title="Redigera Grupp"
+          onPress={() => navigation.navigate('EditToolGroupScreen', group)}
         />
       </View>
     </Screen>
@@ -90,7 +103,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 2,
+
+    backgroundColor: colors.light,
   },
   toolsHeading: {
     fontSize: 30,
@@ -101,5 +115,8 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     paddingBottom: 50,
+  },
+  buttonContainer: {
+    padding: 20,
   },
 });

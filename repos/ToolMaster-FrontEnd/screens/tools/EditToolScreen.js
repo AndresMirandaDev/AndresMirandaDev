@@ -38,7 +38,7 @@ const validationSchema = Yup.object().shape({
 //   { name: 'flexmaskiner', id: 8 },
 // ];
 //should take the tool from route params comming from the tool detalils screen in the edit button onpress function navigate implementation
-export default function EditToolScreen({ route }) {
+export default function EditToolScreen({ route, navigation }) {
   const tool = route.params[0];
   const { data: toolGroups, request: loadToolGroups } = useApi(
     toolGroupApi.getToolGroups
@@ -78,35 +78,45 @@ export default function EditToolScreen({ route }) {
       <UploadScreen
         visible={uploadVisible}
         progress={progress}
-        onDone={() => setUploadVisible(false)}
-      />
-      <AppText style={styles.info}>Regiderar : {tool.name}</AppText>
-      <AppText style={styles.info}>Serie Nummer : {tool.serieNumber}</AppText>
-      <AppForm
-        initialValues={{
-          name: '',
-          serieNumber: '',
-          toolGroup: '',
-          _id: tool._id,
+        onDone={() => {
+          setUploadVisible(false);
+          setTimeout(() => {
+            navigation.navigate('ToolsScreen');
+          }, 1000);
         }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <AppFormField name="name" icon="tools" placeholder={tool.name} />
-        <AppFormField
-          name="serieNumber"
-          icon="identifier"
-          placeholder={tool.serieNumber.toString()}
-        />
-        <AppFormPicker
-          items={toolGroups}
-          name="toolGroup"
-          icon="select-group"
-          placeholder={tool.toolGroup ? tool.toolGroup.name : 'Verktygs grupp'}
-          width="60%"
-        />
-        <SubmitButton title="upppdatera " color="green" />
-      </AppForm>
+      />
+      <View style={styles.heading}>
+        <AppText style={styles.info}>Regidera verktyg</AppText>
+      </View>
+      <View style={styles.formContainer}>
+        <AppForm
+          initialValues={{
+            name: '',
+            serieNumber: '',
+            toolGroup: '',
+            _id: tool._id,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <AppFormField name="name" icon="tools" placeholder={tool.name} />
+          <AppFormField
+            name="serieNumber"
+            icon="identifier"
+            placeholder={tool.serieNumber.toString()}
+          />
+          <AppFormPicker
+            items={toolGroups}
+            name="toolGroup"
+            icon="select-group"
+            placeholder={
+              tool.toolGroup ? tool.toolGroup.name : 'Verktygs grupp'
+            }
+            width="60%"
+          />
+          <SubmitButton title="upppdatera " color="green" />
+        </AppForm>
+      </View>
     </Screen>
   );
 }
@@ -115,14 +125,18 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.white,
     minHeight: '100%',
-    padding: 7,
   },
   info: {
     textAlign: 'center',
-    fontWeight: 'bold',
     padding: 10,
     textTransform: 'capitalize',
-    color: colors.primary,
-    fontSize: 20,
+    color: colors.primaryOpacity,
+    fontSize: 25,
+  },
+  heading: {
+    backgroundColor: colors.yellow,
+  },
+  formContainer: {
+    padding: 7,
   },
 });

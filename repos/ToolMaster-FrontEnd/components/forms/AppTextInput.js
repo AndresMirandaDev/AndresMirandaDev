@@ -19,6 +19,7 @@ export default function AppTextInput({ icon, width = '100%', ...otherProps }) {
         placeholderTextColor={defaultStyles.colors.medium}
         style={defaultStyles.text}
         {...otherProps}
+        multiline={true}
       />
     </View>
   );
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     padding: 10,
+    flexWrap: 'wrap',
   },
   icon: {
     marginRight: 10,
