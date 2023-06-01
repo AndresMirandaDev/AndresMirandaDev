@@ -10,12 +10,14 @@ import toolGroupsApi from '../../api/toolGroups';
 import UploadScreen from '../UploadScreen';
 import { useNavigation } from '@react-navigation/native';
 import AppButton from '../../components/AppButton';
+import RemovedScreen from '../RemovedScreen';
 
 export default function EditToolGroupScreen({ route }) {
   const navigation = useNavigation();
   const group = route.params;
 
   const [uploadVisible, setUploadVisible] = useState(false);
+  const [removedVisble, setRemovedVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const handleSubmit = async (groupInfo, { resetForm }) => {
@@ -40,7 +42,14 @@ export default function EditToolGroupScreen({ route }) {
       alert('Verktyg Kunde inte uppdateras.');
     }
   };
-  const handleDelete = async (group) => {};
+  const handleDelete = async (group) => {
+    setRemovedVisible(true);
+    const result = await toolGroupsApi.deleteGroup(group);
+    if (!result.ok) {
+      setRemovedVisible(false);
+      alert('Det gick inte att radera verktygs grupp.');
+    }
+  };
 
   const handleDeleteButtonPress = (group) => {
     Alert.alert(
@@ -65,6 +74,15 @@ export default function EditToolGroupScreen({ route }) {
           setUploadVisible(false);
           setTimeout(() => {
             navigation.navigate('ToolsScreen');
+          }, 1000);
+        }}
+      />
+      <RemovedScreen
+        visible={removedVisble}
+        onDone={() => {
+          setRemovedVisible(false);
+          setTimeout(() => {
+            navigation.navigate('ToolGroupsScreen');
           }, 1000);
         }}
       />
@@ -94,7 +112,7 @@ export default function EditToolGroupScreen({ route }) {
         <AppButton
           title="radera verktygs grupp"
           color="danger"
-          onPress={handleDeleteButtonPress}
+          onPress={() => handleDeleteButtonPress(group)}
         />
       </View>
     </Screen>

@@ -58,7 +58,7 @@ export default function ToolDetailsScreen({ route, navigation }) {
         onDone={() => {
           setRemovedVisible(false);
           setTimeout(() => {
-            navigation.navigate('ToolsScreen');
+            navigation.navigate('ToolListScreen');
           }, 1000);
         }}
       />

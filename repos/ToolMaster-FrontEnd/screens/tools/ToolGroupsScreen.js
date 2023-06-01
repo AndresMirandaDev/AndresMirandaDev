@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from 'react-native';
+import { Button, FlatList, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 
 import toolGroupsApi from '../../api/toolGroups';
@@ -10,6 +10,7 @@ import AppActivityIndicator from '../../components/AppActivityIndicator';
 import ToolGroupListItem from '../../components/toolGroups/ToolGroupListItem';
 import AppText from '../../components/AppText';
 import ListItemSeparator from '../../components/ListItemSeparator';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ToolGroupsScreen({ navigation }) {
   const {
@@ -18,10 +19,13 @@ export default function ToolGroupsScreen({ navigation }) {
     loading,
     error,
   } = useApi(toolGroupsApi.getToolGroups);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    loadGroups();
-  }, []);
+    if (isFocused) {
+      loadGroups();
+    }
+  }, [isFocused]);
 
   return (
     <Screen style={styles.screen}>
@@ -42,9 +46,14 @@ export default function ToolGroupsScreen({ navigation }) {
                   navigation.navigate('ToolGroupDetailScreen', item)
                 }
               />
-            ); // pass the onpress function
+            );
           }}
           ItemSeparatorComponent={ListItemSeparator}
+        />
+        <Button
+          title="+ Lägg till grupp"
+          color={colors.primaryOpacity}
+          onPress={() => navigation.navigate('RegisterToolGroupScreen')}
         />
       </View>
     </Screen>

@@ -6,6 +6,14 @@ const getToolGroups = () => {
   return client.get(endpoint);
 };
 
+const addGroup = (group, onUploadProgress) => {
+  return client.post(endpoint, group, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
+
 const updateGroup = (group, onUploadProgress) => {
   const updatedGroup = {
     name: group.name,
@@ -26,6 +34,7 @@ const deleteGroup = (group, onUploadProgress) => {
   });
 };
 export default {
+  addGroup,
   getToolGroups,
   updateGroup,
   deleteGroup,

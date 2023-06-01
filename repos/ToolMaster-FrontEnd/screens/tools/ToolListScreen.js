@@ -13,6 +13,7 @@ import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import ConnectivityError from '../../components/ConnectivityError';
 import ListItemSeparator from '../../components/ListItemSeparator';
+import { useIsFocused } from '@react-navigation/native';
 
 const tools = [
   {
@@ -66,10 +67,13 @@ export default function ToolListScreen({ navigation }) {
     limitedData,
     loadMore,
   } = useApi(toolsApi.getTools);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    loadTools();
-  }, []);
+    if (isFocused) {
+      loadTools();
+    }
+  }, [isFocused]);
 
   const [filteredData, setFilteredData] = useState(null);
 
