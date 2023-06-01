@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import Screen from '../../components/Screen';
 import AppFormField from '../../components/forms/AppFormField';
@@ -9,6 +9,7 @@ import SubmitButton from '../../components/SubmitButton';
 import toolGroupsApi from '../../api/toolGroups';
 import UploadScreen from '../UploadScreen';
 import { useNavigation } from '@react-navigation/native';
+import AppButton from '../../components/AppButton';
 
 export default function EditToolGroupScreen({ route }) {
   const navigation = useNavigation();
@@ -38,6 +39,22 @@ export default function EditToolGroupScreen({ route }) {
       setUploadVisible(false);
       alert('Verktyg Kunde inte uppdateras.');
     }
+  };
+  const handleDelete = async (group) => {};
+
+  const handleDeleteButtonPress = (group) => {
+    Alert.alert(
+      'Är du säkert?',
+      `Verktygs grupp kommer att raderas, vill du forsätta?`,
+      [
+        { text: 'Nej' },
+        {
+          text: 'Radera',
+          onPress: () => handleDelete(group),
+          style: 'destructive',
+        },
+      ]
+    );
   };
   return (
     <Screen style={styles.screen}>
@@ -74,6 +91,11 @@ export default function EditToolGroupScreen({ route }) {
           />
           <SubmitButton title="uppdatera grupp" color="green" />
         </AppForm>
+        <AppButton
+          title="radera verktygs grupp"
+          color="danger"
+          onPress={handleDeleteButtonPress}
+        />
       </View>
     </Screen>
   );

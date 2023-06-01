@@ -18,7 +18,15 @@ const updateGroup = (group, onUploadProgress) => {
     },
   });
 };
+const deleteGroup = (group, onUploadProgress) => {
+  return client.delete(endpoint + '/' + group._id, {
+    onUploadProgress: (progress) => {
+      onUploadProgress(progress.loaded / progress.total);
+    },
+  });
+};
 export default {
   getToolGroups,
   updateGroup,
+  deleteGroup,
 };

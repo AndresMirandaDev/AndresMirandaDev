@@ -114,7 +114,7 @@ export default function EditToolScreen({ route, navigation }) {
             }
             width="60%"
           />
-          <SubmitButton title="upppdatera " color="green" />
+          <SubmitButton title="upppdatera verktyg" color="green" />
         </AppForm>
       </View>
     </Screen>
