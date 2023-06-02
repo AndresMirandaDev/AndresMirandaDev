@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -13,17 +13,7 @@ import UploadScreen from '../UploadScreen';
 import useApi from '../../hooks/useApi';
 import toolGroupApi from '../../api/toolGroups';
 import toolsApi from '../../api/tools';
-
-//dummy data
-
-// const tool = {
-//   name: 'hilti 1500',
-//   id: 1,
-//   serieNumber: 12345,
-//   toolGroup: { name: 'asbestsanering', description: 'some description' },
-//   project: { name: 'spiralen', projectNumber: 12333 },
-//   available: true,
-// };
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -31,14 +21,21 @@ const validationSchema = Yup.object().shape({
   toolGroup: Yup.object(),
 });
 
-// const toolGroups = [
-//   { name: 'asbest sanering', id: 5 },
-//   { name: 'bilmaskiner', id: 6 },
-//   { name: 'håltagning', id: 7 },
-//   { name: 'flexmaskiner', id: 8 },
-// ];
-//should take the tool from route params comming from the tool detalils screen in the edit button onpress function navigate implementation
+const headingText = {
+  en: 'Edit tool',
+  sv: 'Redigera verktyg',
+  es: 'Editar herramienta',
+};
+
+const updateButtonText = {
+  en: 'Update tool',
+  sv: 'Uppdatera verktyg',
+  es: 'Actualizar herramienta',
+};
+
 export default function EditToolScreen({ route, navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const tool = route.params[0];
   const { data: toolGroups, request: loadToolGroups } = useApi(
     toolGroupApi.getToolGroups
@@ -86,7 +83,7 @@ export default function EditToolScreen({ route, navigation }) {
         }}
       />
       <View style={styles.heading}>
-        <AppText style={styles.info}>Regidera verktyg</AppText>
+        <AppText style={styles.info}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -114,7 +111,7 @@ export default function EditToolScreen({ route, navigation }) {
             }
             width="60%"
           />
-          <SubmitButton title="upppdatera verktyg" color="green" />
+          <SubmitButton title={updateButtonText[language]} color="green" />
         </AppForm>
       </View>
     </Screen>

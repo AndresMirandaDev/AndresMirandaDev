@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import * as Yup from 'yup';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import colors from '../../config/colors';
 import Screen from '../../components/Screen';
 import AppForm from '../../components/forms/AppForm';
@@ -10,13 +10,28 @@ import AppText from '../../components/AppText';
 import SubmitButton from '../../components/SubmitButton';
 import toolGroupsApi from '../../api/toolGroups';
 import UploadScreen from '../UploadScreen';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
 });
 
+const headingText = {
+  en: 'Add new tool group',
+  sv: 'Lägg till verktygs grupp',
+  es: 'Agregar grupo de herramientas',
+};
+
+const buttonText = {
+  en: 'Register new group',
+  sv: 'Registrera ny grupp',
+  es: 'Registrar nuevo grupo',
+};
+
 export default function RegisterToolGroupScreen() {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -40,7 +55,7 @@ export default function RegisterToolGroupScreen() {
         onDone={() => setUploadVisible(false)}
       />
       <View style={styles.heading}>
-        <AppText style={styles.headingText}>Lägg till verktygs grupp </AppText>
+        <AppText style={styles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -61,7 +76,7 @@ export default function RegisterToolGroupScreen() {
             placeholder="description"
             icon="information"
           />
-          <SubmitButton title="registrera ny grupp" color="green" />
+          <SubmitButton title={buttonText[language]} color="green" />
         </AppForm>
       </View>
     </Screen>

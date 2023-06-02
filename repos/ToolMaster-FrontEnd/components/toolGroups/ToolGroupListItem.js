@@ -38,6 +38,5 @@ const styles = StyleSheet.create({
   },
   description: {
     color: colors.medium,
-    maxWidth: 340,
   },
 });

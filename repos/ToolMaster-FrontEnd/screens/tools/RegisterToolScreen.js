@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -13,6 +13,7 @@ import useApi from '../../hooks/useApi';
 import toolGroupsApi from '../../api/toolGroups';
 import toolsApi from '../../api/tools';
 import UploadScreen from '../UploadScreen';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -20,7 +21,21 @@ const validationSchema = Yup.object().shape({
   toolGroup: Yup.object(),
 });
 
+const headingText = {
+  en: 'Register tool',
+  sv: 'Registrera verktyg',
+  es: 'Registrar herramienta',
+};
+
+const buttonText = {
+  en: 'Register new tool',
+  sv: 'Registrera ny verktyg',
+  es: 'Registrar nueva herramienta',
+};
+
 export default function RegisterToolScreen() {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -61,7 +76,7 @@ export default function RegisterToolScreen() {
         onDone={() => setUploadVisible(false)}
       />
       <View style={styles.heading}>
-        <AppText style={styles.headingText}>Registrera Verktyg </AppText>
+        <AppText style={styles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -86,7 +101,7 @@ export default function RegisterToolScreen() {
             placeholder="Verktygs grupp"
             width="60%"
           />
-          <SubmitButton title="Registrera ny verktyg" color="green" />
+          <SubmitButton title={buttonText[language]} color="green" />
         </AppForm>
       </View>
     </Screen>

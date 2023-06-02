@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView, View, Alert } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -9,31 +9,33 @@ import AppText from '../../components/AppText';
 import SubmitButton from '../../components/SubmitButton';
 import colors from '../../config/colors';
 import toolsApi from '../../api/tools';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   serieNumber: Yup.string().required().label('serie nummer'),
 });
 
-// const tools = [
-//   {
-//     name: 'hilti 1500',
-//     id: 1,
-//     serieNumber: 12345,
-//     toolGroup: { name: 'asbestsanering', description: 'some description' },
-//     project: { name: 'spiralen', projectNumber: 12333 },
-//     available: true,
-//   },
-//   {
-//     name: 'flex',
-//     id: 2,
-//     serieNumber: 45678,
-//     toolGroup: { name: 'asbestsanering', description: 'some description' },
-//     project: { name: 'spiralen', projectNumber: 12333 },
-//     available: true,
-//   },
-// ];
+const headingText = {
+  en: 'Edit tool',
+  sv: 'Redigera verktyg',
+  es: 'Editar herramienta',
+};
+
+const labelText = {
+  en: 'Enter serie number',
+  sv: 'Ange serie nummer',
+  es: 'Ingresa numero de serie',
+};
+
+const buttonText = {
+  en: 'Search',
+  sv: 'Sök',
+  es: 'Buscar',
+};
 
 export default function SearchToolScreen({ navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const {
     data: tools,
     error,
@@ -58,10 +60,10 @@ export default function SearchToolScreen({ navigation }) {
     <ScrollView keyboardShouldPersistTaps="never">
       <Screen style={styles.screen}>
         <View style={styles.heading}>
-          <AppText style={styles.headingText}>Regidera verktyg</AppText>
+          <AppText style={styles.headingText}>{headingText[language]}</AppText>
         </View>
         <View style={styles.container}>
-          <AppText>Ange Serie Nummer</AppText>
+          <AppText>{labelText[language]}</AppText>
           <AppForm
             initialValues={{ serieNumber: '' }}
             validationSchema={validationSchema}
@@ -69,11 +71,11 @@ export default function SearchToolScreen({ navigation }) {
           >
             <AppFormField
               name="serieNumber"
-              placeholder="Serie Nummer"
+              placeholder="XXXXXX"
               icon="identifier"
               keyboardType="numeric"
             />
-            <SubmitButton title="search" />
+            <SubmitButton title={buttonText[language]} />
           </AppForm>
         </View>
       </Screen>

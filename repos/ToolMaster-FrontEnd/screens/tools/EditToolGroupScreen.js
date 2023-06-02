@@ -1,5 +1,7 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+
+import { LanguageContext } from '../../language/languageContext';
 import Screen from '../../components/Screen';
 import AppFormField from '../../components/forms/AppFormField';
 import colors from '../../config/colors';
@@ -12,7 +14,27 @@ import { useNavigation } from '@react-navigation/native';
 import AppButton from '../../components/AppButton';
 import RemovedScreen from '../RemovedScreen';
 
+const headingText = {
+  en: 'Edit tool group',
+  sv: 'Redigera verktygs grupp',
+  es: 'Editar grupo de herramientas',
+};
+
+const updateButtonText = {
+  en: 'Update group',
+  sv: 'Uppdatera grupp',
+  es: 'Actualizar grupo',
+};
+
+const deleteButtonText = {
+  en: 'Delete tool group',
+  sv: 'Radera verktygs grupp',
+  es: 'Eliminar grupo de herramientas',
+};
+
 export default function EditToolGroupScreen({ route }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const navigation = useNavigation();
   const group = route.params;
 
@@ -87,7 +109,7 @@ export default function EditToolGroupScreen({ route }) {
         }}
       />
       <View style={styles.heading}>
-        <AppText style={styles.headingText}>Redigera Grupp</AppText>
+        <AppText style={styles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -107,10 +129,10 @@ export default function EditToolGroupScreen({ route }) {
             placeholder={group.description}
             icon="information"
           />
-          <SubmitButton title="uppdatera grupp" color="green" />
+          <SubmitButton title={updateButtonText[language]} color="green" />
         </AppForm>
         <AppButton
-          title="radera verktygs grupp"
+          title={deleteButtonText[language]}
           color="danger"
           onPress={() => handleDeleteButtonPress(group)}
         />
