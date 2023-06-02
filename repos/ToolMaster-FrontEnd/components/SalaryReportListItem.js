@@ -1,9 +1,10 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AppText from './AppText';
 import colors from '../config/colors';
+import { LanguageContext } from '../language/languageContext';
 
 const months = {
   1: 'Januari',
@@ -20,8 +21,15 @@ const months = {
   12: 'December',
 };
 
+const salaryReportText = {
+  en: 'Salary report',
+  sv: 'Lön rapport',
+  es: 'Reporte salarial',
+};
+
 export default function SalaryReportListItem({ report, onPress }) {
   const { date, workdDays } = report;
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   const showDate = new Date(date);
   return (
@@ -35,7 +43,7 @@ export default function SalaryReportListItem({ report, onPress }) {
               color={colors.primaryOpacity}
             />
           </View>
-          <AppText style={styles.label}>Lön rapport</AppText>
+          <AppText style={styles.label}>{salaryReportText[language]}</AppText>
           <AppText style={styles.month}>
             {months[showDate.getMonth() + 1]}
           </AppText>

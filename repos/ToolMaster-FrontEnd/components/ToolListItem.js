@@ -1,23 +1,56 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppText from './AppText';
 import colors from '../config/colors';
+import { LanguageContext } from '../language/languageContext';
+
+//text options
+const serieNumberText = {
+  en: 'Serial nr',
+  sv: 'Serie nr',
+  es: 'Nr de serie',
+};
+
+const groupText = {
+  en: 'Group',
+  sv: 'Grupp',
+  es: 'Grupo',
+};
+
+const projectText = {
+  en: 'Project',
+  sv: 'Projekt',
+  es: 'Projecto',
+};
+
+const storageText = {
+  en: 'Storage',
+  sv: 'Förråd',
+  es: 'Almacen',
+};
 
 export default function ToolListItem({ tool, onPress }) {
   const { name, serieNumber, toolGroup, project, available } = tool;
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.card}>
           <AppText style={styles.toolName}>{name}</AppText>
-          <AppText style={styles.info}>Serie nr: {serieNumber}</AppText>
+          <AppText style={styles.info}>
+            {serieNumberText[language]} {serieNumber}
+          </AppText>
           {toolGroup && (
-            <AppText style={styles.info}>Grupp: {toolGroup.name}</AppText>
+            <AppText style={styles.info}>
+              {groupText[language]} {toolGroup.name}
+            </AppText>
           )}
           {(project && (
-            <AppText style={styles.info}>Projekt: {project.name}</AppText>
-          )) || <AppText style={styles.info}>Förråd</AppText>}
+            <AppText style={styles.info}>
+              {projectText[language]} {project.name}
+            </AppText>
+          )) || <AppText style={styles.info}>{storageText[language]}</AppText>}
           <AppText
             style={[
               styles.status,

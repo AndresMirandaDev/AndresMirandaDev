@@ -1,13 +1,27 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AppText from './AppText';
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/native';
+import { LanguageContext } from '../language/languageContext';
+
+const rentedToText = {
+  en: 'Rented To',
+  sv: 'Inhyrd till',
+  es: 'Arrendado para',
+};
+
+const returnedText = {
+  en: 'Returned',
+  sv: 'Returnerat',
+  es: 'Retornado',
+};
 
 export default function ReturnListItem({ data }) {
   const navigation = useNavigation();
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   const { tool, rentStartDate, returnDate, rentCompany } = data;
 
@@ -17,9 +31,11 @@ export default function ReturnListItem({ data }) {
     <View style={styles.container}>
       <View>
         <AppText style={styles.toolName}>{tool.name}</AppText>
-        <AppText style={styles.info}>Inhyrd till {tool.project.name}</AppText>
         <AppText style={styles.info}>
-          Returnerat den {dateOfReturn.toLocaleDateString()}
+          {rentedToText[language]} {tool.project.name}
+        </AppText>
+        <AppText style={styles.info}>
+          {returnedText[language]} {dateOfReturn.toLocaleDateString()}
         </AppText>
       </View>
       <View style={styles.icon}>
