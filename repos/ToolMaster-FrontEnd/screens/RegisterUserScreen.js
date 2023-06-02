@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
@@ -9,15 +9,23 @@ import AppFormField from '../components/forms/AppFormField';
 import SubmitButton from '../components/SubmitButton';
 import usersApi from '../api/users';
 import UploadScreen from './UploadScreen';
+import { LanguageContext } from '../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label('Namn'),
   email: Yup.string().required().label('Email'),
-  password: Yup.string().label('Lösenord'),
-  phone: Yup.number().label('Mobil nummer'),
+  password: Yup.string().label('Lösenord').required(),
+  phone: Yup.number().label('Mobil nummer').required(),
 });
 
+const registerButtonText = {
+  en: 'Register',
+  sv: 'Registrera',
+  es: 'Registrar',
+};
+
 export default function RegisterUserScreen() {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -55,13 +63,14 @@ export default function RegisterUserScreen() {
           phone: '',
         }}
         onSubmit={handleSubmit}
+        validationSchema={validationSchema}
       >
         <AppFormField name="name" icon="account" placeholder="Namn" />
         <AppFormField name="email" icon="email" placeholder="Email" />
         <AppFormField name="password" icon="lock" placeholder="Lösenord" />
         <AppFormField name="phone" icon="phone" placeholder="Mobil Nummer" />
         <View style={styles.button}>
-          <SubmitButton title="registrera" color="green" />
+          <SubmitButton title={registerButtonText[language]} color="green" />
         </View>
       </AppForm>
     </Screen>

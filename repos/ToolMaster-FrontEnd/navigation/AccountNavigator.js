@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AccountScreen from '../screens/AccountScreen';
 import EditUserInfoScreen from '../screens/EditUserInfoScreen';
 import colors from '../config/colors';
 import ManagePermissionsScreen from '../screens/ManagePermissionsScreen';
 import RegisterUserScreen from '../screens/RegisterUserScreen';
+import { LanguageContext } from '../language/languageContext';
 
 const Stack = createNativeStackNavigator();
 
+const editHeadingText = {
+  en: 'Update my information',
+  sv: 'Uppdatera min information',
+  es: 'Actualizar mi informacion',
+};
+
+const permissionHeadingText = {
+  en: 'Manage permissions',
+  sv: 'Hantera behörigheter',
+  es: 'Administrar permisos',
+};
+
+const registerHeadingText = {
+  en: 'Register new user',
+  sv: 'Registrera ny användare',
+  es: 'Registrar nuevo usuario',
+};
+
 const AccountNavigator = () => {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -23,17 +43,17 @@ const AccountNavigator = () => {
       <Stack.Screen
         name="EditUserInfoScreen"
         component={EditUserInfoScreen}
-        options={{ headerTitle: 'Regidera min information' }}
+        options={{ headerTitle: editHeadingText[language] }}
       />
       <Stack.Screen
         name="ManagePermissionsScreen"
         component={ManagePermissionsScreen}
-        options={{ headerTitle: 'Regidera behörigheter' }}
+        options={{ headerTitle: permissionHeadingText[language] }}
       />
       <Stack.Screen
         name="RegisterUserScreen"
         component={RegisterUserScreen}
-        options={{ headerTitle: 'Registrera ny användare' }}
+        options={{ headerTitle: registerHeadingText[language] }}
       />
     </Stack.Navigator>
   );

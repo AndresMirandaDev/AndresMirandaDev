@@ -7,9 +7,41 @@ import AuthContext from '../auth/context';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
+import { LanguageContext } from '../language/languageContext';
+
+const phoneText = {
+  en: 'Mobile number',
+  sv: 'Mobil nummer',
+  es: 'Numero móvil',
+};
+
+const editButtonText = {
+  en: 'Update my information',
+  sv: 'Uppdatera min information',
+  es: 'Actualizar mi informacion',
+};
+
+const permissionButtonText = {
+  en: 'Manage permissions',
+  sv: 'Hantera behörigheter',
+  es: 'Administrar permisos',
+};
+
+const registerButtonText = {
+  en: 'Register new user',
+  sv: 'Registrera ny användare',
+  es: 'Registrar nuevo usuario',
+};
+
+const logoutButtonText = {
+  en: 'Log out',
+  sv: 'Logga ut',
+  es: 'Cerrar sesión',
+};
 
 export default function AccountScreen({ navigation }) {
   const { user, logOut } = useAuth();
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   return (
     <Screen style={styles.screen}>
@@ -33,28 +65,32 @@ export default function AccountScreen({ navigation }) {
               backgroundColor={colors.primaryOpacity}
             />
           </View>
-          <AppText>Mobil Nummer</AppText>
+          <AppText>{phoneText[language]}</AppText>
           <AppText style={styles.info}>{user.phone}</AppText>
         </View>
         <View style={styles.buttonContainer}>
           <AppButton
-            title="regidera min information"
+            title={editButtonText[language]}
             color="green"
             onPress={() => navigation.navigate('EditUserInfoScreen', user)}
           />
           {user.isAdmin && (
             <AppButton
-              title="hantera behörigheter"
+              title={permissionButtonText[language]}
               onPress={() => navigation.navigate('ManagePermissionsScreen')}
             />
           )}
           {user.isAdmin && (
             <AppButton
-              title="registrera ny användare"
+              title={registerButtonText[language]}
               onPress={() => navigation.navigate('RegisterUserScreen')}
             />
           )}
-          <AppButton title="logga ut" onPress={logOut} color="danger" />
+          <AppButton
+            title={logoutButtonText[language]}
+            onPress={logOut}
+            color="danger"
+          />
         </View>
       </ScrollView>
     </Screen>

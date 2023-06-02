@@ -1,14 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Screen from '../components/Screen';
 import AppText from '../components/AppText';
 import colors from '../config/colors';
 import AppForm from '../components/forms/AppForm';
 import AppFormField from '../components/forms/AppFormField';
 import AppButton from '../components/AppButton';
+import { LanguageContext } from '../language/languageContext';
+
+const editButtonText = {
+  en: 'Update my information',
+  sv: 'Uppdatera min information',
+  es: 'Actualizar mi informacion',
+};
 
 export default function EditUserInfoScreen({ route }) {
   const user = route.params;
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   return (
     <Screen>
@@ -28,7 +36,7 @@ export default function EditUserInfoScreen({ route }) {
             icon="phone"
           />
           <View style={styles.button}>
-            <AppButton title="uppdatera min information" color="green" />
+            <AppButton title={editButtonText[language]} color="green" />
           </View>
         </AppForm>
       </View>
