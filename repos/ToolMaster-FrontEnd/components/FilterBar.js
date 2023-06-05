@@ -43,6 +43,12 @@ const validationSchema = Yup.object().shape({
 
 //language text options
 
+const filterText = {
+  en: 'Filter',
+  sv: 'Filter',
+  es: 'Filtro',
+};
+
 const closeButtonText = {
   en: 'Close',
   sv: 'Stäng',
@@ -112,7 +118,7 @@ export default function FilterBar({ data: tools, setData }) {
           color={colors.primary}
           size={30}
         />
-        <AppText style={styles.headText}>Filter</AppText>
+        <AppText style={styles.headText}>{filterText[language]}</AppText>
         <TouchableWithoutFeedback onPress={showFilterBar}>
           <MaterialCommunityIcons
             name="chevron-down"
