@@ -10,6 +10,7 @@ import SubmitButton from '../../components/SubmitButton';
 import colors from '../../config/colors';
 import toolsApi from '../../api/tools';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const validationSchema = Yup.object().shape({
   serieNumber: Yup.string().required().label('serie nummer'),
@@ -59,8 +60,10 @@ export default function SearchToolScreen({ navigation }) {
   return (
     <ScrollView keyboardShouldPersistTaps="never">
       <Screen style={styles.screen}>
-        <View style={styles.heading}>
-          <AppText style={styles.headingText}>{headingText[language]}</AppText>
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>
+            {headingText[language]}
+          </AppText>
         </View>
         <View style={styles.container}>
           <AppText>{labelText[language]}</AppText>
@@ -97,14 +100,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 20,
     elevation: 30,
-  },
-  heading: {
-    backgroundColor: colors.yellow,
-    padding: 10,
-  },
-  headingText: {
-    color: colors.primaryOpacity,
-    textAlign: 'center',
-    fontSize: 25,
   },
 });

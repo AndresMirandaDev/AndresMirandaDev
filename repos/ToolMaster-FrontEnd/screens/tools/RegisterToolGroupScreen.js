@@ -11,6 +11,7 @@ import SubmitButton from '../../components/SubmitButton';
 import toolGroupsApi from '../../api/toolGroups';
 import UploadScreen from '../UploadScreen';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -54,8 +55,8 @@ export default function RegisterToolGroupScreen() {
         progress={progress}
         onDone={() => setUploadVisible(false)}
       />
-      <View style={styles.heading}>
-        <AppText style={styles.headingText}>{headingText[language]}</AppText>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -90,14 +91,5 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     padding: 7,
-  },
-  heading: {
-    backgroundColor: colors.yellow,
-  },
-  headingText: {
-    color: colors.primary,
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 23,
   },
 });

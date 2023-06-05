@@ -7,4 +7,13 @@ export default {
     color: colors.dark,
   },
   colors,
+  heading: {
+    backgroundColor: colors.yellow,
+  },
+  headingText: {
+    fontSize: 25,
+    color: colors.primaryOpacity,
+    padding: 10,
+    textAlign: 'center',
+  },
 };

@@ -10,6 +10,7 @@ import UploadScreen from '../UploadScreen';
 import toolsApi from '../../api/tools';
 import useApi from '../../hooks/useApi';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const headingText = {
   en: 'Dispatch tool to',
@@ -29,7 +30,7 @@ const buttonText = {
   es: 'Despachar herramienta',
 };
 export default function DispatchToolScreen({ route }) {
-  const { language, options, updateLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
 
   const project = route.params;
   const { data: tools, request: loadTools } = useApi(toolsApi.getTools);
@@ -70,26 +71,30 @@ export default function DispatchToolScreen({ route }) {
         visible={uploadVisible}
         onDone={() => setUploadVisible(false)}
       />
-      <AppText style={styles.text}>
-        {headingText[language]} {project.name}
-      </AppText>
-      <AppText style={{ color: colors.medium, fontStyle: 'italic' }}>
-        {instructionsText[language]}
-      </AppText>
-      <AppForm
-        initialValues={{
-          serieNumber: '',
-        }}
-        onSubmit={handleSubmit}
-      >
-        <AppFormField
-          name="serieNumber"
-          icon="identifier"
-          placeholder="Serie nummer"
-          keyboardType="numeric"
-        />
-        <SubmitButton title={buttonText[language]} />
-      </AppForm>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>
+          {headingText[language]} {project.name}
+        </AppText>
+      </View>
+      <View style={styles.container}>
+        <AppText style={{ color: colors.medium, fontStyle: 'italic' }}>
+          {instructionsText[language]}
+        </AppText>
+        <AppForm
+          initialValues={{
+            serieNumber: '',
+          }}
+          onSubmit={handleSubmit}
+        >
+          <AppFormField
+            name="serieNumber"
+            icon="identifier"
+            placeholder="Serie nummer"
+            keyboardType="numeric"
+          />
+          <SubmitButton title={buttonText[language]} />
+        </AppForm>
+      </View>
     </Screen>
   );
 }
@@ -98,13 +103,8 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
-    padding: 20,
   },
-
-  text: {
-    color: colors.primary,
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 23,
+  container: {
+    padding: 20,
   },
 });

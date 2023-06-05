@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -14,12 +14,64 @@ import useApi from '../../hooks/useApi';
 import usersApi from '../../api/users';
 import UploadScreen from '../UploadScreen';
 import projectsApi from '../../api/projects';
+import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const validationSchema = Yup.object().shape({
   project: Yup.object().required().label('projekt'),
 });
 
+const editText = {
+  en: 'Edit Project',
+  sv: 'Redigera projekt',
+  es: 'Editar proyecto',
+};
+
+const nameLabel = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const addressLabel = {
+  en: 'Address',
+  sv: 'Address',
+  es: 'Direccion',
+};
+
+const projectNumberLabel = {
+  en: 'Project number',
+  sv: 'Projekt nummer',
+  es: 'Numero de proyecto',
+};
+
+const supervisorLabel = {
+  en: 'Supervisor',
+  sv: 'Arbetsledare',
+  es: 'Supervisor',
+};
+
+const startDateLabel = {
+  en: 'Start date',
+  sv: 'Start datum',
+  es: 'Fecha de inicio',
+};
+
+const endDateLabel = {
+  en: 'End date',
+  sv: 'Slut datum',
+  es: 'Fecha de término',
+};
+
+const updateButtonText = {
+  en: 'Update',
+  sv: 'Uppdatera',
+  es: 'Actualizar',
+};
+
 export default function EditProjectScreen({ route }) {
+  const { language } = useContext(LanguageContext);
+
   const project = route.params;
 
   const {
@@ -86,53 +138,59 @@ export default function EditProjectScreen({ route }) {
           visible={uploadVisible}
           onDone={() => setUploadVisible(false)}
         />
-        <AppText style={styles.info}>Regiderar : {project.name}</AppText>
-        <AppText style={styles.info}>
-          Projekt Nummer : {project.projectNumber}
-        </AppText>
-        <AppForm
-          initialValues={{
-            name: '',
-            address: '',
-            startDate: '',
-            endDate: '',
-            projectNumber: '',
-            supervisor: '',
-          }}
-          onSubmit={handleSubmit}
-        >
-          <AppText style={styles.label}>Namn</AppText>
-          <AppFormField
-            name="name"
-            placeholder={project.name}
-            icon="alphabetical-variant"
-          />
-          <AppText style={styles.label}>Address</AppText>
-          <AppFormField
-            name="address"
-            placeholder={project.address}
-            icon="map-marker"
-          />
-          <AppText style={styles.label}>Projekt Nummer</AppText>
-          <AppFormField
-            name="projectNumber"
-            placeholder={project.projectNumber.toString()}
-            icon="identifier"
-          />
-          <AppText style={styles.label}>Arbetsledare</AppText>
-          <AppFormPicker
-            items={users}
-            placeholder={
-              project.supervisor ? project.supervisor.name : 'Arbetsledare'
-            }
-            name="supervisor"
-          />
-          <AppText style={styles.label}>Start Datum</AppText>
-          <AppDatePicker name="startDate" />
-          <AppText style={styles.label}>Slut datum</AppText>
-          <AppDatePicker name="endDate" />
-          <SubmitButton title="uppdatera" color="green" />
-        </AppForm>
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>{editText[language]}</AppText>
+        </View>
+        <View style={{ padding: 10 }}>
+          <AppForm
+            initialValues={{
+              name: '',
+              address: '',
+              startDate: '',
+              endDate: '',
+              projectNumber: '',
+              supervisor: '',
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <AppText style={styles.label}>{nameLabel[language]}</AppText>
+            <AppFormField
+              name="name"
+              placeholder={project.name}
+              icon="alphabetical-variant"
+            />
+            <AppText style={styles.label}>{addressLabel[language]}</AppText>
+            <AppFormField
+              name="address"
+              placeholder={project.address}
+              icon="map-marker"
+            />
+            <AppText style={styles.label}>
+              {projectNumberLabel[language]}
+            </AppText>
+            <AppFormField
+              name="projectNumber"
+              placeholder={project.projectNumber.toString()}
+              icon="identifier"
+            />
+            <AppText style={styles.label}>{supervisorLabel[language]}</AppText>
+            <AppFormPicker
+              items={users}
+              placeholder={
+                project.supervisor
+                  ? project.supervisor.name
+                  : supervisorLabel[language]
+              }
+              name="supervisor"
+            />
+            <AppText style={styles.label}>{startDateLabel[language]}</AppText>
+            <AppDatePicker name="startDate" />
+            <AppText style={styles.label}>{endDateLabel[language]}</AppText>
+            <AppDatePicker name="endDate" />
+            <SubmitButton title={updateButtonText[language]} color="green" />
+          </AppForm>
+        </View>
       </Screen>
     </ScrollView>
   );
@@ -142,19 +200,9 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.white,
-    paddingTop: 50,
   },
   label: {
     color: colors.medium,
     padding: 5,
-  },
-  info: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    padding: 10,
-    textTransform: 'capitalize',
-    color: colors.primary,
-    fontSize: 20,
-    margin: 5,
   },
 });

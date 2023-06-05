@@ -10,6 +10,7 @@ import ListItemSeparator from '../../components/ListItemSeparator';
 import AppActivityIndicator from '../../components/AppActivityIndicator';
 import AppButton from '../../components/AppButton';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const toolText = {
   en: 'Tools',
@@ -46,8 +47,8 @@ export default function ToolGroupDetailScreen({ route, navigation }) {
   }, []);
   return (
     <Screen style={styles.screen}>
-      <View style={styles.heading}>
-        <AppText style={styles.headingText}>{group.name}</AppText>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{group.name}</AppText>
       </View>
       <View style={styles.descriptionContainer}>
         <AppText style={styles.description}>{group.description}</AppText>
@@ -103,16 +104,7 @@ const styles = StyleSheet.create({
     color: colors.primaryOpacity,
     padding: 10,
   },
-  heading: {
-    backgroundColor: colors.yellow,
-  },
-  headingText: {
-    fontSize: 25,
-    color: colors.primaryOpacity,
-    padding: 10,
-    textAlign: 'center',
-    textTransform: 'capitalize',
-  },
+
   toolsHeadingContainer: {
     flexDirection: 'row',
     justifyContent: 'center',

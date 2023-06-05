@@ -14,6 +14,7 @@ import useApi from '../../hooks/useApi';
 import toolGroupApi from '../../api/toolGroups';
 import toolsApi from '../../api/tools';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -82,8 +83,8 @@ export default function EditToolScreen({ route, navigation }) {
           }, 1000);
         }}
       />
-      <View style={styles.heading}>
-        <AppText style={styles.info}>{headingText[language]}</AppText>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -123,16 +124,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     minHeight: '100%',
   },
-  info: {
-    textAlign: 'center',
-    padding: 10,
-    textTransform: 'capitalize',
-    color: colors.primaryOpacity,
-    fontSize: 25,
-  },
-  heading: {
-    backgroundColor: colors.yellow,
-  },
+
   formContainer: {
     padding: 7,
   },

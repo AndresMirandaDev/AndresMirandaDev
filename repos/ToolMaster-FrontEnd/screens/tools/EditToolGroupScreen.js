@@ -13,6 +13,7 @@ import UploadScreen from '../UploadScreen';
 import { useNavigation } from '@react-navigation/native';
 import AppButton from '../../components/AppButton';
 import RemovedScreen from '../RemovedScreen';
+import appStyles from '../../config/styles';
 
 const headingText = {
   en: 'Edit tool group',
@@ -108,8 +109,8 @@ export default function EditToolGroupScreen({ route }) {
           }, 1000);
         }}
       />
-      <View style={styles.heading}>
-        <AppText style={styles.headingText}>{headingText[language]}</AppText>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{headingText[language]}</AppText>
       </View>
       <View style={styles.formContainer}>
         <AppForm
@@ -146,16 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     minHeight: '100%',
   },
-  heading: {
-    backgroundColor: colors.yellow,
-  },
-  headingText: {
-    fontSize: 25,
-    color: colors.primaryOpacity,
-    padding: 10,
-    textAlign: 'center',
-    textTransform: 'capitalize',
-  },
+
   formContainer: {
     padding: 7,
   },

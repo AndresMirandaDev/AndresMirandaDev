@@ -12,6 +12,7 @@ import AppText from '../../components/AppText';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import { useIsFocused } from '@react-navigation/native';
 import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
 const titleText = {
   en: 'Tool groups',
@@ -44,8 +45,8 @@ export default function ToolGroupsScreen({ navigation }) {
     <Screen style={styles.screen}>
       {error && <ConnectivityError loadDataFunction={loadGroups} />}
       <AppActivityIndicator visible={loading} />
-      <View style={styles.heading}>
-        <AppText style={styles.headingText}>{titleText[language]}</AppText>
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{titleText[language]}</AppText>
       </View>
       <View style={styles.listContainer}>
         <FlatList
@@ -78,15 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     minHeight: '100%',
   },
-  heading: {
-    backgroundColor: colors.yellow,
-  },
-  headingText: {
-    fontSize: 25,
-    color: colors.primaryOpacity,
-    padding: 10,
-    textAlign: 'center',
-  },
+
   listContainer: {
     flex: 1,
     paddingBottom: 50,

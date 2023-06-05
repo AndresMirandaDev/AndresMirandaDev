@@ -5,36 +5,6 @@ import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import AppButton from '../../components/AppButton';
 
-//dummy data
-// const project = [
-//   {
-//     name: 'spiralen',
-//     address: 'uppmanargatan 25',
-//     projectNumber: 11111,
-//     active: true,
-//     supervisor: {
-//       name: 'chato luis',
-//       id: 1,
-//     },
-//     id: 1,
-//     startDate: '2/3/2023',
-//     endDate: '6/9/2025',
-//   },
-//   {
-//     name: 'drakenberg',
-//     address: 'drakenbergsgatan 5',
-//     projectNumber: 22222,
-//     active: true,
-//     supervisor: {
-//       name: 'Roberto diaz',
-//       id: 2,
-//     },
-//     id: 2,
-//     startDate: '2/3/2023',
-//     endDate: '6/9/2025',
-//   },
-// ];
-
 export default function ProjectInfoScreen({ route, navigation }) {
   const {
     name,
