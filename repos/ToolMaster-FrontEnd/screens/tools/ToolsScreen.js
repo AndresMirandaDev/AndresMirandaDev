@@ -60,7 +60,7 @@ export default function ToolsScreen({ navigation }) {
               title={item.title[language]}
               onPress={() => navigation.navigate(item.path)}
             />
-          ); //remember to pass onpress for navigation
+          );
         }}
         ItemSeparatorComponent={ListItemSeparator}
       />
