@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
@@ -7,19 +7,102 @@ import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import toolsApi from '../../api/tools';
 import RemovedScreen from '../RemovedScreen';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LanguageContext } from '../../language/languageContext';
 
-//dummy data
+//text language options
 
-// const tool = {
-//   name: 'hilti 1500',
-//   id: 1,
-//   serieNumber: 12345,
-//   toolGroup: { name: 'asbestsanering', description: 'some description' },
-//   project: { name: 'spiralen', projectNumber: 12333 },
-//   available: true,
-// };
+const serieNumberText = {
+  en: 'Serial number',
+  sv: 'Serie nummer',
+  es: 'Número de serie',
+};
 
+const placeText = {
+  en: 'Current place',
+  sv: 'Nuvarande plats',
+  es: 'Lugar actual',
+};
+
+const groupText = {
+  en: 'Tool group',
+  sv: 'Verktygs grupp',
+  es: 'Grupo',
+};
+
+const statusText = {
+  en: 'Status',
+  sv: 'Status',
+  es: 'Estado',
+};
+
+const statusInfoText = {
+  en: {
+    isAvailable: 'Available',
+    notAvailable: 'In use',
+  },
+  sv: {
+    isAvailable: 'Tillgängligt',
+    notAvailable: 'I användning',
+  },
+  es: {
+    isAvailable: 'Libre',
+    notAvailable: 'En uso',
+  },
+};
+
+const editButtonText = {
+  en: 'Edit tool',
+  sv: 'Redigera verktyg',
+  es: 'Editar herramienta',
+};
+
+const deleteButtonText = {
+  en: 'Delete tool',
+  sv: 'Radera verktyg',
+  es: 'Eliminar herramienta',
+};
+
+const statusButtonText = {
+  en: 'Set as available',
+  sv: 'Sätt som tillgängligt',
+  es: 'Marcar como disponible',
+};
+
+//alert language text options
+
+const errorAlertText = {
+  en: 'Tool could not be deleted',
+  sv: 'Det gick inte att radera verktyg',
+  es: 'No se pudo borrar la herramienta',
+};
+
+const alertTitle = {
+  en: 'Delete tool',
+  sv: 'Radera verktyg',
+  es: 'Eliminar herramienta',
+};
+
+const alertMessage = {
+  en: 'will be deleted, are you sure that you want to continue?',
+  sv: 'kommer att raderas, är du säker du vill forsätta?',
+  es: 'sera eliminado, ¿estas seguro que quieres continuar?',
+};
+
+const alertButtonNoText = {
+  en: 'No',
+  sv: 'Nej',
+  es: 'No',
+};
+
+const alertButtonDeleteText = {
+  en: 'Delete',
+  sv: 'Radera',
+  es: 'Eliminar',
+};
 export default function ToolDetailsScreen({ route, navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const [tool, setTool] = useState(route.params);
   const [removedVisible, setRemovedVisible] = useState(false);
 
@@ -34,23 +117,24 @@ export default function ToolDetailsScreen({ route, navigation }) {
     setRemovedVisible(true);
     const result = await toolsApi.deleteTool(tool);
 
-    if (!result.ok) alert('Verktyg gick inte raderas.');
+    if (!result.ok) alert(errorAlertText[language]);
   };
 
   const handleDeleteButtonPress = (tool) => {
     Alert.alert(
-      'Är du säkert?',
-      `${tool.name} kommer att raderas, vill du forsätta?`,
+      `${alertTitle[language]}`,
+      `${tool.name} ${alertMessage[language]}`,
       [
-        { text: 'Nej' },
+        { text: alertButtonNoText[language] },
         {
-          text: 'Radera',
+          text: alertButtonDeleteText[language],
           onPress: () => handleDelete(tool),
           style: 'destructive',
         },
       ]
     );
   };
+  console.log(tool);
   return (
     <Screen style={styles.screen}>
       <RemovedScreen
@@ -63,53 +147,84 @@ export default function ToolDetailsScreen({ route, navigation }) {
         }}
       />
       <View style={styles.container}>
-        <AppText style={styles.title}>{tool.name}</AppText>
+        <View style={styles.heading}>
+          <View style={{ marginRight: 10 }}>
+            <MaterialCommunityIcons
+              name="tools"
+              size={30}
+              color={colors.primaryOpacity}
+            />
+          </View>
+          <AppText style={styles.title}>{tool.name}</AppText>
+        </View>
       </View>
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Serie nummer</AppText>
+        <MaterialCommunityIcons
+          name="identifier"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{serieNumberText[language]}</AppText>
         <AppText style={styles.info}>{tool.serieNumber}</AppText>
       </View>
-      {tool.project && (
-        <View style={styles.infoContainer}>
-          <AppText style={styles.label}>Nuvarande plats</AppText>
-          <AppText style={styles.info}>
-            {tool.project ? tool.project.name : 'i förråd'}
-          </AppText>
-        </View>
-      )}
+
+      <View style={styles.infoContainer}>
+        <MaterialCommunityIcons
+          name="city"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{placeText[language]}</AppText>
+        <AppText style={styles.info}>
+          {tool.project ? tool.project.name : 'i förråd'}
+        </AppText>
+      </View>
       {tool.toolGroup && (
         <View style={styles.infoContainer}>
-          <AppText style={styles.label}>Vertkygs Grupp</AppText>
+          <MaterialCommunityIcons
+            name="select-group"
+            size={30}
+            color={colors.primaryOpacity}
+          />
+          <AppText style={styles.label}>{groupText[language]}</AppText>
           <AppText style={styles.info}>{tool.toolGroup.name}</AppText>
         </View>
       )}
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Status : </AppText>
+        <MaterialCommunityIcons
+          name="list-status"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{statusText[language]}</AppText>
         <AppText
           style={{
             color: tool.available ? colors.green : colors.danger,
             fontWeight: 'bold',
+            marginLeft: 10,
           }}
         >
-          {tool.available ? 'Tillgängligt' : 'Upptagen'}
+          {tool.available
+            ? statusInfoText[language]['isAvailable']
+            : statusInfoText[language]['notAvailable']}
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
         {!tool.available ? (
           <AppButton
-            title="Sätt som tillgängligt"
+            title={statusButtonText[language]}
             color="green"
             onPress={() => handleStatus(tool)}
           />
         ) : null}
         <AppButton
-          title="Regidera"
+          title={editButtonText[language]}
           onPress={() => {
             navigation.navigate('EditToolScreen', [tool]);
           }}
         />
         <AppButton
-          title="Radera Verktyg"
+          title={deleteButtonText[language]}
           color="danger"
           onPress={() => handleDeleteButtonPress(tool)}
         />
@@ -123,15 +238,27 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
   },
+  heading: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: colors.yellow,
+  },
   label: {
-    color: colors.light,
+    color: colors.primaryOpacity,
     textTransform: 'capitalize',
+    fontWeight: 'bold',
+    marginLeft: 10,
+    fontSize: 21,
   },
   info: {
-    color: colors.light,
+    color: colors.primaryOpacity,
     fontSize: 20,
     padding: 5,
     textTransform: 'capitalize',
+    fontStyle: 'italic',
+    marginLeft: 10,
   },
   screen: {
     backgroundColor: colors.light,
@@ -139,23 +266,19 @@ const styles = StyleSheet.create({
   },
   title: {
     textTransform: 'uppercase',
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: '800',
-    color: colors.primary,
+    color: colors.primaryOpacity,
     textAlign: 'center',
   },
   infoContainer: {
-    flexDirection: 'column',
-    padding: 10,
-    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    padding: 20,
     alignItems: 'center',
-    backgroundColor: colors.primaryOpacity,
-    margin: 10,
-    borderRadius: 20,
-    shadowColor: colors.dark,
-    shadowOpacity: 0.2,
-    shadowOffset: { height: 10, width: 10 },
-    shadowRadius: 6,
+    backgroundColor: colors.white,
     elevation: 10,
+    borderStyle: 'solid',
+    borderBottomColor: colors.light,
+    borderBottomWidth: 1,
   },
 });

@@ -59,6 +59,7 @@ const dispatchTool = (tool, onUploadProgress) => {
     serieNumber: tool.serieNumber,
     toolGroup: tool.toolGroup._id,
     project: tool.project,
+    available: false,
   };
 
   return client.put(endpoint + '/' + tool._id, updatedTool, {
