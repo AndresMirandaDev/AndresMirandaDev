@@ -1,5 +1,5 @@
 import { Button, FlatList, StyleSheet, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import toolGroupsApi from '../../api/toolGroups';
 import Screen from '../../components/Screen';
@@ -11,8 +11,21 @@ import ToolGroupListItem from '../../components/toolGroups/ToolGroupListItem';
 import AppText from '../../components/AppText';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import { useIsFocused } from '@react-navigation/native';
+import { LanguageContext } from '../../language/languageContext';
 
+const titleText = {
+  en: 'Tool groups',
+  sv: 'Verktygs grupper',
+  es: 'Grupos de herramientas',
+};
+
+const buttonText = {
+  en: '+ Add group',
+  sv: '+ Lägg till grupp',
+  es: '+ Agregar grupo',
+};
 export default function ToolGroupsScreen({ navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
   const {
     data: toolGroups,
     request: loadGroups,
@@ -32,7 +45,7 @@ export default function ToolGroupsScreen({ navigation }) {
       {error && <ConnectivityError loadDataFunction={loadGroups} />}
       <AppActivityIndicator visible={loading} />
       <View style={styles.heading}>
-        <AppText style={styles.headingText}>Verktygs grupper</AppText>
+        <AppText style={styles.headingText}>{titleText[language]}</AppText>
       </View>
       <View style={styles.listContainer}>
         <FlatList
@@ -51,7 +64,7 @@ export default function ToolGroupsScreen({ navigation }) {
           ItemSeparatorComponent={ListItemSeparator}
         />
         <Button
-          title="+ Lägg till grupp"
+          title={buttonText[language]}
           color={colors.primaryOpacity}
           onPress={() => navigation.navigate('RegisterToolGroupScreen')}
         />
