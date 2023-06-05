@@ -57,7 +57,7 @@ export default function AppNavigator() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
-        name={homeText[language]}
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -66,10 +66,11 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: homeText[language],
         }}
       />
       <Tab.Screen
-        name={toolText[language]}
+        name="Tools"
         component={ToolsNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -78,10 +79,11 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: toolText[language],
         }}
       />
       <Tab.Screen
-        name={projectText[language]}
+        name="Projects"
         component={ProjectsNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -94,10 +96,11 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: projectText[language],
         }}
       />
       <Tab.Screen
-        name={rentedText[language]}
+        name="Rented"
         component={RentedToolsNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -110,10 +113,11 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: rentedText[language],
         }}
       />
       <Tab.Screen
-        name={salaryReportText[language]}
+        name="SalaryReports"
         component={SalaryReportsNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -126,10 +130,11 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: salaryReportText[language],
         }}
       />
       <Tab.Screen
-        name={myAccountText[language]}
+        name="Account"
         component={AccountNavigator}
         options={{
           tabBarIcon: ({ color, size }) => {
@@ -142,6 +147,7 @@ export default function AppNavigator() {
             );
           },
           tabBarActiveTintColor: colors.primary,
+          tabBarLabel: myAccountText[language],
         }}
       />
     </Tab.Navigator>
