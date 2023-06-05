@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Screen from '../../components/Screen';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
@@ -9,8 +9,22 @@ import ToolListItem from '../../components/ToolListItem';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import AppActivityIndicator from '../../components/AppActivityIndicator';
 import AppButton from '../../components/AppButton';
+import { LanguageContext } from '../../language/languageContext';
 
+const toolText = {
+  en: 'Tools',
+  sv: 'Verktyg',
+  es: 'Herramientas',
+};
+
+const editButtonText = {
+  en: 'Edit group',
+  sv: 'Redigera grupp',
+  es: 'Editar grupo',
+};
 export default function ToolGroupDetailScreen({ route, navigation }) {
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
   const group = route.params;
   const [tools, setTools] = useState([]);
 
@@ -46,7 +60,7 @@ export default function ToolGroupDetailScreen({ route, navigation }) {
             color={colors.primaryOpacity}
           />
         </View>
-        <AppText style={styles.toolsHeading}>Verktyg</AppText>
+        <AppText style={styles.toolsHeading}>{toolText[language]}</AppText>
       </View>
       <View style={styles.listContainer}>
         <AppActivityIndicator visible={loading} />
@@ -67,7 +81,7 @@ export default function ToolGroupDetailScreen({ route, navigation }) {
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
-          title="Redigera Grupp"
+          title={editButtonText[language]}
           onPress={() => navigation.navigate('EditToolGroupScreen', group)}
         />
       </View>

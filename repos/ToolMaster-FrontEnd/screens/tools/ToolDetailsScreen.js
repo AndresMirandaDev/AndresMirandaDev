@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     flex: 1,
   },
   title: {

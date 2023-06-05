@@ -29,6 +29,20 @@ const storageText = {
   es: 'Almacen',
 };
 
+const statusInfoText = {
+  en: {
+    isAvailable: 'Available',
+    notAvailable: 'In use',
+  },
+  sv: {
+    isAvailable: 'Tillgängligt',
+    notAvailable: 'I användning',
+  },
+  es: {
+    isAvailable: 'Libre',
+    notAvailable: 'En uso',
+  },
+};
 export default function ToolListItem({ tool, onPress }) {
   const { name, serieNumber, toolGroup, project, available } = tool;
   const { language, options, updateLanguage } = useContext(LanguageContext);
@@ -57,7 +71,9 @@ export default function ToolListItem({ tool, onPress }) {
               { color: available ? colors.green : colors.danger },
             ]}
           >
-            {available ? 'Tillgängligt' : 'i användning'}
+            {available
+              ? statusInfoText[language]['isAvailable']
+              : statusInfoText[language]['notAvailable']}
           </AppText>
         </View>
       </View>
