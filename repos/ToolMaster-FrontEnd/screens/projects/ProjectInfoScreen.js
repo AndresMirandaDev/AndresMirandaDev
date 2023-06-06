@@ -1,11 +1,58 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import React, { useContext } from 'react';
 import Screen from '../../components/Screen';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import AppButton from '../../components/AppButton';
+import appStyles from '../../config/styles';
+import { LanguageContext } from '../../language/languageContext';
+
+const addressLabel = {
+  en: 'Address',
+  sv: 'Address',
+  es: 'Dirección',
+};
+
+const projectNumberLabel = {
+  en: 'Project number',
+  sv: 'Projekt nummer',
+  es: 'Número de proyecto',
+};
+
+const supervisorLabel = {
+  en: 'Supervisor',
+  sv: 'Arbetsledare',
+  es: 'Supervisor',
+};
+
+const startDateLabel = {
+  en: 'Start date',
+  sv: 'Start datum',
+  es: 'Fecha de inicio',
+};
+
+const endDateLabel = {
+  en: 'End date',
+  sv: 'Slut datum',
+  es: 'Fecha de término',
+};
+
+const updateButtonText = {
+  en: 'Edit',
+  sv: 'Regidera',
+  es: 'Editar',
+};
+
+const dispatchButtonText = {
+  en: 'Dispatch tool',
+  sv: 'Avsänd verktyg',
+  es: 'Despachar herramientas',
+};
 
 export default function ProjectInfoScreen({ route, navigation }) {
+  const { language } = useContext(LanguageContext);
   const {
     name,
     address,
@@ -22,43 +69,70 @@ export default function ProjectInfoScreen({ route, navigation }) {
   return (
     <Screen style={styles.screen}>
       <ScrollView>
-        <AppText style={styles.projectName}>{name}</AppText>
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>{name}</AppText>
+        </View>
         <View style={styles.infoContainer}>
-          <AppText style={styles.label}>address</AppText>
+          <MaterialCommunityIcons
+            name="map-marker"
+            size={30}
+            color={colors.primaryOpacity}
+          />
+          <AppText style={styles.label}>{addressLabel[language]}</AppText>
           <AppText style={styles.info}>{address}</AppText>
         </View>
         <View style={styles.infoContainer}>
-          <AppText style={styles.label}>projekt nummer </AppText>
+          <MaterialCommunityIcons
+            name="identifier"
+            size={30}
+            color={colors.primaryOpacity}
+          />
+          <AppText style={styles.label}>{projectNumberLabel[language]}</AppText>
           <AppText style={styles.info}>{projectNumber}</AppText>
         </View>
         {supervisor && (
           <View style={styles.infoContainer}>
-            <AppText style={styles.label}>arbetsledare </AppText>
+            <MaterialCommunityIcons
+              name="account"
+              size={30}
+              color={colors.primaryOpacity}
+            />
+            <AppText style={styles.label}>{supervisorLabel[language]}</AppText>
             <AppText style={styles.info}>{supervisor.name}</AppText>
           </View>
         )}
         <View style={styles.infoContainer}>
-          <AppText style={styles.label}>start datum </AppText>
+          <MaterialCommunityIcons
+            name="calendar"
+            size={30}
+            color={colors.primaryOpacity}
+          />
+          <AppText style={styles.label}>{startDateLabel[language]}</AppText>
           <AppText style={styles.info}>
             {projectStartDate.toLocaleDateString()}
           </AppText>
         </View>
         <View style={styles.infoContainer}>
-          <AppText style={styles.label}>slut datum </AppText>
+          <MaterialCommunityIcons
+            name="calendar-check"
+            size={30}
+            color={colors.primaryOpacity}
+          />
+          <AppText style={styles.label}>{endDateLabel[language]}</AppText>
           <AppText style={styles.info}>
             {projectEndDate.toLocaleDateString()}
           </AppText>
         </View>
         <View style={styles.buttonContainer}>
           <AppButton
-            title="Redigera / Uppdatera"
+            title={updateButtonText[language]}
             color="green"
             onPress={() => {
               navigation.navigate('EditProjectScreen', route.params);
             }}
           />
           <AppButton
-            title="avsända verktyg"
+            title={dispatchButtonText[language]}
             onPress={() => {
               navigation.navigate('DispatchToolScreen', route.params);
             }}
@@ -85,25 +159,21 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'column',
     padding: 30,
-    justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: colors.primaryOpacity,
-    margin: 10,
-    borderRadius: 20,
-    shadowColor: colors.dark,
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 10, width: 10 },
-    shadowRadius: 6,
-    elevation: 10,
+    backgroundColor: colors.white,
+    borderStyle: 'solid',
+    borderBottomColor: colors.light,
+    borderBottomWidth: 1,
   },
   label: {
-    color: colors.light,
+    color: colors.medium,
     textTransform: 'capitalize',
     fontSize: 20,
   },
   info: {
-    color: colors.light,
+    color: colors.primaryOpacity,
     textTransform: 'capitalize',
+    fontWeight: 'bold',
   },
   buttonContainer: {
     padding: 10,

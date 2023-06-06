@@ -1,27 +1,45 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Screen from '../../components/Screen';
 import NavButton from '../../components/NavButton';
 import colors from '../../config/colors';
 import ListItemSeparator from '../../components/ListItemSeparator';
+import { LanguageContext } from '../../language/languageContext';
 
 const toolsActions = [
-  { title: 'Visa Projekt', path: 'SearchProjectScreen', icon: 'magnify' },
-  { title: 'Ny Projekt', path: 'RegisterProjectScreen', icon: 'plus' },
+  {
+    title: {
+      en: 'Show project',
+      sv: 'Visa projekt',
+      es: 'Ver proyecto',
+    },
+    path: 'SearchProjectScreen',
+    icon: 'magnify',
+  },
+  {
+    title: {
+      en: 'New project',
+      sv: 'Ny projekt',
+      es: 'Nuevo proyecto',
+    },
+    path: 'RegisterProjectScreen',
+    icon: 'plus',
+  },
 ];
 
 export default function ProjectsScreen({ navigation }) {
+  const { language } = useContext(LanguageContext);
   return (
     <Screen style={styles.screen}>
       <FlatList
         data={toolsActions}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item.title[language]}
         numColumns={1}
         renderItem={({ item }) => {
           return (
             <NavButton
               icon={item.icon}
-              title={item.title}
+              title={item.title[language]}
               onPress={() => navigation.navigate(item.path)}
             />
           ); //remember to pass onpress for navigation
