@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -11,41 +11,38 @@ import SubmitButton from '../../components/SubmitButton';
 import AppFormPicker from '../../components/forms/AppFormPicker';
 import useApi from '../../hooks/useApi';
 import projectsApi from '../../api/projects';
+import appStyles from '../../config/styles';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   project: Yup.object().required().label('projekt'),
 });
 
-// const projects = [
-//   {
-//     name: 'spiralen',
-//     address: 'uppmanargatan 25',
-//     projectNumber: 11111,
-//     active: true,
-//     supervisor: {
-//       name: 'chato luis',
-//       id: 1,
-//     },
-//     id: 1,
-//     startDate: new Date().toLocaleDateString(),
-//     endDate: new Date().toLocaleDateString(),
-//   },
-//   {
-//     name: 'drakenberg',
-//     address: 'drakenbergsgatan 5',
-//     projectNumber: 22222,
-//     active: true,
-//     supervisor: {
-//       name: 'Roberto diaz',
-//       id: 2,
-//     },
-//     id: 2,
-//     startDate: new Date().toLocaleDateString(),
-//     endDate: new Date().toLocaleDateString(),
-//   },
-// ];
+const headingText = {
+  en: 'Show project',
+  sv: 'Visa projekt',
+  es: 'Ver proyecto',
+};
 
+const labelText = {
+  en: 'Choose project to show',
+  sv: 'Välj projekt att visa',
+  es: 'Escoge proyecto para mostrar',
+};
+
+const placeholderText = {
+  en: 'Choose project',
+  sv: 'Välj projekt',
+  es: 'Escoge un proyecto',
+};
+
+const buttonText = {
+  en: 'Show',
+  sv: 'Visa',
+  es: 'Mostrar',
+};
 export default function SearchProjectScreen({ navigation }) {
+  const { language } = useContext(LanguageContext);
   const {
     data: projects,
     loading,
@@ -64,8 +61,13 @@ export default function SearchProjectScreen({ navigation }) {
   return (
     <ScrollView keyboardShouldPersistTaps="never">
       <Screen style={styles.screen}>
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>
+            {headingText[language]}
+          </AppText>
+        </View>
         <View style={styles.container}>
-          <AppText>Välj projekt att visa</AppText>
+          <AppText>{labelText[language]}</AppText>
           <AppForm
             initialValues={{ project: '' }}
             validationSchema={validationSchema}
@@ -74,9 +76,9 @@ export default function SearchProjectScreen({ navigation }) {
             <AppFormPicker
               name="project"
               items={projects}
-              placeholder="Välj Projekt"
+              placeholder={placeholderText[language]}
             />
-            <SubmitButton title="visa" />
+            <SubmitButton title={buttonText[language]} />
           </AppForm>
         </View>
       </Screen>
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
   screen: {
     minHeight: '100%',
     backgroundColor: colors.light,
-    paddingTop: 50,
   },
   container: {
     justifyContent: 'center',
