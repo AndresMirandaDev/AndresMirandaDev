@@ -2,6 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useFormikContext } from 'formik';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Screen from '../Screen';
 import colors from '../../config/colors';
@@ -25,6 +26,12 @@ export default function AppDatePicker({
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
+        <MaterialCommunityIcons
+          name="calendar-clock"
+          size={25}
+          color={colors.medium}
+          style={{ marginRight: 10 }}
+        />
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <AppText style={styles.date}>
             {values[name] ? values[name].toLocaleDateString() : placeholder}
@@ -57,6 +64,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.light,
     borderRadius: 20,
+    marginVertical: 10,
+    flexDirection: 'row',
   },
   date: {
     color: colors.medium,

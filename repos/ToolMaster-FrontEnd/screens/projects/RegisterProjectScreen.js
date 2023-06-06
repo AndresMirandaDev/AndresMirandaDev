@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 import Screen from '../../components/Screen';
@@ -15,6 +15,8 @@ import usersApi from '../../api/users';
 import projectsApi from '../../api/projects';
 import UploadScreen from '../UploadScreen';
 import AppText from '../../components/AppText';
+import appStyles from '../../config/styles';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label('Name'),
@@ -25,7 +27,63 @@ const validationSchema = Yup.object().shape({
   endDate: Yup.date().required().label('End date'),
 });
 
+const titleText = {
+  en: 'Register new project',
+  sv: 'Registrera ny projekt',
+  es: 'Registrar nuevo proyecto',
+};
+
+const nameLabel = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const addressLabel = {
+  en: 'Address',
+  sv: 'Address',
+  es: 'Dirección',
+};
+
+const projectNumberLabel = {
+  en: 'Project number',
+  sv: 'Projekt nummer',
+  es: 'Número de proyecto',
+};
+
+const supervisorLabel = {
+  en: 'Supervisor',
+  sv: 'Arbetsledare',
+  es: 'Supervisor',
+};
+
+const startDateLabel = {
+  en: 'Start date',
+  sv: 'Start datum',
+  es: 'Fecha de inicio',
+};
+
+const endDateLabel = {
+  en: 'End date',
+  sv: 'Slut datum',
+  es: 'Fecha de término',
+};
+
+const registerButtonText = {
+  en: 'Register new project',
+  sv: 'Registrera ny projekt',
+  es: 'Registrar nuevo proyecto',
+};
+
+const resetButtonText = {
+  en: 'Reset',
+  sv: 'Återstålla',
+  es: 'Reestablecer',
+};
+
 export default function RegisterProjectScreen() {
+  const { language } = useContext(LanguageContext);
+
   const { data: users, request: loadUsers } = useApi(usersApi.getAllUsers);
 
   const [uploadVisible, setUploadVisible] = useState(false);
@@ -59,47 +117,65 @@ export default function RegisterProjectScreen() {
           onDone={() => setUploadVisible(false)}
         />
         <View style={styles.container}>
-          <AppText style={styles.text}>Registrera ny Projekt</AppText>
-          <AppForm
-            initialValues={{
-              name: '',
-              address: '',
-              projectNumber: '',
-              supervisor: '',
-              startDate: '',
-              endDate: '',
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            <AppFormField
-              icon="alphabetical-variant"
-              name="name"
-              placeholder="Namn"
-            />
-            <AppFormField
-              icon="identifier"
-              name="projectNumber"
-              placeholder="Projekt Nummer"
-            />
-            <AppFormField
-              icon="map-marker"
-              name="address"
-              placeholder="Address"
-            />
-            <AppFormPicker
-              items={users}
-              placeholder="Arbetsledare"
-              name="supervisor"
-            />
-            <AppDatePicker placeholder="Start datum" name="startDate" />
-            <AppDatePicker placeholder="Slut datum" name="endDate" />
+          <View style={appStyles.heading}>
+            <AppText style={appStyles.headingText}>
+              {titleText[language]}
+            </AppText>
+          </View>
+          <View style={styles.formContainer}>
+            <AppForm
+              initialValues={{
+                name: '',
+                address: '',
+                projectNumber: '',
+                supervisor: '',
+                startDate: '',
+                endDate: '',
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <AppFormField
+                icon="alphabetical-variant"
+                name="name"
+                placeholder={nameLabel[language]}
+              />
+              <AppFormField
+                icon="identifier"
+                name="projectNumber"
+                placeholder={projectNumberLabel[language]}
+              />
+              <AppFormField
+                icon="map-marker"
+                name="address"
+                placeholder={addressLabel[language]}
+              />
+              <AppFormPicker
+                items={users}
+                placeholder={supervisorLabel[language]}
+                name="supervisor"
+              />
+              <AppDatePicker
+                placeholder={startDateLabel[language]}
+                name="startDate"
+              />
+              <AppDatePicker
+                placeholder={endDateLabel[language]}
+                name="endDate"
+              />
 
-            <View style={styles.buttonContainer}>
-              <SubmitButton title="Registrera ny projekt" />
-              <FormResetButton title="reset" color="secondary" />
-            </View>
-          </AppForm>
+              <View style={styles.buttonContainer}>
+                <SubmitButton
+                  title={registerButtonText[language]}
+                  color="green"
+                />
+                <FormResetButton
+                  title={resetButtonText[language]}
+                  color="secondary"
+                />
+              </View>
+            </AppForm>
+          </View>
         </View>
       </Screen>
     </ScrollView>
@@ -108,7 +184,6 @@ export default function RegisterProjectScreen() {
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: 100,
     minHeight: '100%',
     backgroundColor: colors.white,
   },
@@ -118,6 +193,9 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white,
+  },
+  formContainer: {
+    padding: 7,
   },
   text: {
     color: colors.primary,
