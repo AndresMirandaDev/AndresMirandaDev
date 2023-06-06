@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Screen from '../../components/Screen';
 import * as Yup from 'yup';
 
@@ -13,6 +13,9 @@ import UploadScreen from '../UploadScreen';
 import AppFormPicker from '../../components/forms/AppFormPicker';
 import useApi from '../../hooks/useApi';
 import projectsApi from '../../api/projects';
+import AppText from '../../components/AppText';
+import appStyles from '../../config/styles';
+import { LanguageContext } from '../../language/languageContext';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -21,7 +24,51 @@ const validationSchema = Yup.object().shape({
   project: Yup.object().required(),
 });
 
+const headingText = {
+  en: 'Register rented tool',
+  sv: 'Registrera hyrt verktyg',
+  es: 'Registrar herramienta en arriendo',
+};
+
+const namePlaceholder = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const companyPlaceholder = {
+  en: ' Rental company',
+  sv: 'Uthyrnings företag',
+  es: 'Empresa de alquiler',
+};
+
+const projectPlaceholder = {
+  en: 'Project',
+  sv: 'projekt',
+  es: 'Proyecto',
+};
+
+const startDatePlaceholder = {
+  en: 'Start date',
+  sv: 'Start datum',
+  es: 'Fecha de inicio',
+};
+
+const registerButtonText = {
+  en: 'Register rent',
+  sv: 'Registrera uthyrning',
+  es: 'Registrar arriendo',
+};
+
+const errorAlertText = {
+  en: 'Rented tool could not be registered',
+  sv: 'Hyrt verktyg kunde inte registreras',
+  es: 'No se pudo registrar la herramienta arrendada',
+};
+
 export default function RegisterRentedTool() {
+  const { language } = useContext(LanguageContext);
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const { data: projects, request: loadProjects } = useApi(
@@ -52,7 +99,7 @@ export default function RegisterRentedTool() {
 
     if (!result.ok) {
       setUploadVisible(false);
-      return alert('Det gick inte att registrera ny hyrning');
+      return alert(errorAlertText[language]);
     }
     resetForm();
   };
@@ -64,35 +111,53 @@ export default function RegisterRentedTool() {
         visible={uploadVisible}
         onDone={() => setUploadVisible(false)}
       />
-      <AppForm
-        validationSchema={validationSchema}
-        initialValues={{
-          name: '',
-          rentedTo: '',
-          rentStart: '',
-          project: '',
-        }}
-        onSubmit={handleSubmit}
-      >
-        <AppFormField name="name" placeholder="Namn" icon="tools" />
-        <AppFormField
-          name="rentedTo"
-          placeholder="Uthyrnings företag"
-          icon="city"
-        />
+      <View style={appStyles.heading}>
+        <AppText style={appStyles.headingText}>{headingText[language]}</AppText>
+      </View>
+      <View style={styles.formContainer}>
+        <AppForm
+          validationSchema={validationSchema}
+          initialValues={{
+            name: '',
+            rentedTo: '',
+            rentStart: '',
+            project: '',
+          }}
+          onSubmit={handleSubmit}
+        >
+          <AppFormField
+            name="name"
+            placeholder={namePlaceholder[language]}
+            icon="tools"
+          />
+          <AppFormField
+            name="rentedTo"
+            placeholder="Uthyrnings företag"
+            icon="city"
+          />
 
-        <AppFormPicker items={projects} placeholder="Projekt" name="project" />
-        <AppDatePicker name="rentStart" placeholder="Datum - från" />
-        <SubmitButton title="Registrera hyrt verktyg" />
-      </AppForm>
+          <AppFormPicker
+            items={projects}
+            placeholder={projectPlaceholder[language]}
+            name="project"
+          />
+          <AppDatePicker
+            name="rentStart"
+            placeholder={startDatePlaceholder[language]}
+          />
+          <SubmitButton title={registerButtonText[language]} />
+        </AppForm>
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 10,
-    paddingTop: 100,
     backgroundColor: colors.white,
+    flex: 1,
+  },
+  formContainer: {
+    padding: 7,
   },
 });

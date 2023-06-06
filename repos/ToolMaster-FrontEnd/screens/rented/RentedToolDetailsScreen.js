@@ -1,5 +1,6 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
@@ -8,8 +9,69 @@ import AppButton from '../../components/AppButton';
 import rentedApi from '../../api/rented';
 import returnsApi from '../../api/returns';
 import UploadScreen from '../UploadScreen';
+import appStyles from '../../config/styles';
+import { LanguageContext } from '../../language/languageContext';
+
+const companyLabel = {
+  en: 'Rental company',
+  sv: 'Uthyrnings företag',
+  es: 'Empresa de alquiler',
+};
+
+const projectLabel = {
+  en: 'Current project',
+  sv: 'Nuvarande projekt',
+  es: 'Proyecto actual',
+};
+
+const startDateLabel = {
+  en: 'rent start date',
+  sv: 'Inhyrd från den',
+  es: 'Inicio de arriendo',
+};
+
+const buttonText = {
+  en: 'Return tool',
+  sv: 'Återvända verktyg',
+  es: 'Retornar herramienta',
+};
+
+const errorAlertText = {
+  en: 'Tool could not be registered as returned',
+  sv: 'Det gick inte att registrera verktyg som återvänt',
+  es: 'No se pudo registrar la herramienta como retornada',
+};
+
+const handleReturnButtonText = {
+  en: {
+    title: 'Return tool?',
+    message: 'Tool is going to be registered as returned',
+    buttonTexts: {
+      yes: 'Return',
+      no: 'No',
+    },
+  },
+  sv: {
+    title: 'Återvända verktyg?',
+    message: 'Verktyg kommer att registrera som återvänt',
+    buttonTexts: {
+      yes: 'Återvända',
+      no: 'Nej',
+    },
+  },
+  es: {
+    title: '¿Retornar herramienta?',
+    message: 'La herramienta se registrará como retornada',
+    buttonTexts: {
+      yes: 'Retornar',
+      no: 'No',
+    },
+  },
+};
 
 export default function RentedToolDetailsScreen({ route, navigation }) {
+  const { language } = useContext(LanguageContext);
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
   const tool = route.params;
@@ -29,10 +91,10 @@ export default function RentedToolDetailsScreen({ route, navigation }) {
     const result = await returnsApi.addReturn(newReturn, (progress) => {
       setProgress(progress);
     });
-    console.log(result);
+
     if (!result) {
       setUploadVisible(false);
-      return alert('Det gick inte att registrera verktyg som återvänt.');
+      return alert(errorAlertText[language]);
     }
 
     const deleteResult = await rentedApi.deleteRentedTool(tool);
@@ -40,9 +102,15 @@ export default function RentedToolDetailsScreen({ route, navigation }) {
 
   const handleReturnButtonPress = () => {
     Alert.alert(
-      'Återvända verktyg?',
-      'Verktyg kommer att registrera som återvänt',
-      [{ text: 'Nej' }, { text: 'Återvända', onPress: handleReturn }]
+      handleReturnButtonText[language]['title'],
+      handleReturnButtonText[language]['message'],
+      [
+        { text: handleReturnButtonText[language]['buttonTexts']['no'] },
+        {
+          text: handleReturnButtonText[language]['buttonTexts']['yes'],
+          onPress: handleReturn,
+        },
+      ]
     );
   };
   return (
@@ -58,19 +126,36 @@ export default function RentedToolDetailsScreen({ route, navigation }) {
         }}
       />
       <View style={styles.container}>
-        <AppText style={styles.title}>{tool.name}</AppText>
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>{tool.name}</AppText>
+        </View>
       </View>
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Uthyrnings Företag</AppText>
+        <MaterialCommunityIcons
+          name="home-city"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{companyLabel[language]}</AppText>
         <AppText style={styles.info}>{tool.rentedTo}</AppText>
       </View>
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Nuvarande Projekt</AppText>
+        <MaterialCommunityIcons
+          name="city"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{projectLabel[language]}</AppText>
         <AppText style={styles.info}>{tool.project.name}</AppText>
       </View>
 
       <View style={styles.infoContainer}>
-        <AppText style={styles.label}>Inhyrd Från - datum</AppText>
+        <MaterialCommunityIcons
+          name="calendar"
+          size={30}
+          color={colors.primaryOpacity}
+        />
+        <AppText style={styles.label}>{startDateLabel[language]}</AppText>
         <AppText style={styles.info}>
           {rentStartDate.toLocaleDateString()}
         </AppText>
@@ -78,7 +163,7 @@ export default function RentedToolDetailsScreen({ route, navigation }) {
 
       <View style={styles.buttonContainer}>
         <AppButton
-          title="återvända verktyg"
+          title={buttonText[language]}
           color="green"
           onPress={handleReturnButtonPress}
         />
@@ -93,38 +178,26 @@ const styles = StyleSheet.create({
     marginTop: 70,
   },
   label: {
-    color: colors.yellow,
+    color: colors.primary,
     textTransform: 'capitalize',
   },
   info: {
-    color: colors.light,
+    color: colors.primaryOpacity,
     fontSize: 20,
     padding: 5,
     textTransform: 'capitalize',
   },
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     flex: 1,
-  },
-  title: {
-    textTransform: 'uppercase',
-    fontSize: 40,
-    fontWeight: '800',
-    color: colors.primary,
-    textAlign: 'center',
   },
   infoContainer: {
     flexDirection: 'column',
     padding: 10,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: colors.primary,
-    margin: 10,
-    borderRadius: 20,
-    shadowColor: colors.dark,
-    shadowOpacity: 0.3,
-    shadowOffset: { height: 10, width: 10 },
-    shadowRadius: 6,
-    elevation: 10,
+    backgroundColor: colors.white,
+    borderBottomColor: colors.light,
+    borderBottomWidth: 1,
   },
 });
