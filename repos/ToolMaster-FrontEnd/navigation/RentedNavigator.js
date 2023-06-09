@@ -16,7 +16,10 @@ const RentedToolsNavigator = () => {
       screenOptions={{
         presentation: 'modal',
         headerShown: false,
-        headerTintColor: colors.primary,
+        headerTintColor: colors.light,
+        headerStyle: {
+          backgroundColor: colors.primaryOpacity,
+        },
       }}
     >
       <Stack.Screen name="RentedToolsScreen" component={RentedToolsScreen} />

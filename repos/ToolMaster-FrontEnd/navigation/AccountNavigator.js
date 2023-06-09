@@ -32,7 +32,10 @@ const AccountNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTintColor: colors.primary,
+        headerTintColor: colors.light,
+        headerStyle: {
+          backgroundColor: colors.primaryOpacity,
+        },
       }}
     >
       <Stack.Screen
