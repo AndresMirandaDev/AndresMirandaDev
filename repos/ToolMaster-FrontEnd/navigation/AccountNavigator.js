@@ -6,6 +6,7 @@ import colors from '../config/colors';
 import ManagePermissionsScreen from '../screens/ManagePermissionsScreen';
 import RegisterUserScreen from '../screens/RegisterUserScreen';
 import { LanguageContext } from '../language/languageContext';
+import LanguageOptionsScreen from '../screens/LanguageOptionsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ const registerHeadingText = {
   es: 'Registrar nuevo usuario',
 };
 
+const LanguageHeadingText = {
+  en: 'Language settings',
+  sv: 'Språk inställningar',
+  es: 'Configuracion de idioma',
+};
 const AccountNavigator = () => {
   const { language } = useContext(LanguageContext);
   return (
@@ -57,6 +63,11 @@ const AccountNavigator = () => {
         name="RegisterUserScreen"
         component={RegisterUserScreen}
         options={{ headerTitle: registerHeadingText[language] }}
+      />
+      <Stack.Screen
+        name="LanguageOptionsScreen"
+        component={LanguageOptionsScreen}
+        options={{ headerTitle: LanguageHeadingText[language] }}
       />
     </Stack.Navigator>
   );

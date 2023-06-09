@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -52,8 +52,12 @@ const myAccountText = {
   es: 'Mi cuenta',
 };
 
-export default function AppNavigator() {
+export default function AppNavigator({ languageSetting }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
+
+  useEffect(() => {
+    updateLanguage(languageSetting);
+  }, []);
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen

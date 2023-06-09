@@ -41,6 +41,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.primaryOpacity,
+    flex: 1,
+    paddingBottom: 50,
   },
   container: {
     backgroundColor: colors.light,

@@ -3,21 +3,28 @@ import React, { createContext, useState } from 'react';
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('es');
-  const options = {
-    en: {
-      name: 'English',
+  const [language, setLanguage] = useState('sv');
+
+  const options = [
+    {
       icon: '🇬🇧',
+      name: 'English',
+      code: 'en',
+      _id: 1,
     },
-    sv: {
-      name: 'Svenska',
-      icon: '🇸🇪',
-    },
-    es: {
-      name: 'Español',
+    {
       icon: '🇪🇸',
+      name: 'Español',
+      code: 'es',
+      _id: 2,
     },
-  };
+    {
+      icon: '🇸🇪',
+      name: 'Svenska',
+      code: 'sv',
+      _id: 3,
+    },
+  ];
 
   const updateLanguage = (lang) => {
     setLanguage(lang);

@@ -2,6 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import jwtDecode from 'jwt-decode';
 
 const key = 'authToken';
+const language = 'languageSettings';
 
 const storeToken = async (authToken) => {
   try {
@@ -34,9 +35,28 @@ const removeToken = async () => {
   }
 };
 
+const saveLanguage = async (option) => {
+  try {
+    await SecureStore.setItemAsync(language, option);
+  } catch (error) {
+    console.log('Error storing the language setting', error);
+  }
+};
+
+const getLanguage = async () => {
+  try {
+    const languageSetting = await SecureStore.getItemAsync(language);
+    return languageSetting;
+  } catch (error) {
+    console.log('Error getting the language settings', error);
+  }
+};
+
 export default {
   storeToken,
   getUser,
   removeToken,
   getToken,
+  saveLanguage,
+  getLanguage,
 };

@@ -24,10 +24,12 @@ const buttonText = {
 };
 
 export default function LoginScreen() {
-  const auth = useAuth();
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
-  const [loginFailed, setLoginFailed] = useState(true);
+  const auth = useAuth();
+
+  const [loginFailed, setLoginFailed] = useState(false);
+
   const handleSubmit = async ({ email, password }) => {
     const result = await authApi.login(email, password);
 

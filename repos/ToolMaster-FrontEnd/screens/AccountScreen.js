@@ -39,6 +39,11 @@ const logoutButtonText = {
   es: 'Cerrar sesión',
 };
 
+const lamguageSettingsButton = {
+  en: 'Language settings',
+  sv: 'Språk inställningar',
+  es: 'Configuración de idioma',
+};
 export default function AccountScreen({ navigation }) {
   const { user, logOut } = useAuth();
   const { language, options, updateLanguage } = useContext(LanguageContext);
@@ -86,6 +91,11 @@ export default function AccountScreen({ navigation }) {
               onPress={() => navigation.navigate('RegisterUserScreen')}
             />
           )}
+          <AppButton
+            title={lamguageSettingsButton[language]}
+            color="medium"
+            onPress={() => navigation.navigate('LanguageOptionsScreen')}
+          />
           <AppButton
             title={logoutButtonText[language]}
             onPress={logOut}
