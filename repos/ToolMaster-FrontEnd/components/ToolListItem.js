@@ -26,7 +26,7 @@ const projectText = {
 const storageText = {
   en: 'Storage',
   sv: 'Förråd',
-  es: 'Almacen',
+  es: 'Bodega',
 };
 
 const statusInfoText = {
@@ -53,16 +53,16 @@ export default function ToolListItem({ tool, onPress }) {
         <View style={styles.card}>
           <AppText style={styles.toolName}>{name}</AppText>
           <AppText style={styles.info}>
-            {serieNumberText[language]} {serieNumber}
+            {serieNumberText[language]}: {serieNumber}
           </AppText>
           {toolGroup && (
             <AppText style={styles.info}>
-              {groupText[language]} {toolGroup.name}
+              {groupText[language]}: {toolGroup.name}
             </AppText>
           )}
           {(project && (
             <AppText style={styles.info}>
-              {projectText[language]} {project.name}
+              {projectText[language]}: {project.name}
             </AppText>
           )) || <AppText style={styles.info}>{storageText[language]}</AppText>}
           <AppText
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   toolName: {
     fontSize: 25,
     textAlign: 'center',
-    fontWeight: '800',
+    fontWeight: 'bold',
     color: colors.primaryOpacity,
     textTransform: 'capitalize',
   },
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     color: colors.medium,
     padding: 5,
+    fontStyle: 'italic',
   },
   status: {
     fontWeight: 'bold',
