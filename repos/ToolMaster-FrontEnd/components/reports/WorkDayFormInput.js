@@ -6,7 +6,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { Swipeable } from 'react-native-gesture-handler';
 
@@ -25,10 +25,15 @@ import SubmittedDayListitem from './SubmittedDayListitem';
 import SubmittedDaysHeader from './SubmittedDaysHeader';
 import SubmittedWorkDaysListFooter from './SubmittedWorkDaysListFooter';
 import ListItemDeleteAction from '../ListItemDeleteAction';
+import { LanguageContext } from '../../language/languageContext';
 
 const projectsButtons = [
   {
-    placeholder: 'Välj projekt',
+    placeholder: {
+      en: 'Project',
+      sv: 'Projekt',
+      es: 'Proyecto',
+    },
     id: 1,
   },
 ];
@@ -42,7 +47,38 @@ const workDaySchema = Yup.object().shape({
   date: Yup.date().required(),
 });
 
+const datePlaceholderText = {
+  en: 'Date',
+  sv: 'Datum',
+  es: 'Fecha',
+};
+
+const hoursPlaceholderText = {
+  en: 'Hours',
+  sv: 'Timmar',
+  es: 'Horas',
+};
+
+const addProjectButtonText = {
+  en: '+ Add project',
+  sv: '+ Lägg till projekt',
+  es: '+ Agregar proyecto',
+};
+
+const submitWorkdayButtonText = {
+  en: 'Submit in workday',
+  sv: 'Skicka in arbetsdag',
+  es: 'Enviar dia de trabajo',
+};
+
+const noProjectErrorText = {
+  en: 'No project has been chosen.',
+  sv: 'Inga projekt har valts.',
+  es: 'No se ha escogido ningun proyecto.',
+};
+
 export default function WorkDayFormInput({ name }) {
+  const { language } = useContext(LanguageContext);
   const { setFieldValue, values } = useFormikContext();
 
   const [workPlaces, setWorkPlaces] = useState([]);
@@ -71,7 +107,11 @@ export default function WorkDayFormInput({ name }) {
       return [
         ...s,
         {
-          placeholder: 'Välj projekt',
+          placeholder: {
+            en: 'Project',
+            sv: 'Projekt',
+            es: 'Proyecto',
+          },
           id: s.length + 1,
         },
       ];
@@ -107,7 +147,7 @@ export default function WorkDayFormInput({ name }) {
 
       setFieldValue(name, [...values[name], newWorkDay]);
     } else {
-      alert('Ingen projekt har valts');
+      alert(noProjectErrorText[language]);
     }
 
     resetForm();
@@ -122,7 +162,7 @@ export default function WorkDayFormInput({ name }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, padding: 7 }}>
       <ScrollView>
         <AppForm
           initialValues={{
@@ -132,7 +172,10 @@ export default function WorkDayFormInput({ name }) {
           onSubmit={handleWorkDaySubmit}
           validationSchema={workDaySchema}
         >
-          <AppDatePicker name="date" />
+          <AppDatePicker
+            name="date"
+            placeholder={datePlaceholderText[language]}
+          />
           {projectButtons.map((button) => {
             return (
               <View style={styles.projectInput} key={button.id}>
@@ -146,7 +189,7 @@ export default function WorkDayFormInput({ name }) {
                 >
                   <View>
                     <AppFormPicker
-                      placeholder={button.placeholder}
+                      placeholder={button.placeholder[language]}
                       items={projects}
                       width={200}
                       name="project"
@@ -154,7 +197,7 @@ export default function WorkDayFormInput({ name }) {
                     />
                     <AppFormField
                       width={200}
-                      placeholder="Timmar"
+                      placeholder={hoursPlaceholderText[language]}
                       name="hours"
                       icon="clock"
                       keyboardType="numeric"
@@ -177,11 +220,11 @@ export default function WorkDayFormInput({ name }) {
             );
           })}
           <Button
-            title="+ Lägg till projekt"
+            title={addProjectButtonText[language]}
             onPress={handleAddProjectInput}
             color={colors.primaryOpacity}
           />
-          <SubmitButton title="Skicka in arbetsdag" />
+          <SubmitButton title={submitWorkdayButtonText[language]} />
         </AppForm>
         <View style={styles.separator} />
       </ScrollView>

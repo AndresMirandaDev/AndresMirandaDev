@@ -18,14 +18,38 @@ const validationSchema = Yup.object().shape({
   phone: Yup.number().label('Mobil nummer').required(),
 });
 
+const namePlaceholderText = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const passwordPlaceholderText = {
+  en: 'Password',
+  sv: 'Lösenord',
+  es: 'Contraseña',
+};
+
+const phoneNumberPlaceholderText = {
+  en: 'Cellphone number',
+  sv: 'Mobil nummer',
+  es: 'Numero móvil',
+};
+
 const registerButtonText = {
   en: 'Register',
   sv: 'Registrera',
   es: 'Registrar',
 };
 
+const errorText = {
+  en: 'New user could not be registered.',
+  sv: 'Ny användare gick inte att registreras.',
+  es: 'No se pudo registrar el nuevo usuario.',
+};
+
 export default function RegisterUserScreen() {
-  const { language, options, updateLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -43,7 +67,7 @@ export default function RegisterUserScreen() {
 
     if (!result.ok) {
       setUploadVisible(false);
-      alert('Det fick inte att registrera användare');
+      alert(errorText[language]);
     }
     resetForm();
   };
@@ -65,10 +89,22 @@ export default function RegisterUserScreen() {
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-        <AppFormField name="name" icon="account" placeholder="Namn" />
+        <AppFormField
+          name="name"
+          icon="account"
+          placeholder={namePlaceholderText[language]}
+        />
         <AppFormField name="email" icon="email" placeholder="Email" />
-        <AppFormField name="password" icon="lock" placeholder="Lösenord" />
-        <AppFormField name="phone" icon="phone" placeholder="Mobil Nummer" />
+        <AppFormField
+          name="password"
+          icon="lock"
+          placeholder={passwordPlaceholderText[language]}
+        />
+        <AppFormField
+          name="phone"
+          icon="phone"
+          placeholder={phoneNumberPlaceholderText[language]}
+        />
         <View style={styles.button}>
           <SubmitButton title={registerButtonText[language]} color="green" />
         </View>

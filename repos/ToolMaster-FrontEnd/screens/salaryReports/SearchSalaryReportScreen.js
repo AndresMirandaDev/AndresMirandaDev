@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Yup from 'yup';
 
@@ -12,33 +12,48 @@ import AppFormPicker from '../../components/forms/AppFormPicker';
 import SubmitButton from '../../components/SubmitButton';
 import AppText from '../../components/AppText';
 import salaryreportsApi from '../../api/salaryreports';
-import AppButton from '../../components/AppButton';
 import AppActivityIndicator from '../../components/AppActivityIndicator';
-
-const months = {
-  1: 'Januari',
-  2: 'Februari',
-  3: 'Mars',
-  4: 'April',
-  5: 'Maj',
-  6: 'Juni',
-  7: 'Juli',
-  8: 'Augusti',
-  9: 'September',
-  10: 'Oktober',
-  11: 'November',
-  12: 'December',
-};
+import { LanguageContext } from '../../language/languageContext';
+import useMonth from '../../hooks/useMonth';
 
 const validationSchema = Yup.object().shape({
   user: Yup.object().required(),
 });
+
+const placeholderText = {
+  en: 'Choose worker to show reports',
+  sv: 'Välj jobbare för att visa rapporter',
+  es: 'Escoge un trabajador para mostrar sus reportes',
+};
+
+const errorText = {
+  en: 'No worker has been picked.',
+  sv: 'Ingen jobbare har valts.',
+  es: 'No se a escogido ningún trabajador.',
+};
+
+const sentReportsText = {
+  en: 'Sent reports in',
+  sv: 'Inskickade rapporter i',
+  es: 'Reportes enviados en',
+};
+
+const buttonText = {
+  en: 'Show reports',
+  sv: 'Visa rapporter',
+  es: 'Mostrar reportes',
+};
+
 export default function SearchSalaryReportScreen({ navigation }) {
+  const { language } = useContext(LanguageContext);
+  const month = useMonth(new Date());
+
+  const currentDate = new Date();
   const { data: users, request: loadUsers } = useApi(usersApi.getAllUsers);
   const { data: reports, request: loadReports } = useApi(
     salaryreportsApi.getReports
   );
-  const currentDate = new Date();
+
   const [sentReports, setSentReports] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +81,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
     });
 
     if (!user) {
-      return alert('Ingen jobbare har valts');
+      return alert(errorText[language]);
     }
     navigation.navigate('UserSalaryReportsScreen', {
       user: user,
@@ -86,16 +101,16 @@ export default function SearchSalaryReportScreen({ navigation }) {
             name="user"
             items={users}
             icon="text-account"
-            placeholder="Välj jobbare för att visa rapporter"
+            placeholder={placeholderText[language]}
           />
-          <SubmitButton title="visa rapporter" />
+          <SubmitButton title={buttonText[language]} />
         </AppForm>
       </View>
       <View style={styles.info}>
         <AppActivityIndicator visible={loading} />
         <AppText style={styles.returnsNumber}>{sentReports.length}</AppText>
         <AppText style={styles.text}>
-          Inckickade Rapporter i {months[currentDate.getMonth() + 1]}
+          {sentReportsText[language]} {month}
         </AppText>
         <View>
           <MaterialCommunityIcons
@@ -111,7 +126,7 @@ export default function SearchSalaryReportScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.white,
     minHeight: '100%',
   },
   formContainer: {

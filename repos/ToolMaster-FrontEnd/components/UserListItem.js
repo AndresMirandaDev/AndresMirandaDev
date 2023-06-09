@@ -54,8 +54,8 @@ export default function UserListItem({ user, onPress }) {
       <AppButton
         title={
           isAdmin
-            ? buttonText[language]['makeAdmin']
-            : buttonText[language]['cancelAdmin']
+            ? buttonText[language]['cancelAdmin']
+            : buttonText[language]['makeAdmin']
         }
         color={isAdmin ? 'danger' : 'green'}
         onPress={onPress}
@@ -70,8 +70,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.primaryOpacity,
-    margin: 10,
-    borderRadius: 15,
   },
   text: {
     textTransform: 'capitalize',

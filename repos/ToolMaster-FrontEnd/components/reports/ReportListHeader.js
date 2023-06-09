@@ -13,7 +13,7 @@ const dateText = {
 const weekDayText = {
   en: 'Weekday',
   sv: 'Veckodag',
-  es: 'Dia de semana',
+  es: 'Dia ',
 };
 const workPlacesText = {
   en: 'Work places',
@@ -34,7 +34,7 @@ export default function ReportListHeader() {
         <AppText style={styles.text}>{dateText[language]}</AppText>
       </View>
       <View style={styles.infoContainer}>
-        <AppText style={styles.text}>Veckodag</AppText>
+        <AppText style={styles.text}>{weekDayText[language]}</AppText>
       </View>
       <View style={styles.infoContainer}>
         <AppText style={styles.text}>{workPlacesText[language]}</AppText>

@@ -28,7 +28,7 @@ const registerHeadingText = {
 };
 
 const AccountNavigator = () => {
-  const { language, options, updateLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
   return (
     <Stack.Navigator
       screenOptions={{

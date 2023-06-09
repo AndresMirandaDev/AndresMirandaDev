@@ -6,6 +6,7 @@ import UserListItem from '../components/UserListItem';
 import AppActivityIndicator from '../components/AppActivityIndicator';
 import ConnectivityError from '../components/ConnectivityError';
 import colors from '../config/colors';
+import ListItemSeparator from '../components/ListItemSeparator';
 
 export default function ManagePermissionsScreen() {
   const {
@@ -41,6 +42,7 @@ export default function ManagePermissionsScreen() {
             />
           );
         }}
+        ItemSeparatorComponent={<ListItemSeparator color={colors.primary} />}
       />
     </View>
   );
@@ -48,7 +50,7 @@ export default function ManagePermissionsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.primaryOpacity,
     minHeight: '100%',
   },
 });

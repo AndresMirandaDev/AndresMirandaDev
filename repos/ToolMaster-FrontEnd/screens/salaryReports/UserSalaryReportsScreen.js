@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import salaryreportsApi from '../../api/salaryreports';
 import useApi from '../../hooks/useApi';
@@ -10,15 +10,33 @@ import SalaryReportListItem from '../../components/SalaryReportListItem';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import AppDatePicker from '../../components/forms/AppDatePicker';
 import AppForm from '../../components/forms/AppForm';
+import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
+
+const headingText = {
+  en: 'salary reports',
+  sv: 'lön rapporter',
+  es: 'Reportes salariales de',
+};
 
 export default function UserSalaryReportsScreen({ route, navigation }) {
+  const { language } = useContext(LanguageContext);
+
   const user = route.params.user;
   const reports = route.params.reports;
 
   return (
     <Screen style={styles.screen}>
-      <View style={styles.headerContainer}>
-        <AppText style={styles.header}>{user.name} lön rapporter</AppText>
+      <View style={appStyles.heading}>
+        {language === 'en' || language === 'sv' ? (
+          <AppText style={appStyles.headingText}>
+            {user.name} {headingText[language]}
+          </AppText>
+        ) : (
+          <AppText style={appStyles.headingText}>
+            {headingText[language]} {user.name}
+          </AppText>
+        )}
       </View>
       <AppForm
         initialValues={{

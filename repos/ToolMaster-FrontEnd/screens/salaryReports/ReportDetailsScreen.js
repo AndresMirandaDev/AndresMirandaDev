@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
 import AppText from '../../components/AppText';
@@ -8,8 +8,16 @@ import WorkDayListItem from '../../components/reports/WorkDayListItem';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import ReportListHeader from '../../components/reports/ReportListHeader';
 import ReportListFooter from '../../components/reports/ReportListFooter';
+import { LanguageContext } from '../../language/languageContext';
+
+const headingText = {
+  en: 'salary report for',
+  sv: 'lön rapport',
+  es: 'reporte salarial de',
+};
 
 export default function ReportDetailsScreen({ route }) {
+  const { language } = useContext(LanguageContext);
   const report = route.params;
   const reportDate = useMonth(report.date);
 
@@ -18,7 +26,7 @@ export default function ReportDetailsScreen({ route }) {
       <View style={styles.container}>
         <View style={styles.heading}>
           <AppText style={styles.headingText}>
-            {report.worker.name} lön rapport för {reportDate}{' '}
+            {report.worker.name} {headingText[language]} {reportDate}{' '}
             {new Date(report.date).getFullYear()}
           </AppText>
         </View>

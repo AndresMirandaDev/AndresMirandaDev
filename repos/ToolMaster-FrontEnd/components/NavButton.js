@@ -33,5 +33,6 @@ const styles = StyleSheet.create({
     color: colors.light,
     textAlign: 'center',
     fontWeight: '500',
+    marginTop: 5,
   },
 });
