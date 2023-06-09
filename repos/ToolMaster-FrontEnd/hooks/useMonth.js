@@ -48,7 +48,7 @@ const months = {
 
 export default function useMonth(date) {
   const newDate = new Date(date);
-  const { language, options, updateLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
 
   return months[language][newDate.getMonth() + 1];
 }

@@ -62,7 +62,7 @@ export default function ToolsScreen({ navigation }) {
             />
           );
         }}
-        ItemSeparatorComponent={ListItemSeparator}
+        ItemSeparatorComponent={<ListItemSeparator color={colors.primary} />}
       />
     </Screen>
   );

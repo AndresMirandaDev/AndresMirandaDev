@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     fontSize: 21,
     fontWeight: 'bold',
-    color: colors.primary,
+    color: colors.primaryOpacity,
   },
   info: {
     color: colors.medium,

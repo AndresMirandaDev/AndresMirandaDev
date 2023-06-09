@@ -12,11 +12,33 @@ import WorkDayFormInput from '../../components/reports/WorkDayFormInput';
 import SubmitButton from '../../components/SubmitButton';
 import salaryreportsApi from '../../api/salaryreports';
 import UploadScreen from '../UploadScreen';
+import { LanguageContext } from '../../language/languageContext';
+import appStyles from '../../config/styles';
 
+const errorText = {
+  en: 'Salary report could not be sent.',
+  sv: 'Det gick inte att skicka lön rapport.',
+  es: 'No se pudo enviar reporte salarial.',
+};
+
+const headingText = {
+  en: 'Send report for',
+  sv: 'Skicka rapport för',
+  es: 'Enviar reporte para',
+};
+
+const buttonText = {
+  en: 'Send in report',
+  sv: 'Skicka in rapport',
+  es: 'Enviar reporte',
+};
 export default function NewSalaryReport() {
+  const { language } = useContext(LanguageContext);
   const auth = useAuth(AuthContext);
-  const { user } = auth;
   const month = useMonth(new Date());
+
+  const { user } = auth;
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -41,7 +63,7 @@ export default function NewSalaryReport() {
 
     if (!result.ok) {
       setUploadVisible(false);
-      alert('Det gick inte att skicka lön rapport.');
+      alert(errorText[language]);
     }
     resetForm();
   };
@@ -54,9 +76,9 @@ export default function NewSalaryReport() {
         onDone={() => setUploadVisible(false)}
       />
       <View style={styles.container}>
-        <View style={styles.heading}>
-          <AppText style={styles.headingText}>
-            Skicka in rapport för {month}
+        <View style={appStyles.heading}>
+          <AppText style={appStyles.headingText}>
+            {headingText[language]} {month}
           </AppText>
         </View>
         <AppForm
@@ -69,7 +91,7 @@ export default function NewSalaryReport() {
         >
           <WorkDayFormInput name="workDays" />
 
-          <SubmitButton title="Skicka in rapport" color="green" />
+          <SubmitButton title={buttonText[language]} color="green" />
         </AppForm>
       </View>
     </Screen>
@@ -83,11 +105,5 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     minHeight: '100%',
-  },
-  headingText: {
-    fontSize: 25,
-    color: colors.primaryOpacity,
-    textAlign: 'center',
-    padding: 10,
   },
 });

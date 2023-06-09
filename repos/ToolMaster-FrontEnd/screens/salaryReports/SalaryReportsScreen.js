@@ -34,7 +34,7 @@ export default function SalaryReportsScreen({ navigation }) {
             />
           ); //add onpress when the screens are made
         }}
-        ItemSeparatorComponent={ListItemSeparator}
+        ItemSeparatorComponent={<ListItemSeparator color={colors.primary} />}
       />
     </Screen>
   );

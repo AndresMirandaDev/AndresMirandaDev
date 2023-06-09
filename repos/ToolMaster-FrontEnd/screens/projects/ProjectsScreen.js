@@ -44,7 +44,7 @@ export default function ProjectsScreen({ navigation }) {
             />
           ); //remember to pass onpress for navigation
         }}
-        ItemSeparatorComponent={ListItemSeparator}
+        ItemSeparatorComponent={<ListItemSeparator color={colors.primary} />}
       />
     </Screen>
   );
