@@ -24,12 +24,15 @@ import toolGroupsApi from '../api/toolGroups';
 import projectsApi from '../api/projects';
 import useApi from '../hooks/useApi';
 import { LanguageContext } from '../language/languageContext';
+import FormCheckbox from './forms/FormCheckBox';
 
-const status = [
-  { name: 'tillgängliga verktyg', id: 9, value: true },
-  { name: 'visa alla verktyg', id: 10, value: '' },
-  { name: 'upptagna verktyg', id: 11, value: false },
-];
+const status = {
+  label: {
+    en: 'Avaliable tools',
+    sv: 'Tillgängliga verktyg',
+    es: 'Herramientas disponibles',
+  },
+};
 
 //validation schema for form component
 
@@ -38,7 +41,7 @@ const validationSchema = Yup.object().shape({
   serieNumber: Yup.number().label('Serie Number'),
   project: Yup.object().nullable().label('Project'),
   toolGroup: Yup.object().nullable().label('Tool Group'),
-  available: Yup.object().nullable().label('Status'),
+  available: Yup.boolean().label('Status'),
 });
 
 //language text options
@@ -69,12 +72,15 @@ const resetButtonText = {
 
 export default function FilterBar({ data: tools, setData }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
+  const [filteredData, setFilteredData] = useState(tools);
+
   const {
     data: toolGroups,
     error: toolGropupsError,
     request: loadToolGroups,
     loading: loadingToolGroups,
   } = useApi(toolGroupsApi.getToolGroups);
+
   const {
     data: projects,
     error: projectsError,
@@ -89,22 +95,34 @@ export default function FilterBar({ data: tools, setData }) {
   const [showFilter, setShowFilter] = useState(false);
 
   const handleSubmit = (values) => {
-    const recievedValues = {
-      name: values.name,
-      serieNumber: values.serieNumber,
-      project: values.project ? values.project._id : values.project,
-      toolGroup: values.toolGroup ? values.toolGroup._id : values.toolGroup,
-    };
-
-    let toolToSearch = {};
-
-    for (prop in recievedValues) {
-      if (values[prop]) {
-        toolToSearch[prop] = recievedValues[prop];
+    console.log(values);
+    // Apply filtering based on the form values
+    const filteredTools = tools.filter((tool) => {
+      if (
+        values.name &&
+        !tool.name.toLowerCase().includes(values.name.toLowerCase())
+      ) {
+        return false;
       }
-    }
-
-    //think the way of filtering depending on what is passed
+      if (
+        values.serieNumber &&
+        tool.serieNumber !== parseInt(values.serieNumber)
+      ) {
+        return false;
+      }
+      if (values.project && values.project._id !== tool.project?._id) {
+        return false;
+      }
+      if (values.toolGroup && values.toolGroup._id !== tool.toolGroup?._id) {
+        return false;
+      }
+      if (values.available !== '' && values.available !== tool.available) {
+        return false;
+      }
+      return true;
+    });
+    setData(filteredTools);
+    setShowFilter(false);
   };
 
   const showFilterBar = () => {
@@ -174,13 +192,9 @@ export default function FilterBar({ data: tools, setData }) {
                   width="50%"
                   PickerItemComponent={AppPickerItem}
                 />
-                <AppFormPicker
-                  icon="text-search"
-                  name="available"
-                  placeholder="Visa alla"
-                  items={status}
-                  width="50%"
-                />
+                <FormCheckbox name="available">
+                  {status.label[language]}
+                </FormCheckbox>
                 <SubmitButton title={submitButtonText[language]} />
                 <FormResetButton
                   title={resetButtonText[language]}

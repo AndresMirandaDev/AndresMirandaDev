@@ -16,11 +16,11 @@ const rentedToolsText = {
 
 export default function HomeInfoList() {
   const { language } = useContext(LanguageContext);
+  const navigation = useNavigation();
 
   const { data: rentedTools, request: loadRentedTools } = useApi(
     rentedApi.getRentedTools
   );
-  const navigation = useNavigation();
 
   useEffect(() => {
     loadRentedTools();

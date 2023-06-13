@@ -15,49 +15,6 @@ import ConnectivityError from '../../components/ConnectivityError';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import { useIsFocused } from '@react-navigation/native';
 
-const tools = [
-  {
-    name: 'hilti 1500',
-    id: 1,
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-  },
-  {
-    name: 'hilti 500',
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: null,
-    available: false,
-    id: 2,
-  },
-  {
-    name: 'flex',
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-    id: 3,
-  },
-  {
-    name: 'dammsugare',
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-    id: 4,
-  },
-  {
-    name: 'dianova',
-    serieNumber: 12345,
-    toolGroup: { name: 'asbestsanering', description: 'some description' },
-    project: { name: 'spiralen', projectNumber: 12333 },
-    available: true,
-    id: 5,
-  },
-];
-
 export default function ToolListScreen({ navigation }) {
   const {
     data: tools,

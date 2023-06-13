@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import AccountScreen from '../screens/AccountScreen';
 import EditUserInfoScreen from '../screens/EditUserInfoScreen';
 import colors from '../config/colors';
