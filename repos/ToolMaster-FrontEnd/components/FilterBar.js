@@ -72,7 +72,6 @@ const resetButtonText = {
 
 export default function FilterBar({ data: tools, setData }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
-  const [filteredData, setFilteredData] = useState(tools);
 
   const {
     data: toolGroups,
