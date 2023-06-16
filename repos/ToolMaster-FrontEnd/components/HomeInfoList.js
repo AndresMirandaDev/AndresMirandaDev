@@ -7,6 +7,7 @@ import useApi from '../hooks/useApi';
 import rentedApi from '../api/rented';
 import { useNavigation } from '@react-navigation/native';
 import { LanguageContext } from '../language/languageContext';
+import AppActivityIndicator from './AppActivityIndicator';
 
 const rentedToolsText = {
   en: 'Rented tools',
@@ -18,9 +19,12 @@ export default function HomeInfoList() {
   const { language } = useContext(LanguageContext);
   const navigation = useNavigation();
 
-  const { data: rentedTools, request: loadRentedTools } = useApi(
-    rentedApi.getRentedTools
-  );
+  const {
+    data: rentedTools,
+    request: loadRentedTools,
+    loading,
+    error,
+  } = useApi(rentedApi.getRentedTools);
 
   useEffect(() => {
     loadRentedTools();
@@ -32,6 +36,7 @@ export default function HomeInfoList() {
         <View>
           <DateInfoCard />
           <View style={styles.infoContainer}>
+            <AppActivityIndicator visible={loading} />
             <InfoCard
               infoToDisplay={rentedToolsText[language]}
               data={rentedTools.length}

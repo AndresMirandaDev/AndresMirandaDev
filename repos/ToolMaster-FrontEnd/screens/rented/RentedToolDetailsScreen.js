@@ -97,7 +97,7 @@ export default function RentedToolDetailsScreen({ route, navigation }) {
       return alert(errorAlertText[language]);
     }
 
-    const deleteResult = await rentedApi.deleteRentedTool(tool);
+    await rentedApi.deleteRentedTool(tool);
   };
 
   const handleReturnButtonPress = () => {

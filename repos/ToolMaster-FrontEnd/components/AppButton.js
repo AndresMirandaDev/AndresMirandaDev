@@ -20,7 +20,7 @@ export default function AppButton({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.primary,
-    borderRadius: 10,
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,

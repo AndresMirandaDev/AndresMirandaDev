@@ -34,6 +34,30 @@ const buttonText = {
   es: 'Registrar nueva herramienta',
 };
 
+const namePlaceholder = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const serieNumberPlaceholder = {
+  en: 'Serial number',
+  sv: 'Serie nummer',
+  es: 'Número de serie',
+};
+
+const toolGroupPlaceholder = {
+  en: 'Tool group',
+  sv: 'Verktygs grupp',
+  es: 'Grupo de herramientas',
+};
+
+const alertMessageText = {
+  en: 'New tool could not be registered.',
+  sv: 'Det gick inte att spara nya verktyg.',
+  es: 'No se pudo registrar la nueva herramienta.',
+};
+
 export default function RegisterToolScreen() {
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
@@ -65,7 +89,7 @@ export default function RegisterToolScreen() {
 
     if (!result.ok) {
       setUploadVisible(false);
-      return alert('Det gick inte att spara nya verktyg.');
+      return alert(alertMessageText[language]);
     }
     resetForm();
   };
@@ -89,17 +113,21 @@ export default function RegisterToolScreen() {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <AppFormField icon="tools" name="name" placeholder="Namn" />
+          <AppFormField
+            icon="tools"
+            name="name"
+            placeholder={namePlaceholder[language]}
+          />
           <AppFormField
             icon="identifier"
             name="serieNumber"
-            placeholder="Serie Nummer"
+            placeholder={serieNumberPlaceholder[language]}
           />
           <AppFormPicker
             name="toolGroup"
             items={toolGroups}
             icon="select-group"
-            placeholder="Verktygs grupp"
+            placeholder={toolGroupPlaceholder[language]}
             width="60%"
           />
           <SubmitButton title={buttonText[language]} color="green" />

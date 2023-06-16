@@ -30,8 +30,13 @@ const addUser = (user, onUploadProgress) => {
     },
   });
 };
+
+const deleteUser = (user, onUploadProgress) => {
+  return client.delete(endpoint + '/' + user._id);
+};
 export default {
   addUser,
   getAllUsers,
   updatePermission,
+  deleteUser,
 };

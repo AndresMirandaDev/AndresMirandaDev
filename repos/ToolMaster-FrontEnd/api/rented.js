@@ -15,7 +15,8 @@ const addRentedTool = (rentedTool, onUploadProgress) => {
 };
 
 const deleteRentedTool = (tool) => {
-  return client.delete(endpoint, +'/' + tool._id);
+  console.log(tool._id);
+  return client.delete(endpoint + '/' + tool._id);
 };
 
 export default {

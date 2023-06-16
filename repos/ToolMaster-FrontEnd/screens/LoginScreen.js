@@ -25,6 +25,7 @@ const buttonText = {
 
 export default function LoginScreen() {
   const auth = useAuth();
+  const { language, options, updateLanguage } = useContext(LanguageContext);
 
   const [loginFailed, setLoginFailed] = useState(false);
 

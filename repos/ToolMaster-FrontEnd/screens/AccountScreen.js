@@ -22,9 +22,9 @@ const editButtonText = {
 };
 
 const permissionButtonText = {
-  en: 'Manage permissions',
-  sv: 'Hantera behörigheter',
-  es: 'Administrar permisos',
+  en: 'Manage users',
+  sv: 'Hantera användare',
+  es: 'Administrar usuarios',
 };
 
 const registerButtonText = {

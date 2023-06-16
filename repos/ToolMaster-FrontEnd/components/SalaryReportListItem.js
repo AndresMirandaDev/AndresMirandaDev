@@ -5,21 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from './AppText';
 import colors from '../config/colors';
 import { LanguageContext } from '../language/languageContext';
-
-const months = {
-  1: 'Januari',
-  2: 'Februari',
-  3: 'Mars',
-  4: 'April',
-  5: 'Maj',
-  6: 'Juni',
-  7: 'Juli',
-  8: 'Augusti',
-  9: 'September',
-  10: 'Oktober',
-  11: 'November',
-  12: 'December',
-};
+import useMonth from '../hooks/useMonth';
 
 const salaryReportText = {
   en: 'Salary report',
@@ -28,10 +14,14 @@ const salaryReportText = {
 };
 
 export default function SalaryReportListItem({ report, onPress }) {
-  const { date, workdDays } = report;
-  const { language, options, updateLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
+  const { date } = report;
 
-  const showDate = new Date(date);
+  const reportDate = new Date(date);
+
+  const month = useMonth(reportDate);
+  const year = reportDate.getFullYear();
+
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
@@ -45,7 +35,7 @@ export default function SalaryReportListItem({ report, onPress }) {
           </View>
           <AppText style={styles.label}>{salaryReportText[language]}</AppText>
           <AppText style={styles.month}>
-            {months[showDate.getMonth() + 1]}
+            {month} {year}
           </AppText>
         </View>
         <View></View>

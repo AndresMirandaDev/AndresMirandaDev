@@ -5,6 +5,7 @@ import SearchSalaryReportScreen from '../screens/salaryReports/SearchSalaryRepor
 import UserSalaryReportsScreen from '../screens/salaryReports/UserSalaryReportsScreen';
 import ReportDetailsScreen from '../screens/salaryReports/ReportDetailsScreen';
 import NewSalaryReport from '../screens/salaryReports/NewSalaryReport';
+import ReportTableScreen from '../screens/salaryReports/ReportTableScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ const SalaryReportsNavigator = () => {
         component={ReportDetailsScreen}
       />
       <Stack.Screen name="NewSalaryReport" component={NewSalaryReport} />
+      <Stack.Screen name="ReportTableScreen" component={ReportTableScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useState } from 'react';
 import AppText from './AppText';
 import colors from '../config/colors';
 import AppButton from './AppButton';
 import { LanguageContext } from '../language/languageContext';
+import RemovedScreen from '../screens/RemovedScreen';
+import usersApi from '../api/users';
 
 const isAdminText = {
   en: {
@@ -35,17 +37,41 @@ const buttonText = {
   },
 };
 
-export default function UserListItem({ user, onPress }) {
+const deleteButtonText = {
+  en: 'Delete user',
+  sv: 'Radera användare',
+  es: 'Eliminar usuario',
+};
+
+const errorAlertText = {
+  en: 'User could not be deleted.',
+  sv: 'Det gick inte att radera användare.',
+  es: 'No se pudo eliminar el usuario.',
+};
+
+export default function UserListItem({
+  user,
+  onPress,
+  onDelete,
+  removedVisible,
+  onDeleteDone,
+}) {
   const { name, email, isAdmin } = user;
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.text}>{name}</AppText>
+      <RemovedScreen
+        visible={removedVisible}
+        onDone={() => onDeleteDone(false)}
+      />
+      <AppText style={[styles.text, { textTransform: 'capitalize' }]}>
+        {name}
+      </AppText>
       <AppText style={styles.text}>{email}</AppText>
       <AppText
         style={{
-          color: isAdmin ? colors.green : colors.light,
+          color: isAdmin ? colors.green : colors.danger,
           fontWeight: 600,
         }}
       >
@@ -57,8 +83,13 @@ export default function UserListItem({ user, onPress }) {
             ? buttonText[language]['cancelAdmin']
             : buttonText[language]['makeAdmin']
         }
-        color={isAdmin ? 'danger' : 'green'}
+        color="primaryOpacity"
         onPress={onPress}
+      />
+      <AppButton
+        title={deleteButtonText[language]}
+        color="danger"
+        onPress={onDelete}
       />
     </View>
   );
@@ -69,10 +100,9 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primaryOpacity,
+    backgroundColor: colors.white,
   },
   text: {
-    textTransform: 'capitalize',
-    color: colors.light,
+    color: colors.primaryOpacity,
   },
 });
