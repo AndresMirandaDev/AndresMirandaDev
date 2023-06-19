@@ -84,7 +84,7 @@ export default function UserSalaryReportsScreen({ route, navigation }) {
             return (
               <SalaryReportListItem
                 report={item}
-                onPress={() => navigation.navigate('ReportTableScreen', item)} // ReportDetailsScreen era anteriormente
+                onPress={() => navigation.navigate('ReportDetailsScreen', item)} // ReportDetailsScreen era anteriormente
               />
             );
           }}

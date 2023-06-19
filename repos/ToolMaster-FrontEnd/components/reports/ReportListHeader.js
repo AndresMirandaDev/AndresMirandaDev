@@ -16,9 +16,9 @@ const weekDayText = {
   es: 'Dia ',
 };
 const workPlacesText = {
-  en: 'Work places',
-  sv: 'Arbetsplatser',
-  es: 'Lugares de trabajo',
+  en: 'Work place',
+  sv: 'Arbetsplats',
+  es: 'Lugar de trabajo',
 };
 const hoursText = {
   en: 'Hours',

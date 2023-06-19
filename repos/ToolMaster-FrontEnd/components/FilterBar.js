@@ -26,14 +26,6 @@ import useApi from '../hooks/useApi';
 import { LanguageContext } from '../language/languageContext';
 import FormCheckbox from './forms/FormCheckBox';
 
-const status = {
-  label: {
-    en: 'Avaliable tools',
-    sv: 'Tillgängliga verktyg',
-    es: 'Herramientas disponibles',
-  },
-};
-
 //validation schema for form component
 
 const validationSchema = Yup.object().shape({
@@ -70,6 +62,39 @@ const resetButtonText = {
   es: 'Reset',
 };
 
+//placeholders
+
+const namePlaceholder = {
+  en: 'Name',
+  sv: 'Namn',
+  es: 'Nombre',
+};
+
+const serieNumberPlaceholder = {
+  en: 'Serial number',
+  sv: 'Serie nummer',
+  es: 'Numero de serie',
+};
+
+const projectPlaceholder = {
+  en: 'Project',
+  sv: 'Projekt',
+  es: 'Projecto',
+};
+
+const toolGroupPlaceholder = {
+  en: 'Tool group',
+  sv: 'Verktygs grupp',
+  es: 'Grupo',
+};
+
+const status = {
+  label: {
+    en: 'Avaliable tools',
+    sv: 'Tillgängliga verktyg',
+    es: 'Herramientas disponibles',
+  },
+};
 export default function FilterBar({ data: tools, setData }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
@@ -168,25 +193,25 @@ export default function FilterBar({ data: tools, setData }) {
                 <AppFormField
                   icon="text-search"
                   name="name"
-                  placeholder="Name"
+                  placeholder={namePlaceholder[language]}
                 />
                 <AppFormField
                   icon="text-search"
                   name="serieNumber"
-                  placeholder="Serie Nr"
+                  placeholder={serieNumberPlaceholder[language]}
                 />
                 <AppFormPicker
                   icon="text-search"
                   items={projects}
                   name="project"
-                  placeholder="Projekt"
+                  placeholder={projectPlaceholder[language]}
                   width="50%"
                   PickerItemComponent={AppPickerItem}
                 />
                 <AppFormPicker
                   icon="text-search"
                   name="toolGroup"
-                  placeholder="Group"
+                  placeholder={toolGroupPlaceholder[language]}
                   items={toolGroups}
                   width="50%"
                   PickerItemComponent={AppPickerItem}
@@ -211,7 +236,7 @@ export default function FilterBar({ data: tools, setData }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.light,
-    padding: 5,
+    padding: 8,
   },
   head: {
     flexDirection: 'row',

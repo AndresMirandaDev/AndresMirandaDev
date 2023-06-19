@@ -8,15 +8,17 @@ import colors from '../../config/colors';
 export default function ToolGroupListItem({ group, onPress }) {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.descriptionContainer}>
         <AppText style={styles.name}>{group.name}</AppText>
-        <AppText style={styles.description}>{group.description}</AppText>
+        <AppText numberOfLines={1} style={styles.description}>
+          {group.description}
+        </AppText>
       </View>
-      <View style={{ marginLeft: 5, justifyContent: 'flex-end' }}>
+      <View style={styles.chevron}>
         <TouchableWithoutFeedback onPress={onPress}>
           <MaterialCommunityIcons
             name="chevron-right"
-            size={50}
+            size={40}
             color={colors.medium}
           />
         </TouchableWithoutFeedback>
@@ -35,6 +37,14 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flexDirection: 'row',
+  },
+  chevron: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  descriptionContainer: {
+    flex: 1,
   },
   description: {
     color: colors.medium,
