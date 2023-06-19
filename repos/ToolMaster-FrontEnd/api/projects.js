@@ -40,8 +40,13 @@ const updateProject = (project, onUploadProgress) => {
   });
 };
 
+const deleteProject = (project) => {
+  return client.delete(endpoint + '/' + project._id);
+};
+
 export default {
   addProject,
   getProjects,
   updateProject,
+  deleteProject,
 };

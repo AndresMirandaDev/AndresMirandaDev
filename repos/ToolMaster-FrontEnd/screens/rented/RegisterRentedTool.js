@@ -132,7 +132,7 @@ export default function RegisterRentedTool() {
           />
           <AppFormField
             name="rentedTo"
-            placeholder="Uthyrnings företag"
+            placeholder={companyPlaceholder[language]}
             icon="city"
           />
 
@@ -140,6 +140,7 @@ export default function RegisterRentedTool() {
             items={projects}
             placeholder={projectPlaceholder[language]}
             name="project"
+            icon="city"
           />
           <AppDatePicker
             name="rentStart"

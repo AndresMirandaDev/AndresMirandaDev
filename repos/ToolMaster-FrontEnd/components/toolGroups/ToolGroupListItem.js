@@ -7,23 +7,23 @@ import colors from '../../config/colors';
 
 export default function ToolGroupListItem({ group, onPress }) {
   return (
-    <View style={styles.container}>
-      <View style={styles.descriptionContainer}>
-        <AppText style={styles.name}>{group.name}</AppText>
-        <AppText numberOfLines={1} style={styles.description}>
-          {group.description}
-        </AppText>
-      </View>
-      <View style={styles.chevron}>
-        <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.descriptionContainer}>
+          <AppText style={styles.name}>{group.name}</AppText>
+          <AppText numberOfLines={1} style={styles.description}>
+            {group.description}
+          </AppText>
+        </View>
+        <View style={styles.chevron}>
           <MaterialCommunityIcons
             name="chevron-right"
             size={40}
             color={colors.medium}
           />
-        </TouchableWithoutFeedback>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

@@ -28,30 +28,30 @@ export default function ReturnListItem({ data }) {
   const dateOfReturn = new Date(returnDate);
   const startDate = new Date(rentStartDate);
   return (
-    <View style={styles.container}>
-      <View>
-        <AppText style={styles.toolName}>{tool.name}</AppText>
-        <AppText style={styles.info}>
-          {rentedToText[language]} {tool.project.name}
-        </AppText>
-        <AppText style={styles.info}>
-          {returnedText[language]} {dateOfReturn.toLocaleDateString()}
-        </AppText>
-      </View>
-      <View style={styles.icon}>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            navigation.navigate('ReturnDetailsScreen', data);
-          }}
-        >
+    <TouchableWithoutFeedback
+      onPress={() => {
+        navigation.navigate('ReturnDetailsScreen', data);
+      }}
+    >
+      <View style={styles.container}>
+        <View>
+          <AppText style={styles.toolName}>{tool.name}</AppText>
+          <AppText style={styles.info}>
+            {rentedToText[language]} {tool.project.name}
+          </AppText>
+          <AppText style={styles.info}>
+            {returnedText[language]} {dateOfReturn.toLocaleDateString()}
+          </AppText>
+        </View>
+        <View style={styles.icon}>
           <MaterialCommunityIcons
             name="chevron-right"
             size={35}
             color={colors.primaryOpacity}
           />
-        </TouchableWithoutFeedback>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

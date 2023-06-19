@@ -1,13 +1,15 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Screen from '../../components/Screen';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import AppButton from '../../components/AppButton';
 import appStyles from '../../config/styles';
 import { LanguageContext } from '../../language/languageContext';
+import RemovedScreen from '../RemovedScreen';
+import projectsApi from '../../api/projects';
 
 const addressLabel = {
   en: 'Address',
@@ -51,6 +53,45 @@ const dispatchButtonText = {
   es: 'Despachar herramientas',
 };
 
+const deleteButtonText = {
+  en: 'Delete project',
+  sv: 'Radera Projekt',
+  es: 'Eliminar proyecto',
+};
+
+//alert text options
+
+const handleDeletePressText = {
+  title: {
+    en: 'Do you want to continue?',
+    sv: 'Vill du forsätta?',
+    es: '¿Quieres continuar?',
+  },
+  message: {
+    en: `will be deleted, are you sure?`,
+    sv: 'skall raderas, är du säker?',
+    es: 'será eliminado, ¿estás seguro?',
+  },
+  buttonTexts: {
+    yes: {
+      en: 'Delete',
+      sv: 'Radera',
+      es: 'Eliminar',
+    },
+    no: {
+      en: 'No',
+      sv: 'Nej',
+      es: 'No',
+    },
+  },
+};
+
+const errorAlertText = {
+  en: 'Project could not be deleted.',
+  sv: 'Det gick inte att radera projekt.',
+  es: 'El proyecto no se pudo eliminar.',
+};
+
 export default function ProjectInfoScreen({ route, navigation }) {
   const { language } = useContext(LanguageContext);
   const {
@@ -63,11 +104,51 @@ export default function ProjectInfoScreen({ route, navigation }) {
     endDate,
   } = route.params;
 
+  const [removedVisible, setRemovedVisible] = useState(false);
+
   const projectStartDate = new Date(startDate);
   const projectEndDate = new Date(endDate);
 
+  const handleDelete = async () => {
+    setRemovedVisible(true);
+
+    const result = await projectsApi.deleteProject(route.params);
+
+    if (!result) {
+      setRemovedVisible(false);
+      alert(errorAlertText[language]);
+    }
+  };
+
+  const handleDeleteButtonPress = () => {
+    Alert.alert(
+      handleDeletePressText['title'][language],
+
+      `${name}${handleDeletePressText['message'][language]}`,
+      [
+        {
+          text: handleDeletePressText['buttonTexts']['no'][language],
+        },
+        {
+          text: handleDeletePressText['buttonTexts']['yes'][language],
+          style: 'destructive',
+          onPress: handleDelete,
+        },
+      ]
+    );
+  };
+
   return (
     <Screen style={styles.screen}>
+      <RemovedScreen
+        visible={removedVisible}
+        onDone={() => {
+          setRemovedVisible(false);
+          setTimeout(() => {
+            navigation.navigate('SearchProjectScreen');
+          }, 500);
+        }}
+      />
       <ScrollView>
         <View style={appStyles.heading}>
           <AppText style={appStyles.headingText}>{name}</AppText>
@@ -136,6 +217,11 @@ export default function ProjectInfoScreen({ route, navigation }) {
             onPress={() => {
               navigation.navigate('DispatchToolScreen', route.params);
             }}
+          />
+          <AppButton
+            title={deleteButtonText[language]}
+            color="danger"
+            onPress={handleDeleteButtonPress}
           />
         </View>
       </ScrollView>

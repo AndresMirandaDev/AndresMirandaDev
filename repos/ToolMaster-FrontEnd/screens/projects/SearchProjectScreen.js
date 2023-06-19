@@ -13,6 +13,7 @@ import useApi from '../../hooks/useApi';
 import projectsApi from '../../api/projects';
 import appStyles from '../../config/styles';
 import { LanguageContext } from '../../language/languageContext';
+import { useIsFocused } from '@react-navigation/native';
 
 const validationSchema = Yup.object().shape({
   project: Yup.object().required().label('projekt'),
@@ -49,13 +50,19 @@ export default function SearchProjectScreen({ navigation }) {
     error,
     request: loadProjects,
   } = useApi(projectsApi.getProjects);
-  useEffect(() => {
-    loadProjects();
-  }, []);
+  const isFocused = useIsFocused();
 
-  const handleSubmit = ({ project }) => {
+  useEffect(() => {
+    if (isFocused) {
+      loadProjects();
+      console.log('effect called');
+    }
+  }, [isFocused]);
+
+  const handleSubmit = ({ project }, { resetForm }) => {
     if (!project) return alert('Projekt hittades inte');
     navigation.navigate('ProjectInfoScreen', project);
+    resetForm();
   };
 
   return (
