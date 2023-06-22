@@ -16,7 +16,7 @@ export default function UploadScreen({
           <Progress.Bar color={colors.secondary} progress={progress} />
         ) : (
           <LottieView
-            source={require('../assets/animations/done.json')}
+            source={require('../assets/animations/done3.json')}
             autoPlay
             loop={false}
             style={styles.animation}

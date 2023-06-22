@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, ImageBackground } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -7,17 +7,24 @@ import AppText from '../components/AppText';
 import HomeInfoList from '../components/HomeInfoList';
 import useAuth from '../auth/useAuth';
 import AuthContext from '../auth/context';
-import useWeekDay from '../hooks/useWeekDay';
-import { LanguageContext } from '../language/languageContext';
+import authStorage from '../auth/storage';
 
-const tools = [
-  { name: 'hili 1500', id: 1 },
-  { name: 'hili 1000', id: 2 },
-  { name: 'hili 500', id: 3 },
-];
+import { LanguageContext } from '../language/languageContext';
 
 export default function HomeScreen() {
   const { user } = useAuth(AuthContext);
+  const { language, options, updateLanguage } = useContext(LanguageContext);
+
+  const restoreLanguage = async () => {
+    const storedLanguage = await authStorage.getLanguage();
+    // Set the language in the LanguageProvider context
+
+    updateLanguage(storedLanguage);
+  };
+
+  useEffect(() => {
+    restoreLanguage();
+  }, []);
 
   return (
     <Screen style={styles.screen}>

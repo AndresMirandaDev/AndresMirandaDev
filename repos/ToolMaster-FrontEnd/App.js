@@ -20,19 +20,12 @@ export default function App() {
     if (user) setUser(user);
   };
 
-  const restoreLanguage = async () => {
-    const storedLanguage = await authStorage.getLanguage();
-    // Set the language in the LanguageProvider context
-    // Replace 'setLanguage' with the appropriate function from your LanguageProvider
-    setLanguageSetting(storedLanguage);
-  };
-
   useEffect(() => {
     async function loadPersistedUser() {
       try {
         SplashScreen.preventAutoHideAsync();
 
-        await Promise.all([restoreUser(), restoreLanguage()]);
+        await Promise.all([restoreUser()]);
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -47,11 +40,7 @@ export default function App() {
     <AuthContext.Provider value={{ user, setUser }}>
       <LanguageProvider>
         <NavigationContainer>
-          {user ? (
-            <AppNavigator languageSetting={languageSetting} />
-          ) : (
-            <AuthNavigator />
-          )}
+          {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </LanguageProvider>
     </AuthContext.Provider>

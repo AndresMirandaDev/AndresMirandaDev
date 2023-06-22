@@ -104,6 +104,7 @@ export default function RegisterUserScreen() {
           name="phone"
           icon="phone"
           placeholder={phoneNumberPlaceholderText[language]}
+          keyboardType="numeric"
         />
         <View style={styles.button}>
           <SubmitButton title={registerButtonText[language]} color="green" />

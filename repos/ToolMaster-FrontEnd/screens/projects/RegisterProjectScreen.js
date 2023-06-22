@@ -144,6 +144,7 @@ export default function RegisterProjectScreen() {
                 icon="identifier"
                 name="projectNumber"
                 placeholder={projectNumberLabel[language]}
+                keyboardType="numeric"
               />
               <AppFormField
                 icon="map-marker"

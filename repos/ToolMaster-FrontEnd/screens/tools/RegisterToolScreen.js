@@ -122,6 +122,7 @@ export default function RegisterToolScreen() {
             icon="identifier"
             name="serieNumber"
             placeholder={serieNumberPlaceholder[language]}
+            keyboardType="numeric"
           />
           <AppFormPicker
             name="toolGroup"

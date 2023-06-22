@@ -34,6 +34,7 @@ export default function EditUserInfoScreen({ route }) {
             name="phone"
             placeholder={user.phone.toString()}
             icon="phone"
+            keyboardType="numeric"
           />
           <View style={styles.button}>
             <AppButton title={editButtonText[language]} color="green" />

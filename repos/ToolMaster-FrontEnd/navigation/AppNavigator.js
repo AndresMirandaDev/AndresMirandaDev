@@ -55,9 +55,6 @@ const myAccountText = {
 export default function AppNavigator({ languageSetting }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
-  useEffect(() => {
-    updateLanguage(languageSetting);
-  }, []);
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
