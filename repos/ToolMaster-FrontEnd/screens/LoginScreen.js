@@ -35,7 +35,7 @@ export default function LoginScreen() {
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
 
-    auth.logIn(result.data);
+    auth.logIn(result.data['este es el token']);
   };
   return (
     <ImageBackground

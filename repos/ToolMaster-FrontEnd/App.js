@@ -21,6 +21,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    console.log('useeffect app.js');
     async function loadPersistedUser() {
       try {
         SplashScreen.preventAutoHideAsync();

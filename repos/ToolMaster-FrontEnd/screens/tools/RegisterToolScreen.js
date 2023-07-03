@@ -15,6 +15,7 @@ import toolsApi from '../../api/tools';
 import UploadScreen from '../UploadScreen';
 import { LanguageContext } from '../../language/languageContext';
 import appStyles from '../../config/styles';
+import SerieNumberGenerator from '../../components/forms/SerieNumberGenerator';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
@@ -118,18 +119,13 @@ export default function RegisterToolScreen() {
             name="name"
             placeholder={namePlaceholder[language]}
           />
-          <AppFormField
-            icon="identifier"
-            name="serieNumber"
-            placeholder={serieNumberPlaceholder[language]}
-            keyboardType="numeric"
-          />
+          <SerieNumberGenerator name="serieNumber" />
+
           <AppFormPicker
             name="toolGroup"
             items={toolGroups}
             icon="select-group"
             placeholder={toolGroupPlaceholder[language]}
-            width="60%"
           />
           <SubmitButton title={buttonText[language]} color="green" />
         </AppForm>

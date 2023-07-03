@@ -27,6 +27,7 @@ export default function HomeInfoList() {
   } = useApi(rentedApi.getRentedTools);
 
   useEffect(() => {
+    console.log('useeffect homeinfolist.js');
     loadRentedTools();
   }, []);
 

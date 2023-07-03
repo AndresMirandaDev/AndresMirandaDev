@@ -113,6 +113,7 @@ export default function FilterBar({ data: tools, setData }) {
   } = useApi(projectsApi.getProjects);
 
   useEffect(() => {
+    console.log('useeffect filterbar.js');
     loadProjects(), loadToolGroups();
   }, []);
 
