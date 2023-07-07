@@ -32,8 +32,13 @@ const weekday = {
 };
 
 export default function useWeekDay(date) {
-  const newDate = new Date(date);
   const { language, options, updateLanguage } = useContext(LanguageContext);
+  const newDate = new Date(date);
 
-  return weekday[language][newDate.getDay()];
+  if (language && weekday[language]) {
+    return weekday[language][newDate.getDay()];
+  }
+
+  // Return a default value or handle the error case as per your requirements
+  return 'Language not supported';
 }

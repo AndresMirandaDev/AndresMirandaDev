@@ -1,7 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import authStorage from '../auth/storage';
-
 export const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
@@ -39,7 +37,7 @@ export const LanguageProvider = ({ children }) => {
   };
 
   return (
-    <LanguageContext.Provider value={value} >
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

@@ -11,7 +11,6 @@ import { FlatList } from 'react-native-gesture-handler';
 export default function ReportTableScreen({ route }) {
   const report = route.params;
 
-  console.log(report);
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>

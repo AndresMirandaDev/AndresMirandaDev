@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
+
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
 import AppText from '../../components/AppText';

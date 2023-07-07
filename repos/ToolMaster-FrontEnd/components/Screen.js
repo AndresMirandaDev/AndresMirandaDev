@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Appearance,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Appearance } from 'react-native';
 import React from 'react';
 import Constants from 'expo-constants';
 import colors from '../config/colors';

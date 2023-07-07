@@ -18,6 +18,12 @@ const placeholderText = {
   es: 'Número de serie',
 };
 
+const buttonText = {
+  en: 'Generate',
+  sv: 'Generera',
+  es: 'Generar',
+};
+
 export default function SerieNumberGenerator({ name }) {
   const { language } = useContext(LanguageContext);
   const { data: tools, request: loadTools } = useApi(toolsApi.getTools);
@@ -51,7 +57,7 @@ export default function SerieNumberGenerator({ name }) {
         </AppText>
         <Button
           onPress={generateNumber}
-          title="generate"
+          title={buttonText[language]}
           color={colors.green}
         />
       </View>

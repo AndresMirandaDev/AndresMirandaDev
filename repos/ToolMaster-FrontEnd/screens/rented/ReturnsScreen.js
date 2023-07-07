@@ -21,7 +21,7 @@ export default function ReturnsScreen() {
   useEffect(() => {
     loadReturns();
   }, []);
-  console.log(returns);
+
   return (
     <Screen style={styles.screen}>
       <AppActivityIndicator visible={loading} />

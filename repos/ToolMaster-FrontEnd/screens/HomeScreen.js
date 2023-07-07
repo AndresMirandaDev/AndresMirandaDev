@@ -15,16 +15,15 @@ export default function HomeScreen() {
   const { user } = useAuth(AuthContext);
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
-  const restoreLanguage = async () => {
-    const storedLanguage = await authStorage.getLanguage();
-    // Set the language in the LanguageProvider context
+  // const restoreLanguage = async () => {
+  //   const storedLanguage = await authStorage.getLanguage();
 
-    updateLanguage(storedLanguage);
-  };
+  //   updateLanguage(storedLanguage);
+  // };
 
-  useEffect(() => {
-    restoreLanguage();
-  }, []);
+  // useEffect(() => {
+  //   restoreLanguage();
+  // }, []);
 
   return (
     <Screen style={styles.screen}>

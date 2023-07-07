@@ -7,6 +7,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import useWeek from '../hooks/useWeek';
 import useWeekDay from '../hooks/useWeekDay';
 import { LanguageContext } from '../language/languageContext';
+import { CurrentDateContext } from '../date/CurrentDateContext';
 
 const todayText = {
   en: 'Today',
@@ -148,7 +149,7 @@ LocaleConfig.locales['en'] = {
 
 export default function DateInfoCard() {
   const { language, options, updateLanguage } = useContext(LanguageContext);
-  const date = new Date();
+  const date = useContext(CurrentDateContext);
 
   const week = useWeek();
   const weekDay = useWeekDay(date);

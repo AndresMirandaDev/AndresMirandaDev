@@ -10,7 +10,7 @@ export default function PlaceSubmitButton() {
   const [hasErrors, setHasErrors] = useState(false);
 
   useEffect(() => {
-    console.log('effect called');
+    console.log('effect called placeSubmitbutton component');
     // Check if there are any errors in the errors object
     const hasFormErrors = Object.keys(errors).length > 0;
     setHasErrors(hasFormErrors);
