@@ -40,14 +40,17 @@ const statusInfoText = {
   en: {
     isAvailable: 'Available',
     notAvailable: 'In use',
+    inReparation: 'In reparation',
   },
   sv: {
     isAvailable: 'Tillgängligt',
     notAvailable: 'I användning',
+    inReparation: 'På reparation',
   },
   es: {
     isAvailable: 'Libre',
     notAvailable: 'En uso',
+    inReparation: 'En reparación',
   },
 };
 
@@ -67,6 +70,12 @@ const statusButtonText = {
   en: 'Set as available',
   sv: 'Sätt som tillgängligt',
   es: 'Marcar como disponible',
+};
+
+const recoverButtonText = {
+  en: 'Recover to storage',
+  sv: 'Återhämta till förråd',
+  es: 'Recuperar a almacenamiento',
 };
 
 //alert language text options
@@ -100,6 +109,23 @@ const alertButtonDeleteText = {
   sv: 'Radera',
   es: 'Eliminar',
 };
+
+const recoverErrorText = {
+  en: 'Tool could not be recovered',
+  sv: 'Det gick inte att återhämta verktyg',
+  es: 'No se pudo recuperar la herramienta',
+};
+const reparationErrorText = {
+  en: 'Tool could not be sent to reparation.',
+  sv: 'Det gick inte att skicka till reparation.',
+  es: 'No se pudo enviar a reparación.',
+};
+
+const sendToReparation = {
+  en: 'Send to reparation',
+  sv: 'Skicka på reparation',
+  es: 'Enviar a reparación',
+};
 export default function ToolDetailsScreen({ route, navigation }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
@@ -108,7 +134,16 @@ export default function ToolDetailsScreen({ route, navigation }) {
 
   const handleStatus = async (tool) => {
     const result = await toolsApi.updateStatus(tool);
+    console.log(result.data);
+    const updatedTool = await toolsApi.getToolById(tool);
+    setTool(updatedTool.data);
+  };
 
+  const handleRecover = async (tool) => {
+    const result = await toolsApi.recoverTool(tool);
+    if (!result.ok) {
+      alert(recoverErrorText[language]);
+    }
     const updatedTool = await toolsApi.getToolById(tool);
     setTool(updatedTool.data);
   };
@@ -134,7 +169,14 @@ export default function ToolDetailsScreen({ route, navigation }) {
       ]
     );
   };
-  console.log(tool);
+
+  const handleSendToReparation = async (tool) => {
+    const result = await toolsApi.sendToReparation(tool);
+    console.log(result.data);
+    const updatedTool = await toolsApi.getToolById(tool);
+    setTool(updatedTool.data);
+  };
+
   return (
     <Screen style={styles.screen}>
       <RemovedScreen
@@ -206,7 +248,9 @@ export default function ToolDetailsScreen({ route, navigation }) {
         >
           {tool.available
             ? statusInfoText[language]['isAvailable']
-            : statusInfoText[language]['notAvailable']}
+            : !tool.available && tool.reparation
+            ? statusInfoText[language]['inReparation']
+            : statusInfoText['notAvailable']}
         </AppText>
       </View>
       <View style={styles.buttonContainer}>
@@ -215,6 +259,13 @@ export default function ToolDetailsScreen({ route, navigation }) {
             title={statusButtonText[language]}
             color="green"
             onPress={() => handleStatus(tool)}
+          />
+        ) : null}
+        {tool.project ? (
+          <AppButton
+            title={recoverButtonText[language]}
+            color="green"
+            onPress={() => handleRecover(tool)}
           />
         ) : null}
         <AppButton
@@ -227,6 +278,11 @@ export default function ToolDetailsScreen({ route, navigation }) {
           title={deleteButtonText[language]}
           color="danger"
           onPress={() => handleDeleteButtonPress(tool)}
+        />
+        <AppButton
+          title={sendToReparation[language]}
+          color="yellow"
+          onPress={() => handleSendToReparation(tool)}
         />
       </View>
     </Screen>

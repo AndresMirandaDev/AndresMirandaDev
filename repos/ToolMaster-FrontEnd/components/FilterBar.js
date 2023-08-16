@@ -95,6 +95,14 @@ const status = {
     es: 'Herramientas disponibles',
   },
 };
+const reparation = {
+  label: {
+    en: 'Tools in reparation',
+    sv: 'Verktyg på reparation',
+    es: 'Herramientas en reparación',
+  },
+};
+
 export default function FilterBar({ data: tools, setData }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
@@ -113,14 +121,12 @@ export default function FilterBar({ data: tools, setData }) {
   } = useApi(projectsApi.getProjects);
 
   useEffect(() => {
-    console.log('useeffect filterbar.js');
     loadProjects(), loadToolGroups();
   }, []);
 
   const [showFilter, setShowFilter] = useState(false);
 
   const handleSubmit = (values) => {
-    console.log(values);
     // Apply filtering based on the form values
     const filteredTools = tools.filter((tool) => {
       if (
@@ -142,6 +148,9 @@ export default function FilterBar({ data: tools, setData }) {
         return false;
       }
       if (values.available !== '' && values.available !== tool.available) {
+        return false;
+      }
+      if (values.reparation !== '' && values.reparation !== tool.reparation) {
         return false;
       }
       return true;
@@ -187,6 +196,7 @@ export default function FilterBar({ data: tools, setData }) {
                   project: '',
                   available: '',
                   toolGroup: '',
+                  reparation: '',
                 }}
                 onSubmit={handleSubmit}
                 validationSchema={validationSchema}
@@ -219,6 +229,9 @@ export default function FilterBar({ data: tools, setData }) {
                 />
                 <FormCheckbox name="available">
                   {status.label[language]}
+                </FormCheckbox>
+                <FormCheckbox name="reparation">
+                  {reparation.label[language]}
                 </FormCheckbox>
                 <SubmitButton title={submitButtonText[language]} />
                 <FormResetButton

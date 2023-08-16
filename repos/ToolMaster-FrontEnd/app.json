@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ToolMaster-FrontEnd",
+    "name": "Danielssons Sanering",
     "slug": "ToolMaster-FrontEnd",
     "owner": "andresmiranda",
     "version": "1.0.0",
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.andresmiranda.toolmaster",
+      "bundleIdentifier": "com.danielssons.toolmaster",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -34,6 +34,12 @@
       "eas": {
         "projectId": "b8020572-08c7-409f-b40d-b65e204011cc"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/b8020572-08c7-409f-b40d-b65e204011cc"
     }
   }
 }

@@ -33,18 +33,21 @@ const statusInfoText = {
   en: {
     isAvailable: 'Available',
     notAvailable: 'In use',
+    inReparation: 'In reparation',
   },
   sv: {
     isAvailable: 'Tillgängligt',
     notAvailable: 'I användning',
+    inReparation: 'På reparation',
   },
   es: {
     isAvailable: 'Libre',
     notAvailable: 'En uso',
+    inReparation: 'En reparación',
   },
 };
 export default function ToolListItem({ tool, onPress }) {
-  const { name, serieNumber, toolGroup, project, available } = tool;
+  const { name, serieNumber, toolGroup, project, available, reparation } = tool;
   const { language, options, updateLanguage } = useContext(LanguageContext);
 
   return (
@@ -73,7 +76,11 @@ export default function ToolListItem({ tool, onPress }) {
           >
             {available
               ? statusInfoText[language]['isAvailable']
-              : statusInfoText[language]['notAvailable']}
+              : !available && !reparation
+              ? statusInfoText[language]['notAvailable']
+              : reparation
+              ? statusInfoText[language]['inReparation']
+              : ''}
           </AppText>
         </View>
       </View>

@@ -54,7 +54,7 @@ export default function SearchToolScreen({ navigation }) {
     });
     if (tool.length === 0) return alert('No tool was found');
 
-    navigation.navigate('EditToolScreen', tool);
+    navigation.navigate('ToolDetailsScreen', tool);
   };
 
   return (

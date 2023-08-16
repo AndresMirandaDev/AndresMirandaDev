@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-import { LoadMoreFlatlist } from 'react-native-load-more-flatlist';
 import Screen from '../../components/Screen';
 import ToolListItem from '../../components/ToolListItem';
 import colors from '../../config/colors';
@@ -9,8 +8,6 @@ import FilterBar from '../../components/FilterBar';
 import useApi from '../../hooks/useApi';
 import toolsApi from '../../api/tools';
 import AppActivityIndicator from '../../components/AppActivityIndicator';
-import AppText from '../../components/AppText';
-import AppButton from '../../components/AppButton';
 import ConnectivityError from '../../components/ConnectivityError';
 import ListItemSeparator from '../../components/ListItemSeparator';
 import { useIsFocused } from '@react-navigation/native';
@@ -25,14 +22,14 @@ export default function ToolListScreen({ navigation }) {
     loadMore,
   } = useApi(toolsApi.getTools);
   const isFocused = useIsFocused();
+  const [filteredData, setFilteredData] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
       loadTools();
+      setFilteredData(null);
     }
   }, [isFocused]);
-
-  const [filteredData, setFilteredData] = useState(null);
 
   return (
     <Screen style={styles.screen}>

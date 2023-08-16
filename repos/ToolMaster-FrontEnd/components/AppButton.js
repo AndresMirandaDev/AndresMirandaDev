@@ -12,7 +12,14 @@ export default function AppButton({
       style={[styles.button, { backgroundColor: colors[color] }]}
       onPress={onPress}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text
+        style={[
+          styles.text,
+          { color: color === 'yellow' ? colors.medium : colors.light },
+        ]}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }

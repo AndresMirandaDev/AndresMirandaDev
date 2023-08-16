@@ -27,9 +27,9 @@ const toolsActions = [
   },
   {
     title: {
-      en: 'Edit tool',
-      sv: 'Redigera verktyg',
-      es: 'Editar herramienta',
+      en: 'Search by serial nr.',
+      sv: 'Sök på serie nr.',
+      es: 'Buscar por nr. serial',
     },
     path: 'SearchToolScreen',
     icon: 'circle-edit-outline',
@@ -47,6 +47,7 @@ const toolsActions = [
 
 export default function ToolsScreen({ navigation }) {
   const { language, options, updateLanguage } = useContext(LanguageContext);
+
   return (
     <Screen style={styles.screen}>
       <FlatList
