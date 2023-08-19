@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.danielssons.toolmaster",
+      "bundleIdentifier": "com.andresmiranda.toolmaster",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -39,7 +39,8 @@
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/b8020572-08c7-409f-b40d-b65e204011cc"
+      "url": "https://u.expo.dev/b8020572-08c7-409f-b40d-b65e204011cc",
+      "enabled":true
     }
   }
 }

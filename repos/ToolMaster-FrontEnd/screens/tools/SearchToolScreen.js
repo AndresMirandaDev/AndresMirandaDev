@@ -54,7 +54,7 @@ export default function SearchToolScreen({ navigation }) {
     });
     if (tool.length === 0) return alert('No tool was found');
 
-    navigation.navigate('ToolDetailsScreen', tool);
+    navigation.navigate('EditToolScreen', tool);
   };
 
   return (
@@ -74,7 +74,7 @@ export default function SearchToolScreen({ navigation }) {
           >
             <AppFormField
               name="serieNumber"
-              placeholder="XXXXXX"
+              placeholder="XXXXX"
               icon="identifier"
               keyboardType="numeric"
             />

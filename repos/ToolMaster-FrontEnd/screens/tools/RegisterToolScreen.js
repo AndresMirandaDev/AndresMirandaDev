@@ -20,7 +20,7 @@ import SerieNumberGenerator from '../../components/forms/SerieNumberGenerator';
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   serieNumber: Yup.string().required(),
-  toolGroup: Yup.object(),
+  toolGroup: Yup.object().required(),
 });
 
 const headingText = {
@@ -48,9 +48,9 @@ const serieNumberPlaceholder = {
 };
 
 const toolGroupPlaceholder = {
-  en: 'Tool group',
-  sv: 'Verktygs grupp',
-  es: 'Grupo de herramientas',
+  en: 'Tool group (Required)',
+  sv: 'Verktygs grupp (Nödvändigt)',
+  es: 'Grupo de herramientas (Requerido)',
 };
 
 const alertMessageText = {

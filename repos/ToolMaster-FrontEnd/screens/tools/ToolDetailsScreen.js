@@ -1,5 +1,5 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Screen from '../../components/Screen';
 import colors from '../../config/colors';
@@ -300,6 +300,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     backgroundColor: colors.yellow,
+    maxWidth: '100%',
   },
   label: {
     color: colors.primaryOpacity,
@@ -322,7 +323,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textTransform: 'uppercase',
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: '800',
     color: colors.primaryOpacity,
     textAlign: 'center',

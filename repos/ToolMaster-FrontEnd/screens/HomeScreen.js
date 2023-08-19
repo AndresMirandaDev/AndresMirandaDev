@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 10,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     shadowColor: colors.dark,
     shadowOffset: { height: 10, width: 5 },
@@ -84,5 +84,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: colors.light,
     textTransform: 'capitalize',
+    marginRight: 20,
   },
 });
